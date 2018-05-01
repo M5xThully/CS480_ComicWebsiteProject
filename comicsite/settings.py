@@ -76,10 +76,12 @@ WSGI_APPLICATION = 'comicsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'OPTIONS' :{
-		'read_default_file': '/etc/mysql/my.cnf',
-        },
+        'ENGINE': 'django.db.backends.mysql',
+	'NAME': 'comic_users',
+	'USER': 'alam',
+	'PASSWORD': 'Ts465',
+	'HOST': 'localhost',
+	'PORT':'3306', 
     }
 }
 
@@ -121,4 +123,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
