@@ -1,6 +1,21 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- PAGE settings -->
+  <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
+  <title>Comic</title>
+  <meta name="description" content="Wireframe design of a product display by Pingendo">
+  <meta name="keywords" content="Pingendo bootstrap example template wireframe product">
+  <meta name="author" content="Pingendo">
+  <!-- CSS dependencies -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"> 
   {% load static %}
   <link rel="stylesheet" href="{% static 'site/wireframe.css' %}">
+ </head>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
   <div class="container">
     <button class="navbar-toggler navbar-toggler-right mx-auto" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,10 +28,8 @@
         <br> </a>
       <a class="p-2 text-secondary" href="#">Community
         <br> </a>
-      <a class="p-2 text-secondary" href="#">
+      <a class="p-2 text-secondary" href="#">News
         <br> </a>
-      <a class="p-2 text-secondary" href="#"></a>
-      <a class="p-2 text-secondary" href="#"></a>
       <a class="p-2 text-secondary" href="#">Register</a>
       <a class="p-2 text-secondary" href="#">Sign In
         <br> </a>
@@ -43,7 +56,7 @@
               <br>
             </li>
             <li class="list-group-item">Issue:{{ issue }}</li>
-            <li class="list-group-item">Raiting:{{ rating }}</li>
+            <li class="list-group-item">Ratings:{{ rating }}</li>
             <li class="list-group-item">Synopsis:{{ synopsis }}</li>
             <li class="list-group-item">Plot:{{ plot }}
               <br>
@@ -52,3 +65,4 @@
         </div>
       </div>
     </div>
+</html>
