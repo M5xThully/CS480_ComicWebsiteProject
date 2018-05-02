@@ -27,5 +27,5 @@ urlpatterns = [
     path('home/', views.home),
     path('login/', views.login),
     path('register/', views.register),
-    path('comic/', views.comic),
+    path('comic/<int:pageid>/', views.comic),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
