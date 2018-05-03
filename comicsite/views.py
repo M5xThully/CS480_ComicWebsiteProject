@@ -21,6 +21,7 @@ def comic(request, pageid):
 
     context_dict = {'title': comic.comictitle,
                    'id': comic.comicid,
+		    'cover': comic.comiccover,	
                     'author': comic.comicauthor,
                     'publisher': comic.comicpublisher,
                     'genre': comic.comicgenre,

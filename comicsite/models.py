@@ -20,6 +20,7 @@ class Comic(models.Model):
     comicauthor = models.CharField(db_column='comicAuthor', max_length=100, blank=True, null=True)  # Field name made lowercase.
     comicsynopsis = models.TextField(db_column='comicSynopsis', blank=True, null=True)  # Field name made lowercase.
     comicrating = models.IntegerField(db_column='comicRating', blank=True, null=True)  # Field name made lowercase.
+    comiccover = models.CharField(db_column='comicCover', max_length=20, blank=True, null=True)
 
     class Meta:
         managed = False
