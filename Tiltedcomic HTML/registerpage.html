@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -6,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- PAGE settings -->
   <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
-  <title>Product</title>
+  <title>Register</title>
   <meta name="description" content="Wireframe design of a product display by Pingendo">
   <meta name="keywords" content="Pingendo bootstrap example template wireframe product">
   <meta name="author" content="Pingendo">
   <!-- CSS dependencies -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="wireframe.css"> </head>
+    {% load static %}
+  <link rel="stylesheet" href="{% static 'site/wireframe.css' %}">
+</head>
 
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
@@ -44,14 +45,31 @@
         <div class="col-md-12">
           <form class="" style="opacity: 1;">
             <div class="form-group text-dark">
-              <label class="text-dark">Username</label>
-              <input type="text" class="form-control" placeholder="Username"> </div>
+              <label class="text-dark">First Name
+                <br> </label>
+              <input type="text" class="form-control" placeholder="First Name"> </div>
+            <div class="form-group">
+              <label>Last Name
+                <br> </label>
+              <input type="text" class="form-control" placeholder="Last Name">
+              <small class="form-text text-muted"></small>
+            </div>
             <div class="form-group text-dark">
-              <label>Password</label>
-              <input type="password" class="form-control" placeholder="Password"> </div>
-            <button type="submit" class="btn btn-primary">Sign In
-              <br> </button>
+              <label class="text-dark">City</label>
+              <input type="text" class="form-control" placeholder="City"> </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" class="form-control" placeholder="Username"> </div>
           </form>
+          <div class="form-group text-dark">
+            <label>Email Address</label>
+            <input type="email" class="form-control" placeholder="Email">
+          </div>
+          <div class="form-group text-dark">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Password"> </div>
+          <button type="submit" class="btn btn-primary">Register Account
+            <br> </button>
         </div>
       </div>
     </div>
@@ -157,3 +175,5 @@
 </body>
 
 </html>
+
+
