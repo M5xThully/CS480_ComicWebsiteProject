@@ -27,49 +27,49 @@ class Comic(models.Model):
         db_table = 'comic'
 
 class ComicUserContent(models.Model):
-    comic_comicid = models.ForeignKey(Comic, models.DO_NOTHING, db_column='comic                                                                                                                                                             _comicID')  # Field name made lowercase.
-    post_postid = models.ForeignKey('Post', models.DO_NOTHING, db_column='post_p                                                                                                                                                             ostID')  # Field name made lowercase.
+    comic_comicid = models.ForeignKey(Comic, models.DO_NOTHING, db_column='comic_comicID')  # Field name made lowercase.
+    post_postid = models.ForeignKey('Post', models.DO_NOTHING, db_column='post_postID')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'comic_user_content'
 
 class Account(models.Model):
-    accountid = models.IntegerField(db_column='accountID', primary_key=True)  #                                                                                                                                                              Field name made lowercase.
-    accountfirstname = models.CharField(db_column='accountFirstName', max_length                                                                                                                                                             =45, blank=True, null=True)  # Field name made lowercase.
-    accountlastname = models.CharField(db_column='accountLastName', max_length=4                                                                                                                                                             5, blank=True, null=True)  # Field name made lowercase.
-    accountemail = models.CharField(db_column='accountEmail', max_length=45)  #                                                                                                                                                              Field name made lowercase.
-    accountusername = models.CharField(db_column='accountUserName', max_length=4                                                                                                                                                             5)  # Field name made lowercase.
-    accountpassword = models.CharField(db_column='accountPassword', max_length=4                                                                                                                                                             5)  # Field name made lowercase.
-    accountcity = models.CharField(db_column='accountCity', max_length=45, blank                                                                                                                                                             =True, null=True)  # Field name made lowercase.
-    followingid = models.ForeignKey('Following', models.DO_NOTHING, db_column='f                                                                                                                                                             ollowingID', blank=True, null=True)  # Field name made lowercase.
-    accountpicture = models.TextField(db_column='accountPicture', blank=True, nu                                                                                                                                                             ll=True)  # Field name made lowercase.
+    accountid = models.IntegerField(db_column='accountID', primary_key=True)  #Field name made lowercase.
+    accountfirstname = models.CharField(db_column='accountFirstName', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    accountlastname = models.CharField(db_column='accountLastName', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    accountemail = models.CharField(db_column='accountEmail', max_length=45)  #Field name made lowercase.
+    accountusername = models.CharField(db_column='accountUserName', max_length=45)  # Field name made lowercase.
+    accountpassword = models.CharField(db_column='accountPassword', max_length=45)  # Field name made lowercase.
+    accountcity = models.CharField(db_column='accountCity', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    followingid = models.ForeignKey('Following', models.DO_NOTHING, db_column='followingID', blank=True, null=True)  # Field name made lowercase.
+    accountpicture = models.TextField(db_column='accountPicture', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'account'
 
 class AccountPosts(models.Model):
-    account_accountid = models.ForeignKey(Account, models.DO_NOTHING, db_column=                                                                                                                                                             'account_accountID')  # Field name made lowercase.
-    post_postid = models.ForeignKey('Post', models.DO_NOTHING, db_column='post_p                                                                                                                                                             ostID')  # Field name made lowercase.
+    account_accountid = models.ForeignKey(Account, models.DO_NOTHING, db_column= 'account_accountID')  # Field name made lowercase.
+    post_postid = models.ForeignKey('Post', models.DO_NOTHING, db_column='post_postID')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'account_posts'
 
 class Following(models.Model):
-    followingid = models.IntegerField(db_column='followingID', primary_key=True)                                                                                                                                                               # Field name made lowercase.
-    accountid = models.ForeignKey(Account, models.DO_NOTHING, db_column='account                                                                                                                                                             ID')  # Field name made lowercase.
+    followingid = models.IntegerField(db_column='followingID', primary_key=True)# Field name made lowercase.
+    accountid = models.ForeignKey(Account, models.DO_NOTHING, db_column='accountID')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'following'
 
 class Post(models.Model):
-    postid = models.IntegerField(db_column='postID', primary_key=True)  # Field                                                                                                                                                              name made lowercase.
-    postcontent = models.TextField(db_column='postContent', blank=True, null=Tru                                                                                                                                                             e)  # Field name made lowercase.
-    postdate = models.DateField(db_column='postDate', blank=True, null=True)  #                                                                                                                                                              Field name made lowercase.
-    postrating = models.IntegerField(db_column='postRating', blank=True, null=Tr                                                                                                                                                             ue)  # Field name made lowercase.
+    postid = models.IntegerField(db_column='postID', primary_key=True)  # Field name made lowercase.
+    postcontent = models.TextField(db_column='postContent', blank=True, null=True)  # Field name made lowercase.
+    postdate = models.DateField(db_column='postDate', blank=True, null=True)  #Field name made lowercase.
+    postrating = models.IntegerField(db_column='postRating', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
