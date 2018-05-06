@@ -10,7 +10,7 @@
   <meta name="keywords" content="Pingendo bootstrap example template wireframe product">
   <meta name="author" content="Pingendo">
   <!-- CSS dependencies -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   {% load static %}
   <link rel="stylesheet" href="{% static 'site/wireframe.css' %}">
  </head>
@@ -30,8 +30,8 @@
         <br> </a>
       <a class="p-2 text-secondary" href="#">News
         <br> </a>
-      <a class="p-2 text-secondary" href="#">Register</a>
-      <a class="p-2 text-secondary" href="#">Sign In
+      <a class="p-2 text-secondary" href="http://tiltedcomics.me:8000/register">Register</a>
+      <a class="p-2 text-secondary" href="http://tiltedcomics.me:8000/login">Sign In
         <br> </a>
     </div>
   </div>
@@ -42,7 +42,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <img class="card-img-top" src="{% static "site/images/" %}" alt="Card image cap">
+
+          <img class="card-img-top" src="{% static "site/images/{{ cover }}" %}" alt="Card image cap">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Title:{{ title }}</li>
             <li class="list-group-item">ID:{{ id }}</li>

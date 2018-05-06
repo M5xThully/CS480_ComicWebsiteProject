@@ -56,6 +56,13 @@ class AccountPosts(models.Model):
     class Meta:
         managed = False
         db_table = 'account_posts'
+class FavoriteComics(models.Model):
+    account_accountid = models.ForeignKey(Account, models.DO_NOTHING, db_column='account_accountID')  # Field name made lowercase.
+    comic_comicid = models.ForeignKey(Comic, models.DO_NOTHING, db_column='comic _comicID')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'favorite_comics'
 
 class Following(models.Model):
     followingid = models.IntegerField(db_column='followingID', primary_key=True)# Field name made lowercase.
