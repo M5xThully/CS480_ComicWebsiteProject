@@ -54,3 +54,17 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 #    return render(request, 'user.html')
+
+def add_account(request):
+    form = AccountForm()
+
+    if request.methond = 'POST':
+        form = CategoryForm(request.POST)
+        
+        if form.is_valid():
+            form.save(commit=TRUE)
+            return index(request)
+        else:
+            print(form.errors)
+
+    return render(request, 'registerpage.html', {'form': form})
