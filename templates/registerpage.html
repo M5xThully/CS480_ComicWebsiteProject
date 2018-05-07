@@ -27,14 +27,12 @@
         </a>
         <a class="p-2 text-secondary" href="#">Comics
           <br> </a>
-        <a class="p-2 text-secondary" href="#">What's New?
+        <a class="p-2 text-secondary" href="#">News
           <br> </a>
         <a class="p-2 text-secondary" href="#">Community
           <br> </a>
-        <a class="p-2 text-secondary" href="#">Enterprise</a>
-        <a class="p-2 text-secondary" href="#">Support</a>
-        <a class="p-2 text-secondary" href="#">Sign In&nbsp;</a>
-        <a class="p-2 text-secondary" href="#">About Us
+        <a class="p-2 text-secondary" href="http://tiltedcomics.me:8000/register">Register</a>
+        <a class="p-2 text-secondary" href="http://tiltedcomics.me:8000/login">Sign In&nbsp;</a>
           <br> </a>
       </div>
     </div>
@@ -43,33 +41,18 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <form class="" style="opacity: 1;">
-            <div class="form-group text-dark">
-              <label class="text-dark">First Name
-                <br> </label>
-              <input type="text" class="form-control" placeholder="First Name"> </div>
-            <div class="form-group">
-              <label>Last Name
-                <br> </label>
-              <input type="text" class="form-control" placeholder="Last Name">
-              <small class="form-text text-muted"></small>
-            </div>
-            <div class="form-group text-dark">
-              <label class="text-dark">City</label>
-              <input type="text" class="form-control" placeholder="City"> </div>
-            <div class="form-group">
-              <label>Username</label>
-              <input type="text" class="form-control" placeholder="Username"> </div>
+          <form id ="account_form" method="post" style="opacity: 1;" action="http://tiltedcomics.me:8000/register">
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+              {{ hidden }}
+            {% endfor %}
+            {& for field in form.visible_fields %}
+              {{ fields.errors }}
+              {{ field.help_text }}
+              {{ field }}
+            <button type="submit" class="btn btn-primary">Register Account
+              <br> </button>
           </form>
-          <div class="form-group text-dark">
-            <label>Email Address</label>
-            <input type="email" class="form-control" placeholder="Email">
-          </div>
-          <div class="form-group text-dark">
-            <label>Password</label>
-            <input type="password" class="form-control" placeholder="Password"> </div>
-          <button type="submit" class="btn btn-primary">Register Account
-            <br> </button>
         </div>
       </div>
     </div>

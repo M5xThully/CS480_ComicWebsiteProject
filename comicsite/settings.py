@@ -80,7 +80,7 @@ DATABASES = {
 	'NAME': 'comic_users',
 	'USER': 'alam',
 	'PASSWORD': 'Ts465',
-	'HOST': 'localhost',
+	'HOST': '206.189.163.100',
 	'PORT':'3306', 
     }
 }
