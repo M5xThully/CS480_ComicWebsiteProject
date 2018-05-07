@@ -58,7 +58,7 @@ def account(request, userid):
 def add_account(request):
     form = AccountForm()
 
-    if request.methond = 'POST':
+    if request.method == 'POST':
         form = CategoryForm(request.POST)
         
         if form.is_valid():
