@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from comicsite.models import Comic
 from comicsite.models import Account
+from . import forms
 
 
 def home(request):
@@ -55,11 +56,11 @@ def account(request, userid):
     return render(request, 'user.html', context_dict)
 #    return render(request, 'user.html')
 
-def add_account(request):
-    form = AccountForm()
+def create_account(request):
+    form = forms.AccountForm()
 
     if request.method == 'POST':
-        form = CategoryForm(request.POST)
+        form = forms.AccountForm(request.POST)
         
         if form.is_valid():
             form.save(commit=TRUE)

@@ -41,16 +41,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <form id ="account_form" method="post" style="opacity: 1;" action="http://tiltedcomics.me:8000/register">
+          <form id ="create_account" method="post" style="opacity: 1;" action="http://tiltedcomics.me:8000/register">
             {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-              {{ hidden }}
-            {% endfor %}
-            {% for field in form.visible_fields %}
-              {{ fields.errors }}
-              {{ field.help_text }}
-              {{ field }}
-            {% endfor %}
+            {{ form }}
             <button type="submit" class="btn btn-primary">Register Account
               <br> </button>
           </form>

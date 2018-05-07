@@ -6,6 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.forms import ModelForm
 
 
 class Comic(models.Model):
@@ -36,12 +37,12 @@ class ComicUserContent(models.Model):
 
 class Account(models.Model):
     accountid = models.IntegerField(db_column='accountID', primary_key=True)  #Field name made lowercase.
-    accountfirstname = models.CharField(db_column='accountFirstName', max_length=45, blank=True, null=True)  # Field name made lowercase.
-    accountlastname = models.CharField(db_column='accountLastName', max_length=45, blank=True, null=True)  # Field name made lowercase.
-    accountemail = models.CharField(db_column='accountEmail', max_length=45)  #Field name made lowercase.
-    accountusername = models.CharField(db_column='accountUserName', max_length=45)  # Field name made lowercase.
-    accountpassword = models.CharField(db_column='accountPassword', max_length=45)  # Field name made lowercase.
-    accountcity = models.CharField(db_column='accountCity', max_length=45, blank=True, null=True)  # Field name made lowercase.
+    accountfirstname = models.TextField(db_column='accountFirstName', blank=True, null=True)  # Field name made lowercase.
+    accountlastname = models.TextField(db_column='accountLastName', blank=True, null=True)  # Field name made lowercase.
+    accountemail = models.TextField(db_column='accountEmail')  #Field name made lowercase.
+    accountusername = models.TextField(db_column='accountUserName')  # Field name made lowercase.
+    accountpassword = models.TextField(db_column='accountPassword')  # Field name made lowercase.
+    accountcity = models.TextField(db_column='accountCity', blank=True, null=True)  # Field name made lowercase.
     followingid = models.ForeignKey('Following', models.DO_NOTHING, db_column='followingID', blank=True, null=True)  # Field name made lowercase.
     accountpicture = models.TextField(db_column='accountPicture', blank=True, null=True)  # Field name made lowercase.
 
