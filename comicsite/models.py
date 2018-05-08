@@ -36,7 +36,7 @@ class ComicUserContent(models.Model):
         db_table = 'comic_user_content'
 
 class Account(models.Model):
-    accountid = models.IntegerField(db_column='accountID', primary_key=True)  #Field name made lowercase.
+    accountid = models.AutoField(db_column='accountID', primary_key=True)  #Field name made lowercase.
     accountfirstname = models.TextField(db_column='accountFirstName', blank=True, null=True)  # Field name made lowercase.
     accountlastname = models.TextField(db_column='accountLastName', blank=True, null=True)  # Field name made lowercase.
     accountemail = models.TextField(db_column='accountEmail')  #Field name made lowercase.

@@ -1,8 +1,16 @@
+from django.forms import ModelForm
+from comicsite.models import Account
 
-from django import forms
-from . import models
-
-class AccountForm(forms.ModelForm):
+class AccountForm(ModelForm):
+	
 	class Meta:
-		model = models.Account
+		model = Account
 		fields = ['accountfirstname', 'accountlastname', 'accountemail', 'accountusername', 'accountpassword', 'accountcity']
+		labels = {
+			'accountfirstname':('First Name'),
+			'accountlastname':('Last Name'),
+			'accountemail':('Email'),
+			'accountusername':('Username'),
+			'accountpassword':('Password'),
+			'accountcity':('City'),
+		}

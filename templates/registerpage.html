@@ -41,7 +41,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <form id ="create_account" method="post" style="opacity: 1;" action="http://tiltedcomics.me:8000/register">
+          <form id ="create_account" method="post" style="opacity: 1;">
             {% csrf_token %}
             {{ form }}
             <button type="submit" class="btn btn-primary">Register Account

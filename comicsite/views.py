@@ -1,9 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django import forms
 from comicsite.models import Comic
 from comicsite.models import Account
-from . import forms
-
+from comicsite.forms import AccountForm
 
 def home(request):
     return render(request, 'frontpage.html')
@@ -14,7 +14,15 @@ def login(request):
 
 
 def register(request):
-    return render(request, 'registerpage.html')
+    if request.method == 'POST':
+        form = AccountForm(request.POST)
+        if form.is_valid():
+            new_entry = form.save()
+            return redirect('/home')
+    else:
+        form = AccountForm()
+
+    return render(request, 'registerpage.html', {'form':form})
 
 def user(request):
     return render(request, 'user.html')
@@ -56,16 +64,3 @@ def account(request, userid):
     return render(request, 'user.html', context_dict)
 #    return render(request, 'user.html')
 
-def create_account(request):
-    if request.method == 'POST':
-        form = forms.AccountForm(request.POST)
-        
-        if form.is_valid():
-            form.save(commit=TRUE)
-            return index(request)
-        else:
-            print(form.errors)
-    else:
-        form = forms.AccountForm()
-    
-    return render(request, 'registerpage.html', {'form': form})
