@@ -67,5 +67,5 @@ def create_account(request):
             print(form.errors)
     else:
         form = forms.AccountForm()
-
+    
     return render(request, 'registerpage.html', {'form': form})
