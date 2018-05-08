@@ -57,8 +57,6 @@ def account(request, userid):
 #    return render(request, 'user.html')
 
 def create_account(request):
-    form = forms.AccountForm()
-
     if request.method == 'POST':
         form = forms.AccountForm(request.POST)
         
@@ -67,5 +65,7 @@ def create_account(request):
             return index(request)
         else:
             print(form.errors)
+    else:
+        form = forms.AccountForm()
 
     return render(request, 'registerpage.html', {'form': form})
