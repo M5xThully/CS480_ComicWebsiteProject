@@ -1,8 +1,8 @@
 
 from django import forms
-from comicsite.models import Account
+from . import models
 
 class AccountForm(forms.ModelForm):
 	class Meta:
-		model = Account
+		model = models.Account
 		fields = ['accountfirstname', 'accountlastname', 'accountemail', 'accountusername', 'accountpassword', 'accountcity']
