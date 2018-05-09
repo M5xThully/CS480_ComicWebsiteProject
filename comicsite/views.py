@@ -42,8 +42,8 @@ def comic(request, pageid):
                     'issue': comic.comicissue,
                     'rating': comic.comicrating,
                     'synopsis': comic.comicsynopsis,
-                    'plot': comic.comicplot}
-
+                    'plot': comic.comicplot,
+		    'cover': comic.comiccover}
     return render(request, 'comicpage.html', context_dict)
 
 
