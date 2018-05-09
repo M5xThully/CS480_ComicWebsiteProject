@@ -13,6 +13,10 @@ def login(request):
     return render(request, 'loginpage.html')
 
 
+def registered(request):
+    return render(request, 'registered.html')
+
+
 def register(request):
     if request.method == 'POST':
         form = AccountForm(request.POST)
