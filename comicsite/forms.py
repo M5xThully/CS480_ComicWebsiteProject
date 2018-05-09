@@ -4,12 +4,12 @@ from comicsite.models import Account
 
 class AccountForm(ModelForm):
 
-        accountfirstname = forms.CharField()
-        accountlastname = forms.CharField()
-        accountemail = forms.CharField()
+        accountfirstname = forms.CharField(required=False)
+        accountlastname = forms.CharField(required=False)
+        accountemail = forms.EmailInput()
         accountusername = forms.CharField()
         accountpassword = forms.CharField()
-        accountcity = forms.CharField()
+        accountcity = forms.CharField(required=False)
 
         class Meta:
                 model = Account
