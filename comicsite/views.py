@@ -22,7 +22,7 @@ def register(request):
         form = AccountForm(request.POST)
         if form.is_valid():
             new_entry = form.save()
-            return redirect('/home')
+            return redirect('/registered')
     else:
         form = AccountForm()
 
