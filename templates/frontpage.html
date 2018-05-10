@@ -39,9 +39,22 @@
     </div>
   </nav>
   <!-- Search Bar Option -->
-  <div class="topnav">
-    <input type="text" placeholder="Search..">
-  </div>
+  <form name="search_cat_bar" method="get" action="http://www.datafeedfile.com/examples/javascript_search.php">
+    <table width="700" border="1" cellpadding="5">
+      <tr>
+        <td>
+          <input type="hidden" name="dff_view" value="grid">
+          Search:<input type="text" name="dff_keyword" size="30" maxlength="50"> in 
+          <select name="dff_cat1num" size="1">
+            <option value="-1">All Categories
+            <option value="-2">--------------
+            <option value="-3">Spider-Man
+          </select>
+          <input type="submit" value="Find">
+        </td>
+      </tr>
+    </table>
+   </form>
   <div class="h-25 filter-dark text-success py-5 m-1">
     <div class="container">
       <div class="row">
