@@ -42,24 +42,20 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-
-          <img class="card-img-top" src= "{{ comic.comiccover.path }}" alt="Card image cap">
+          <img class="card-img-top" src={{ MEDIA_URL }}{{ cover }} alt="Card image cap">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Title:{{ title }}</li>
-            <li class="list-group-item">ID:{{ id }}</li>
-            <li class="list-group-item">Author:{{ author }}</li>
-            <li class="list-group-item">Publisher:{{ publisher }}
-              <br>
+            <li class="list-group-item"><h3>Title</h3><p>{{ title }}</p>
+            <li class="list-group-item"><h3>Author</h3><p>{{ author }}</p>
+            <li class="list-group-item"><h3>Publisher</h3><p>{{ publisher }}</p>
             </li>
-            <li class="list-group-item">Genre:{{ genre }}</li>
-            <li class="list-group-item">Series:{{ series }}</li>
-            <li class="list-group-item">Volume:{{ volume }}
-              <br>
+            <li class="list-group-item"><h3>Genre</h3><p>{{ genre }}</p>
+            <li class="list-group-item"><h3>Series</h3><p>{{ series }}</p>
+            <li class="list-group-item"><h3>Volume</h3><p>{{ volume }}</p>
             </li>
-            <li class="list-group-item">Issue:{{ issue }}</li>
-            <li class="list-group-item">Ratings:{{ rating }}</li>
-            <li class="list-group-item">Synopsis:{{ synopsis }}</li>
-            <li class="list-group-item">Plot:{{ plot }}
+            <li class="list-group-item"><h3>Issue</h3><p>{{ issue }}</p></li>
+            <li class="list-group-item"><h3>Ratings</h3><p>{{ rating }}</p></li>
+            <li class="list-group-item"><h3>Synopsis</h3><p>{{ synopsis }}</p></li>
+            <li class="list-group-item"><h3>Plot</h3><p>{{ plot }}</p>
               <br>
             </li>
           </ul>
