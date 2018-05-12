@@ -124,3 +124,10 @@ class User(models.Model):
     usercity = models.TextField(blank=False)
     followingid = models.ForeignKey(blank=False)
     userpicture = models.ImageField(blank=False)
+
+    
+    
+    
+    
+    
+    
