@@ -7,6 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 from django.forms import ModelForm
+from django.contrib.auth.models import User
 
 
 class Comic(models.Model):
@@ -114,3 +115,21 @@ class Rating(models.Model):
     class Meta:
         managed = False
         db_table = 'ratings'
+        
+        
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+
+
+    # additional attributes
+    userid = models.AutoField(primary_key=True, default=0)
+    usercity = models.TextField(blank=False)
+    followingid = models.ForeignKey(Account, models.DO_NOTHING, db_column='followingID')
+    profpic = models.ImageField(db_column='accountPicture', upload_to='accounts', blank=True, null=True)
+
+    
+    
+    
+    
+    
+    

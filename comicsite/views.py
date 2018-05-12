@@ -16,7 +16,7 @@ def login(request):
 def registered(request):
     return render(request, 'registered.html')
 
-
+'''
 def register(request):
     if request.method == 'POST':
         form = AccountForm(request.POST)
@@ -27,6 +27,35 @@ def register(request):
         form = AccountForm()
 
     return render(request, 'registerpage.html', {'form':form})
+'''
+def register(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            
+            profile.save()
+            registered = True
+            
+            return redirect('/registered')
+            
+        else:
+            # Invalid form or forms - mistakes or something else?
+            # Print problems to the terminal.
+            print(user_form.errors, profile_form.errors)
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+
+    return render(request, 'registerpage.html', {'form':UserForm}, {'form':UserProfileForm})
+
+
 
 def user(request):
     return render(request, 'user.html')
