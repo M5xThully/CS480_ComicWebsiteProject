@@ -6,6 +6,8 @@ from comicsite.models import AccountPosts
 from comicsite.models import FavoriteComics
 from comicsite.models import Following
 from comicsite.models import Post
+from comicsite.models import Comment
+from comicsite.models import Rating
 
 admin.site.register(Comic)
 admin.site.register(ComicUserContent)
@@ -14,3 +16,5 @@ admin.site.register(AccountPosts)
 admin.site.register(FavoriteComics)
 admin.site.register(Following)
 admin.site.register(Post)
+admin.site.register(Comment)
+admin.site.register(Rating)
