@@ -37,3 +37,20 @@ class AccountForm(ModelForm):
                 self.fields['accountusername'].widget.attrs.update({'class' : "form-control"})
                 self.fields['accountpassword'].widget.attrs.update({'class' : "form-control"})
                 self.fields['accountcity'].widget.attrs.update({'class' : "form-control"})
+                
+                
+                
+                
+                
+                
+                
+class UserForm(forms.ModelForm):
+        class Meta:
+                model = User
+                fields = ('username', 'email', 'password')
+
+
+class UserProfileForm(forms.ModelForm):
+        class Meta:
+                model = UserProfile
+                fields = ('id', 'city', 'followingid', 'profpic')
