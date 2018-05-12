@@ -40,17 +40,15 @@ class AccountForm(ModelForm):
                 
                 
                 
-                
-                
-                
-                
 class UserForm(forms.ModelForm):
-        class Meta:
+            password = forms.CharField(widget=forms.PasswordInput())
+
+            class Meta:
                 model = User
                 fields = ('username', 'email', 'password')
 
 
 class UserProfileForm(forms.ModelForm):
-        class Meta:
+            class Meta:
                 model = UserProfile
-                fields = ('id', 'city', 'followingid', 'profpic')
+                fields = ('userid', 'usercity', 'followingid', 'profpic')
