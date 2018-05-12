@@ -114,3 +114,13 @@ class Rating(models.Model):
     class Meta:
         managed = False
         db_table = 'ratings'
+        
+        
+class User(models.Model):
+    user = models.OneToOneField(User)
+
+    #additional attributes
+    userid = models.AutoField(primary_key=True, default=0)
+    usercity = models.TextField(blank=False)
+    followingid = models.ForeignKey(blank=False)
+    userpicture = models.ImageField(blank=False)
