@@ -22,7 +22,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse text-center justify-content-between" id="navbar2SupportedContent">
-        <a class="p-2 text-secondary" href="#">
+        <a class="p-2 text-secondary" href="http://tiltedcomics.me:8000">
           <i class="fa fa-lg d-block pt-1 fa-foursquare"></i>
         </a>
         <a class="p-2 text-secondary" href="#">Comics
@@ -41,9 +41,33 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <form id ="create_account" method="post" style="opacity: 1;" action="http://tiltedcomics.me:8000/register">
+          <form id ="create_account" method="post" style="opacity: 1;">
             {% csrf_token %}
-            {{ form }}
+            <div class ="form-group text-dark">
+              <label for ="{{form.accountfirstname.id_for_label}}">First Name</label>
+              {{ form.accountfirstname }}
+            </div>
+            <div class ="form-group text-dark">
+              <label for ="{{form.accountlastname.id_for_label}}">Last Name</label>
+              {{ form.accountlastname }}
+            </div>
+            <div class ="form-group text-dark">
+              <label for ="{{form.accountemail.id_for_label}}">Email</label>
+              {{ form.accountemail }}
+            </div>
+            <div class ="form-group text-dark">
+              <label for ="{{form.accountusername.id_for_label}}">Username</label>
+              {{ form.accountusername }}
+            </div>
+            <div class ="form-group text-dark">
+              <label for ="{{form.accountpassword.id_for_label}}">Password</label>
+              {{ form.accountpassword }}
+            </div>
+            <div class ="form-group text-dark">
+              <label for ="{{form.accountcity.id_for_label}}">City</label>
+              {{ form.accountcity }}
+            </div>
+
             <button type="submit" class="btn btn-primary">Register Account
               <br> </button>
           </form>
@@ -152,5 +176,3 @@
 </body>
 
 </html>
-
-
