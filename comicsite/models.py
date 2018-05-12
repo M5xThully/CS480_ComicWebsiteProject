@@ -120,12 +120,11 @@ class Rating(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
 
-
     # additional attributes
-    userid = models.AutoField(primary_key=True, default=0)
+    userid = models.AutoField(primary_key=True, default=1)
     usercity = models.TextField(blank=False)
     followingid = models.ForeignKey(Account, models.DO_NOTHING, db_column='followingID')
-    profpic = models.ImageField(db_column='accountPicture', upload_to='accounts', blank=True, null=True)
+    profpic = models.ImageField(upload_to='profile_images', blank=True)
 
     
     
