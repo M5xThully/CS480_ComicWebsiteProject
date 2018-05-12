@@ -118,12 +118,12 @@ class Rating(models.Model):
         
         
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     #additional attributes
     userid = models.AutoField(primary_key=True, default=0)
     usercity = models.TextField(blank=False)
-    # followingid = models.ForeignKey(blank=False)
+    #followingid = models.ForeignKey(blank=False)
     userpicture = models.ImageField(blank=False)
 
     
