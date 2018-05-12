@@ -59,6 +59,19 @@
               <br>
             </li>
           </ul>
+          <div>
+            {% if comments %}
+            <ul>
+              {% for comment in comments %}
+              <li>{{ comment.userid }}</li>
+              <li>{{ comment.date }}</li>
+              <li>{{ comment.text }}</li>
+             {% endfor %}
+            </ul>
+            {% else %}
+              <strong>There are no comments yet.</strong>
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
