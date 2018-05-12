@@ -7,6 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 from django.forms import ModelForm
+from django.contrib.auth.models import User
 
 
 class Comic(models.Model):
