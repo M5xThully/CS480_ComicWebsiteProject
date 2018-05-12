@@ -116,7 +116,7 @@ class Rating(models.Model):
         db_table = 'ratings'
         
         
-class User(models.Model):
+class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     #additional attributes
