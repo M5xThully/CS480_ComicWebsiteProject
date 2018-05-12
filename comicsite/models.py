@@ -44,7 +44,6 @@ class Account(models.Model):
     accountusername = models.TextField(db_column='accountUserName')  # Field name made lowercase.
     accountpassword = models.TextField(db_column='accountPassword')  # Field name made lowercase.
     accountcity = models.TextField(db_column='accountCity', blank=True, null=True)  # Field name made lowercase.
-    followingid = models.ForeignKey('Following', models.DO_NOTHING, db_column='followingID', blank=True, null=True)  # Field name made lowercase.
     accountpicture = models.ImageField(db_column='accountPicture',upload_to='accounts', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
