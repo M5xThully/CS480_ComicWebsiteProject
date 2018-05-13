@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django import forms
 from comicsite.models import Comic
 from comicsite.models import Account
+from rango.bing_search import run_query
 
 def home(request):
     return render(request, 'frontpage.html')
@@ -95,4 +96,14 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 #    return render(request, 'user.html')
+
+
+def search(request):
+    result_list = []
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+        if query:
+            # Run our Bing function to get the results list!
+            result_list = run_query(query)
+    return render(request, 'rango/search.html', {'result_list': result_list})
 
