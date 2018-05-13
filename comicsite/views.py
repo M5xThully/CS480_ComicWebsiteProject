@@ -3,7 +3,9 @@ from django.shortcuts import render, redirect
 from django import forms
 from comicsite.models import Comic
 from comicsite.models import Account
-from rango.bing_search import run_query
+from comicsite.models import Comment
+from comicsite.forms import UserForm, UserProfileForm
+# from rango.bing_search import run_query
 
 def home(request):
     return render(request, 'frontpage.html')
@@ -63,7 +65,8 @@ def user(request):
 
 def comic(request, pageid):
 
-    comic = Comic.objects.filter(comicid=pageid)[0]
+    comic = Comic.objects.filter(comicid = pageid)[0]
+    comment_list = Comment.objects.filter(comicid = pageid).order_by('-date')[:5]
 
     context_dict = {'title': comic.comictitle,
                     'id': comic.comicid,
@@ -76,7 +79,8 @@ def comic(request, pageid):
                     'rating': comic.comicrating,
                     'synopsis': comic.comicsynopsis,
                     'plot': comic.comicplot,
-		    'cover': comic.comiccover}
+		            'cover': comic.comiccover,
+                    'comments': comment_list}
     return render(request, 'comicpage.html', context_dict)
 
 
