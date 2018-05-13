@@ -1,6 +1,8 @@
 from django import forms
 from django.forms import ModelForm
 from comicsite.models import Account
+from django.contrib.auth.models import User
+from comicsite.models import UserProfile
 
 class AccountForm(ModelForm):
 

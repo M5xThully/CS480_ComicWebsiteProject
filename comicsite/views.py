@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from django import forms
 from comicsite.models import Comic
 from comicsite.models import Account
-from comicsite.forms import AccountForm
 
 def home(request):
     return render(request, 'frontpage.html')
