@@ -80,6 +80,7 @@ def user(request):
 
 def comic(request, pageid):
     comic = Comic.objects.filter(comicid=pageid)[0]
+    comment_list = Comment.objects.filter(comicid = pageid).order_by('-date')[:5]
 
     context_dict = {'title': comic.comictitle,
                     'id': comic.comicid,
@@ -92,7 +93,9 @@ def comic(request, pageid):
                     'rating': comic.comicrating,
                     'synopsis': comic.comicsynopsis,
                     'plot': comic.comicplot,
+                    'comments': comment_list,
                     'cover': comic.comiccover}
+                    
     return render(request, 'comicpage.html', context_dict)
 
 
