@@ -95,7 +95,7 @@ class Comment(models.Model):
     # the actual comment itself
     text = models.TextField(blank=False)
     # the date of the comment
-    date = models.DateTimeField(null=False)
+    date = models.DateTimeField(auto_now=True, null=False)
 
     class Meta:
         managed = False

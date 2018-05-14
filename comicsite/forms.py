@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from comicsite.models import Account
 from django.contrib.auth.models import User
 from comicsite.models import UserProfile
+from comicsite.models import Comment
 
 class AccountForm(ModelForm):
 
@@ -54,3 +55,17 @@ class UserProfileForm(forms.ModelForm):
             class Meta:
                 model = UserProfile
                 fields = ('userid', 'usercity', 'followingid', 'profpic')
+
+
+class CommentForm(forms.ModelForm):
+#        def __init__(self, inComicid):
+#                self.comicid = inComicid
+
+        comicid = forms.IntegerField();
+        userid = forms.IntegerField()
+        text = forms.CharField(max_length=128, help_text="Enter your comment: ")
+
+        class Meta:
+                model = Comment
+                fields = ('text',)
+

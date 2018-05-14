@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django import forms
 from comicsite.models import Comic
 from comicsite.models import Account
+from comicsite.forms import CommentForm
 
 def home(request):
     return render(request, 'frontpage.html')
@@ -62,6 +63,10 @@ def user(request):
 
 def comic(request, pageid):
 
+    # the comment form
+    commentform = CommentForm()
+
+    # picking the comic whose id is equal to the pageid
     comic = Comic.objects.filter(comicid=pageid)[0]
 
     context_dict = {'title': comic.comictitle,
@@ -75,7 +80,10 @@ def comic(request, pageid):
                     'rating': comic.comicrating,
                     'synopsis': comic.comicsynopsis,
                     'plot': comic.comicplot,
-		    'cover': comic.comiccover}
+                    'cover': comic.comiccover,
+                    'rating': comic.comicrating,
+                    'commentform': commentform}
+
     return render(request, 'comicpage.html', context_dict)
 
 
