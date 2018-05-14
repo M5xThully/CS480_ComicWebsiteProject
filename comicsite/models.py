@@ -6,7 +6,6 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-from django.forms import ModelForm
 from django.contrib.auth.models import User
 
 
@@ -93,7 +92,7 @@ class Post(models.Model):
         
 class Comment(models.Model):
     # a integer field which uniquely identifies the comment
-    commentid = models.AutoField(primary_key=True, default=0)
+    commentid = models.AutoField(primary_key=True)
     # the id of the user who made this comment
     userid = models.IntegerField(null=False)
     # the id of the comic on which this comment was made
@@ -101,8 +100,8 @@ class Comment(models.Model):
     # the actual comment itself
     text = models.TextField(blank=False)
     # the date of the comment
-    date = models.DateTimeField(null=False)
- 
+    date = models.DateTimeField(auto_now=True, null=False)
+
     class Meta:
         managed = False
         db_table = 'comments'

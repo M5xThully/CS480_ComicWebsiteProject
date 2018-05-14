@@ -56,21 +56,30 @@
             <li class="list-group-item"><h3>Ratings</h3><p>{{ rating }}</p></li>
             <li class="list-group-item"><h3>Synopsis</h3><p>{{ synopsis }}</p></li>
             <li class="list-group-item"><h3>Plot</h3><p>{{ plot }}</p>
+            <li class="list-group-item"><h3>Rating</h3><p>{{ rating }}/5</p>
               <br>
             </li>
           </ul>
           <div>
             {% if comments %}
-            <ul>
-              {% for comment in comments %}
-              <li>{{ comment.userid }}</li>
-              <li>{{ comment.date }}</li>
-              <li>{{ comment.text }}</li>
-             {% endfor %}
-            </ul>
+              {% for comment_dict in comments %}
+              <strong>{{ comment_dict.user }}</strong> on {{ comment_dict.date }} commented:<br>
+              {{ comment_dict.comment_text }}<br><br>
+            {% endfor %}
             {% else %}
               <strong> There are no comments yet. </strong>
             {% endif %}
+          </div>
+          <div>
+            <form id="comment_form" method="post" action="/comic">
+                {% csrf_token %}
+                {% for field in commentform.visible_fields %}
+                  {{ field.errors }}
+                  {{ field.help_text }}
+                  {{ field }}
+                {% endfor %}
+                <input type="submit" name="submit" value="Create Category" />
+            </form>
           </div>
         </div>
       </div>
