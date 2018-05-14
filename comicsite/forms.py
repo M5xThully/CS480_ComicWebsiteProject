@@ -85,10 +85,23 @@ class UserForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
-<<<<<<< HEAD
-            class Meta:
-                model = UserProfile
-                fields = ('userid', 'usercity', 'followingid', 'profpic')
+    usercity = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': "form-control",
+            'placeholder': 'city'
+        }
+    ))
+
+
+    profpic = forms.ImageField(widget=forms.FileInput(
+        attrs={
+
+        }
+    ))
+
+    class Meta:
+        model = UserProfile
+        fields = ('usercity', 'profpic')
 
 
 class CommentForm(forms.ModelForm):
@@ -103,21 +116,3 @@ class CommentForm(forms.ModelForm):
                 model = Comment
                 fields = ('text',)
 
-=======
-    usercity = forms.CharField(widget=forms.PasswordInput(
-        attrs={
-            'class': "form-control",
-            'placeholder': 'city'
-        }
-    ))
-
-    profpic = forms.ImageField(widget=forms.FileInput(
-        attrs={
-
-        }
-    ))
-
-    class Meta:
-        model = UserProfile
-        fields = ('usercity', 'profpic')
->>>>>>> b18b619f08c75794766da012fe1efa22a54c998b

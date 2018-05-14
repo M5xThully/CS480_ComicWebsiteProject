@@ -62,13 +62,10 @@
           </ul>
           <div>
             {% if comments %}
-            <ul>
-              {% for comment in comments %}
-              <li>{{ comment.userid }}</li>
-              <li>{{ comment.date }}</li>
-              <li>{{ comment.text }}</li>
-             {% endfor %}
-            </ul>
+              {% for comment_dict in comments %}
+              <strong>{{ comment_dict.user }}</strong> on {{ comment_dict.date }} commented:<br>
+              {{ comment_dict.comment_text }}<br><br>
+            {% endfor %}
             {% else %}
               <strong> There are no comments yet. </strong>
             {% endif %}

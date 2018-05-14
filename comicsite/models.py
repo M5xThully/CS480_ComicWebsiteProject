@@ -104,7 +104,7 @@ class Post(models.Model):
         
 class Comment(models.Model):
     # a integer field which uniquely identifies the comment
-    commentid = models.AutoField(primary_key=True, default=0)
+    commentid = models.AutoField(primary_key=True)
     # the id of the user who made this comment
     userid = models.IntegerField(null=False)
     # the id of the comic on which this comment was made

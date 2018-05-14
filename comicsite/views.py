@@ -4,10 +4,13 @@ from django.shortcuts import render, redirect
 from comicsite.models import Comic
 from comicsite.models import Account
 from comicsite.models import Comment
+from comicsite.models import UserProfile
+from comicsite.models import User
 from comicsite.forms import CommentForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from django.urls import reverse
+import logging
 
 
 def home(request):
@@ -85,7 +88,21 @@ def comic(request, pageid):
 
     # picking the comic whose id is equal to the pageid
     comic = Comic.objects.filter(comicid=pageid)[0]
-    comment_list = Comment.objects.filter(comicid = pageid).order_by('-date')[:5]
+
+    # getting the top five most recent comments for the comic
+    comments = Comment.objects.filter(comicid=pageid).order_by('-date')[:5]
+
+    # going through each comic and constructing a dictionary to be used in the template
+    comment_list = []
+    for com in comments:
+        user_object = User.objects.filter(id=com.userid)[0]
+
+        # adding a dictionary the list to be used in the template
+        comment_list.append({
+            'user': user_object.username,
+            'date': com.date,
+            'comment_text': com.text
+        })
 
     context_dict = {'title': comic.comictitle,
                     'id': comic.comicid,
