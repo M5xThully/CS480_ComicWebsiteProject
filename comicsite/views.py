@@ -11,6 +11,7 @@ from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from django.urls import reverse
 import logging
+from comicsite.search import run_query
 
 
 def home(request):
@@ -138,3 +139,13 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 #    return render(request, 'user.html')
+    def search(request):
+        result_list = []
+        if request.method == 'POST':
+            query = request.POST['query'].strip()
+            if query:
+            # Run our Bing function to get the results list!
+            result_list = run_query(query)
+        return render(request, 'search.html', {'result_list': result_list})
+
+    
