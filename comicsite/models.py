@@ -103,7 +103,7 @@ class Comment(models.Model):
 
 class Rating(models.Model):
     # a integer field which uniquely identifies the rating
-    ratingid = models.AutoField(primary_key=True, default=0)
+    ratingid = models.AutoField(primary_key=True)
     # the actual rating, from 1 to 5
     rating = models.IntegerField(null=False, blank=False)
     # the id of the user who made this rating
@@ -118,12 +118,9 @@ class Rating(models.Model):
         
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
-
     # additional attributes
-    userid = models.AutoField(primary_key=True, default=1)
+    userid = models.AutoField(primary_key=True)
     usercity = models.TextField(blank=False)
-    followingid = models.ForeignKey(Account, models.DO_NOTHING, db_column='followingID')
-    profpic = models.ImageField(upload_to='profile_images', blank=True)
 
     
     
