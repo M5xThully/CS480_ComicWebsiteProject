@@ -101,22 +101,23 @@ class Post(models.Model):
     class Meta:
         managed = False
         db_table = 'post'
+
         
- class Comment(models.Model):
-     # a integer field which uniquely identifies the comment
-     commentid = models.AutoField(primary_key=True, default=0)
-     # the id of the user who made this comment
-     userid = models.IntegerField(null=False)
-     # the id of the comic on which this comment was made
-     comicid = models.IntegerField(null=False)
-     # the actual comment itself
-     text = models.TextField(blank=False)
-     # the date of the comment
-     date = models.DateTimeField(null=False)
+class Comment(models.Model):
+    # a integer field which uniquely identifies the comment
+    commentid = models.AutoField(primary_key=True, default=0)
+    # the id of the user who made this comment
+    userid = models.IntegerField(null=False)
+    # the id of the comic on which this comment was made
+    comicid = models.IntegerField(null=False)
+    # the actual comment itself
+    text = models.TextField(blank=False)
+    # the date of the comment
+    date = models.DateTimeField(null=False)
  
-     class Meta:
-         managed = False
-         db_table = 'comments'
+    class Meta:
+        managed = False
+        db_table = 'comments'
  
  
 class Rating(models.Model):
