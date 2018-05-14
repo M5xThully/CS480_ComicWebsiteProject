@@ -8,6 +8,7 @@ from comicsite.forms import AccountForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from django.urls import reverse
+from comicsite.search import run_query
 
 
 def home(request):
