@@ -101,6 +101,7 @@ class Post(models.Model):
     class Meta:
         managed = False
         db_table = 'post'
+
         
 class Comment(models.Model):
     # a integer field which uniquely identifies the comment
