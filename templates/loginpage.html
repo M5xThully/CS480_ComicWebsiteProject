@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -6,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- PAGE settings -->
   <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
-  <title>Login</title>
+  <title>Register</title>
   <meta name="description" content="Wireframe design of a product display by Pingendo">
   <meta name="keywords" content="Pingendo bootstrap example template wireframe product">
   <meta name="author" content="Pingendo">
@@ -15,6 +14,7 @@
     {% load static %}
   <link rel="stylesheet" href="{% static 'site/wireframe.css' %}">
 </head>
+
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
     <div class="container">
@@ -34,7 +34,6 @@
         <a class="p-2 text-secondary" href="http://tiltedcomics.me:8000/register">Register</a>
         <a class="p-2 text-secondary" href="http://tiltedcomics.me:8000/login">Sign In&nbsp;</a>
           <br> </a>
-          <br> </a>
       </div>
     </div>
   </nav>
@@ -42,14 +41,17 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <form class="" style="opacity: 1;">
-            <div class="form-group text-dark">
-              <label class="text-dark">Username</label>
-              <input type="text" class="form-control" placeholder="Username"> </div>
-            <div class="form-group text-dark">
-              <label>Password</label>
-              <input type="password" class="form-control" placeholder="Password"> </div>
-            <button type="submit" class="btn btn-primary">Sign In
+          <form id ="login_form" method="post" style="opacity: 1;">
+            <h1 class="" >ᶘಠᴥಠᶅ Stay awhile and listen.</h1>
+            {% csrf_token %}
+
+            <br>
+            <input type="text" class="form-control" placeholder="username"/>
+            <br>
+            <input type="password" class="form-control" placeholder="password"/>
+            <br>
+
+            <button type="submit" class="btn btn-primary">Login
               <br> </button>
           </form>
         </div>
@@ -151,9 +153,6 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 10px;right:10px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:250px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;
-    <img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16">
-  </pingendo>
 </body>
 
 </html>
