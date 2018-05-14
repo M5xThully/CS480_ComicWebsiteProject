@@ -42,33 +42,20 @@
       <div class="row">
         <div class="col-md-12">
           <form id ="create_account" method="post" style="opacity: 1;">
+            <h1 class="" >Sign Up</h1>
             {% csrf_token %}
-            <div class ="form-group text-dark">
-              <label for ="{{form.accountfirstname.id_for_label}}">First Name</label>
-              {{ form.accountfirstname }}
-            </div>
-            <div class ="form-group text-dark">
-              <label for ="{{form.accountlastname.id_for_label}}">Last Name</label>
-              {{ form.accountlastname }}
-            </div>
-            <div class ="form-group text-dark">
-              <label for ="{{form.accountemail.id_for_label}}">Email</label>
-              {{ form.accountemail }}
-            </div>
-            <div class ="form-group text-dark">
-              <label for ="{{form.accountusername.id_for_label}}">Username</label>
-              {{ form.accountusername }}
-            </div>
-            <div class ="form-group text-dark">
-              <label for ="{{form.accountpassword.id_for_label}}">Password</label>
-              {{ form.accountpassword }}
-            </div>
-            <div class ="form-group text-dark">
-              <label for ="{{form.accountcity.id_for_label}}">City</label>
-              {{ form.accountcity }}
-            </div>
 
-            <button type="submit" class="btn btn-primary">Register Account
+            {{ user_form.username }} <br>
+            {{ user_form.first_name }} <br>
+            {{ user_form.last_name }} <br>
+            {{ user_form.email }} <br>
+            {{ user_form.password }} <br>
+
+            {{ profile_form.usercity }} <br>
+            <p class="" >Upload Profile Pic:</p>
+            {{ profile_form.profpic }} <br> <br>
+
+            <button type="submit" class="btn btn-primary">Create Account
               <br> </button>
           </form>
         </div>
@@ -170,9 +157,6 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 10px;right:10px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:250px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;
-    <img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16">
-  </pingendo>
 </body>
 
 </html>
