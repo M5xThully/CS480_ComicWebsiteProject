@@ -111,3 +111,13 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 #    return render(request, 'user.html')
+    def search(request):
+        result_list = []
+        if request.method == 'POST':
+            query = request.POST['query'].strip()
+            if query:
+            # Run our Bing function to get the results list!
+            result_list = run_query(query)
+        return render(request, 'search.html', {'result_list': result_list})
+
+    
