@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from comicsite.models import Comic
@@ -18,24 +18,25 @@ def home(request):
     return render(request, 'frontpage.html')
 
 
-def login(request):
+def loginpage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
         user = authenticate(username=username, password=password)
 
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(reverse('home'))
-            else:
-                return HttpResponse("Your account is disabled.")
+        if user is not None:
+            login(request, user)
+            return redirect('/registered')
         else:
             print("Invalid login credentials: {0}, {1}".format(username, password))
             return HttpResponse("Wrong username or password.")
     else:
         return render(request, 'loginpage.html', {})
+
+
+def loggedin(request):
+    return render(request, 'loggedin.html')
 
 
 def registered(request):
