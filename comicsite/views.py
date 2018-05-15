@@ -83,7 +83,6 @@ def user(request):
 
 
 def comic(request, pageid):
-
     # the comment form
     commentform = CommentForm()
 
@@ -138,14 +137,13 @@ def account(request, userid):
                     'picture': account.accountpicture}
 
     return render(request, 'user.html', context_dict)
-#    return render(request, 'user.html')
-    def search(request):
-        result_list = []
-        if request.method == 'POST':
-            query = request.POST['query'].strip()
-            if query:
+
+#return render(request, 'user.html')
+def search(request):
+    result_list = []
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+        if query:
             # Run our Bing function to get the results list!
             result_list = run_query(query)
-        return render(request, 'search.html', {'result_list': result_list})
-
-    
+    return render(request, 'search.html', {'result_list': result_list})
