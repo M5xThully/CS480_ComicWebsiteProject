@@ -27,7 +27,7 @@ def loginpage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('/registered')
+            return redirect('/loggedin')
         else:
             print("Invalid login credentials: {0}, {1}".format(username, password))
             return HttpResponse("Wrong username or password.")
