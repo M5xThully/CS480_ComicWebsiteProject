@@ -60,7 +60,7 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 
 body {
   margin: 0;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: Tahoma, Geneva, sans-serif;
   font-size: 1rem;
   font-weight: 200;
   line-height: 1.5;
@@ -304,7 +304,7 @@ template {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.75rem;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: Tahoma, Geneva, sans-serif;
   font-weight: 200;
   line-height: 1.2;
   color: inherit; }
@@ -3755,7 +3755,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: Tahoma, Geneva, sans-serif;
   font-style: normal;
   font-weight: 200;
   line-height: 1.5;
@@ -3840,7 +3840,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: Tahoma, Geneva, sans-serif;
   font-style: normal;
   font-weight: 200;
   line-height: 1.5;
