@@ -9,6 +9,18 @@
             <h1 class="" >ᶘಠᴥಠᶅ Stay awhile and listen.</h1>
             {% csrf_token %}
 
+            {% if form.non_field_errors %}
+               <ul class='form-errors'>
+                  {% for error in form.non_field_errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+               </ul>
+             {% endif %}
+
+            {% if form.errors %}
+              <p>Wrong username/password.</p>
+            {% endif %}
+
             <br>
             <input type="text" name="username" class="form-control" placeholder="username"/>
             <br>
