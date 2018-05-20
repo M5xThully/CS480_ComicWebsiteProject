@@ -92,4 +92,5 @@ class LoginForm(forms.Form):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
+        user_id = User.objects.get(username=username).pk
         return user

@@ -20,6 +20,7 @@ def base(request):
 
 
 def home(request):
+    user.id = request.user.id
     return render(request, 'frontpage.html')
 
 
@@ -80,6 +81,7 @@ def register(request):
 
 
 def user(request):
+    current_user = request.user.id
     return render(request, 'user.html')
 
 
