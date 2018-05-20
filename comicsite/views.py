@@ -6,7 +6,7 @@ from comicsite.models import Account
 from comicsite.models import Comment
 from comicsite.models import UserProfile
 from comicsite.models import User
-from comicsite.forms import CommentForm
+from comicsite.forms import CommentForm, LoginForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from django.urls import reverse
@@ -23,20 +23,15 @@ def home(request):
 
 
 def loginpage(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
+    form = LoginForm(request.POST)
+    if request.POST and form.is_valid():
+        user = form.login(request)
+        if user:
             login(request, user)
-            return redirect('/loggedin')
-        else:
-            print("Invalid login credentials: {0}, {1}".format(username, password))
-            return HttpResponse("Wrong username or password.")
+            return redirect("/loggedin") #Redirect to a success page.
     else:
-        return render(request, 'loginpage.html', {})
+        form = LoginForm()
+    return render(request, 'loginpage.html', {'login_form': form })
 
 
 def loggedin(request):
@@ -62,7 +57,7 @@ def register(request):
             profile.user = user
 
             if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
+                profile.profpic = request.FILES['profpic']
 
             profile.save()
 
