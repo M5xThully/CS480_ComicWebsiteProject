@@ -12,6 +12,7 @@ from comicsite.forms import UserProfileForm
 from django.urls import reverse
 import logging
 from comicsite.search import run_query
+from django.contrib import messages
 
 
 def base(request):
@@ -23,12 +24,12 @@ def home(request):
 
 
 def loginpage(request):
-    form = LoginForm(request.POST)
+    form = LoginForm(request.POST or None)
     if request.POST and form.is_valid():
-        user = form.login(request)
-        if user:
-            login(request, user)
-            return redirect("/loggedin") #Redirect to a success page.
+        userx = form.login(request)
+        if userx:
+            login(request, userx)
+            return redirect("/loggedin")
     else:
         form = LoginForm()
     return render(request, 'loginpage.html', {'login_form': form })
