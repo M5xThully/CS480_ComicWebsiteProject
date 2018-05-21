@@ -6,23 +6,14 @@
 <div class="p-1 m-0">
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
           <div class="card">
-<<<<<<< HEAD
-	{% if user.userprofile.profpic %}
+            {% if user.userprofile.profpic %}
                 <img class="card-img-top" src="{{ user.userprofile.profpic.url }}">
-        {% else %}
-                <img class="card-img-top" src="https://i.imgur.com/93vcaCg.png">
-	{% endif %}
-	</div>
-=======
-            {% if user.userprofile.profpic == None %}
-                <img class="card-img-top" src="https://i.imgur.com/93vcaCg.png">
             {% else %}
-                <img class="card-img-top" src="{{ user.userprofile.profpic.url }}">
+                <img class="card-img-top" src="https://i.imgur.com/93vcaCg.png">
             {% endif %}
           </div>
->>>>>>> d5e6964d7a8c671f2dafd912cb0354a41876a3c7
         </div>
         <div class="col-md-6">
           <li class="list-group-item">Username: {{ user.username }}
@@ -39,9 +30,6 @@
       </div>
     </div>
   </div>
-<<<<<<< HEAD
-{% endblock %}
-=======
 {% endif %}
 
 {% if not user.is_authenticated %}
@@ -51,4 +39,3 @@
 {% endif %}
 
 {% endblock %}
->>>>>>> d5e6964d7a8c671f2dafd912cb0354a41876a3c7
