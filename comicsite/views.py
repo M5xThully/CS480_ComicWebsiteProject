@@ -59,7 +59,7 @@ def register(request):
             profile.user = user
 
             if 'picture' in request.FILES:
-                profile.profpic = request.FILES['profpic']
+                profile.userprofile.profpic = request.FILES['profpic']
 
             profile.save()
 
