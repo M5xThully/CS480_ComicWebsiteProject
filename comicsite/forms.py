@@ -1,10 +1,8 @@
 from django import forms
 from django.contrib.auth import authenticate
-from django.forms import ModelForm
 from comicsite.models import User
 from comicsite.models import UserProfile
 from comicsite.models import Comment
-import logging
 
 
 class UserForm(forms.ModelForm):
@@ -65,20 +63,17 @@ class UserProfileForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        self.comicid = kwargs.pop('comicid')
-        super(CommentForm, self).__init__(*args, **kwargs)
+#    def __init__(self, *args, **kwargs):
+#        self.comicid = kwargs.pop('comicid')
+#        super(CommentForm, self).__init__(*args, **kwargs)
 
-#    def __setpageid__(self, in_pageid):
-#        self.comicid = in_pageid
-
-    comicid = forms.IntegerField();
-    userid = forms.IntegerField()
+#    comicid = forms.IntegerField()
+    userid = forms.IntegerField(help_text="DEBUG, enter userid: ")
     text = forms.CharField(max_length=128, help_text="Enter your comment: ")
 
     class Meta:
         model = Comment
-        fields = ('text', 'userid', 'comicid')
+        fields = ('text', 'userid')
 
 
 class LoginForm(forms.Form):

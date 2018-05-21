@@ -1,31 +1,27 @@
-from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from comicsite.models import Comic
 from comicsite.models import Account
 from comicsite.models import Comment
-from comicsite.models import UserProfile
 from comicsite.models import User
 from comicsite.forms import CommentForm, LoginForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
-from django.urls import reverse
-import logging
 from comicsite.search import run_query
-from django.contrib import messages
+import logging
 
 
 def base(request):
     return render(request, 'base.html')
 
 
-def home(request):    
+def home(request):
     
-    comic = Comic.objects.filter(pk__in=[1,2,13,4,15,6,7,18]).values()
+    comic = Comic.objects.filter(pk__in=[1, 2, 13, 4, 15, 6, 7, 18]).values()
 
     user.id = request.user.id
 
-    return render(request, 'frontpage.html', {'comic':comic})
+    return render(request, 'frontpage.html', {'comic': comic})
 
 
 def loginpage(request):
@@ -37,7 +33,7 @@ def loginpage(request):
             return redirect("/loggedin")
     else:
         form = LoginForm()
-    return render(request, 'loginpage.html', {'login_form': form })
+    return render(request, 'loginpage.html', {'login_form': form})
 
 
 def loggedin(request):
@@ -91,20 +87,19 @@ def user(request):
 def comic(request, pageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
-        #comment_form.__setpageid__(pageid)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             logger = logging.getLogger('django')
-            logger.debug("userid:" + str(comment.userid) + " comidid:" + str(comment.comicid))
+            logger.debug("userid:" + str(comment.userid) + " comicid:" + str(comment.comicid))
+            comment.comicid = pageid
             comment.save()
             return redirect(request.path)
 
-#   the comment form
+    # the comment form
     comment_form = CommentForm()
-    comment_form.__setpageid__(pageid)
 
     # picking the comic whose id is equal to the pageid
-    comic = Comic.objects.filter(comicid=pageid)[0]
+    comic_obj = Comic.objects.filter(comicid=pageid)[0]
 
     # getting the top five most recent comments for the comic
     comments = Comment.objects.filter(comicid=pageid).order_by('-date')[:5]
@@ -114,26 +109,27 @@ def comic(request, pageid):
     for com in comments:
         user_object = User.objects.filter(id=com.userid)[0]
 
+        link_str = "127.0.0.1:8000/user/1/"
         # adding a dictionary the list to be used in the template
         comment_list.append({
+            'link': link_str,
             'user': user_object.username,
             'date': com.date,
             'comment_text': com.text
         })
 
-    context_dict = {'title': comic.comictitle,
-                    'id': comic.comicid,
-                    'author': comic.comicauthor,
-                    'publisher': comic.comicpublisher,
-                    'genre': comic.comicgenre,
-                    'series': comic.comicseries,
-                    'volume': comic.comicvolume,
-                    'issue': comic.comicissue,
-                    'rating': comic.comicrating,
-                    'synopsis': comic.comicsynopsis,
-                    'plot': comic.comicplot,
-                    'cover': comic.comiccover,
-                    'rating': comic.comicrating,
+    context_dict = {'title': comic_obj.comictitle,
+                    'id': comic_obj.comicid,
+                    'author': comic_obj.comicauthor,
+                    'publisher': comic_obj.comicpublisher,
+                    'genre': comic_obj.comicgenre,
+                    'series': comic_obj.comicseries,
+                    'volume': comic_obj.comicvolume,
+                    'issue': comic_obj.comicissue,
+                    'rating': comic_obj.comicrating,
+                    'synopsis': comic_obj.comicsynopsis,
+                    'plot': comic_obj.comicplot,
+                    'cover': comic_obj.comiccover,
                     'commentform': comment_form,
                     'comments': comment_list}
 
@@ -141,21 +137,21 @@ def comic(request, pageid):
 
 
 def account(request, userid):
-    account = Account.objects.filter(accountid=userid)[0]
+    account_obj = Account.objects.filter(accountid=userid)[0]
 
-    context_dict = {'id': account.accountid,
-                    'firstname': account.accountfirstname,
-                    'lastname': account.accountlastname,
-                    'email': account.accountemail,
-                    'username': account.accountusername,
-                    'password': account.accountpassword,
-                    'city': account.accountcity,
-                    'followid': account.followingid,
-                    'picture': account.accountpicture}
+    context_dict = {'id': account_obj.accountid,
+                    'firstname': account_obj.accountfirstname,
+                    'lastname': account_obj.accountlastname,
+                    'email': account_obj.accountemail,
+                    'username': account_obj.accountusername,
+                    'password': account_obj.accountpassword,
+                    'city': account_obj.accountcity,
+                    'followid': account_obj.followingid,
+                    'picture': account_obj.picture}
 
     return render(request, 'user.html', context_dict)
 
-#return render(request, 'user.html')
+
 def search(request):
     result_list = []
     if request.method == 'POST':
