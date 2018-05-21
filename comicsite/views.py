@@ -19,9 +19,19 @@ def base(request):
     return render(request, 'base.html')
 
 
-def home(request):
+def home(request):    
+    
+    comic = Comic.objects.filter(pk__in=[1,2,3,4,5,6,7,8]).values()
+
+    if not comic:
+        print ("Empty Query.")
+    else:
+        print (comic[1]['comictitle'])
+        print ("Object in query.")
+    
     user.id = request.user.id
-    return render(request, 'frontpage.html')
+
+    return render(request, 'frontpage.html', {'comic':comic})
 
 
 def loginpage(request):
