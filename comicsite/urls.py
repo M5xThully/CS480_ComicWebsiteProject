@@ -30,6 +30,6 @@ urlpatterns = [
     path('loggedin/', views.loggedin),
     path('register/', views.register),
     path('registered/', views.registered),
-    path('user/<int:userid>/', views.account),
+    path('user/', views.user),
     path('comic/<int:pageid>/', views.comic),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

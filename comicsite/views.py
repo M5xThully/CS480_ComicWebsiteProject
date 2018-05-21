@@ -91,7 +91,6 @@ def register(request):
 
 
 def user(request):
-    current_user = request.user.id
     return render(request, 'user.html')
 
 
