@@ -4,6 +4,7 @@ from comicsite.models import Account
 from comicsite.models import User
 from comicsite.models import UserProfile
 from comicsite.models import Comment
+import logging
 
 
 class AccountForm(ModelForm):
@@ -100,14 +101,20 @@ class UserProfileForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-#        def __init__(self, inComicid):
-#                self.comicid = inComicid
+    def __init__(self, *args, **kwargs):
+        self.comicid = kwargs.pop('comicid')
+        super(CommentForm, self).__init__(*args, **kwargs)
 
-        comicid = forms.IntegerField();
-        userid = forms.IntegerField()
-        text = forms.CharField(max_length=128, help_text="Enter your comment: ")
+#    def __setpageid__(self, in_pageid):
+#        self.comicid = in_pageid
 
-        class Meta:
-                model = Comment
-                fields = ('text',)
+    comicid = forms.IntegerField();
+    userid = forms.IntegerField()
+    text = forms.CharField(max_length=128, help_text="Enter your comment: ")
 
+#    logger = logging.getLogger('django')
+#    logger.debug("comicid:" + str(comicid))
+
+    class Meta:
+        model = Comment
+        fields = ('text', 'userid', 'comicid')

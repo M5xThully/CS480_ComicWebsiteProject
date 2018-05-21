@@ -84,8 +84,19 @@ def user(request):
 
 
 def comic(request, pageid):
-    # the comment form
-    commentform = CommentForm()
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        #comment_form.__setpageid__(pageid)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            logger = logging.getLogger('django')
+            logger.debug("userid:" + str(comment.userid) + " comidid:" + str(comment.comicid))
+            comment.save()
+            return redirect(request.path)
+
+#   the comment form
+    comment_form = CommentForm()
+    comment_form.__setpageid__(pageid)
 
     # picking the comic whose id is equal to the pageid
     comic = Comic.objects.filter(comicid=pageid)[0]
@@ -118,7 +129,7 @@ def comic(request, pageid):
                     'plot': comic.comicplot,
                     'cover': comic.comiccover,
                     'rating': comic.comicrating,
-                    'commentform': commentform,
+                    'commentform': comment_form,
                     'comments': comment_list}
 
     return render(request, 'comicpage.html', context_dict)

@@ -71,7 +71,7 @@
             {% endif %}
           </div>
           <div>
-            <form id="comment_form" method="post" action="/comic">
+            <form id="comment_form" method="post" action="{{ request.path }}">
                 {% csrf_token %}
                 {% for field in commentform.visible_fields %}
                   {{ field.errors }}
