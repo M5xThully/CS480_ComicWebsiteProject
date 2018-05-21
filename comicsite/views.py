@@ -80,8 +80,8 @@ def register(request):
                    'profile_form': profile_form})
 
 
-def user(request):
-    current_user = request.user.id
+def user(request, userid):
+    userid = request.user.id
     return render(request, 'user.html')
 
 
