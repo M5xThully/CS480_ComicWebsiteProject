@@ -21,7 +21,7 @@ def base(request):
 
 def home(request):    
     
-    comic = Comic.objects.filter(pk__in=[1,2,3,4,5,6,7,8]).values()
+    comic = Comic.objects.filter(pk__in=[1,2,13,4,15,6,7,18]).values()
 
     if not comic:
         print ("Empty Query.")
