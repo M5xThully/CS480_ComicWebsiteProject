@@ -24,11 +24,16 @@
           <div class="row">
             <div class="col-md-12"></div>
           </div>
-          <br>
-          <a class="btn btn-secondary" href="#">Follow.</a>
         </div>
       </div>
     </div>
   </div>
+{% endif %}
+
+{% if not user.is_authenticated %}
+<div class="col-md-9 offset-md-4" >
+  <h1 class="">Please login to view your profile.</h1>
+</div>
+{% endif %}
 
 {% endblock %}
