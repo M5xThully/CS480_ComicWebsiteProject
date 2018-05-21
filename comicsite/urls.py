@@ -23,13 +23,14 @@ from comicsite import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('base/', views.base),
     path('', views.home),
     path('home/', views.home),
     path('login/', views.loginpage),
     path('loggedin/', views.loggedin),
     path('register/', views.register),
     path('registered/', views.registered),
-    path('user/<int:userid>/', views.account),
+    path('user/', views.user),
     path('comic/<int:pageid>/', views.comic),
     path('comic/<int:pagid>', views.comic),
     path('comic', views.comic)

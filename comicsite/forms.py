@@ -1,47 +1,11 @@
 from django import forms
+from django.contrib.auth import authenticate
 from django.forms import ModelForm
-from comicsite.models import Account
 from comicsite.models import User
 from comicsite.models import UserProfile
 from comicsite.models import Comment
 import logging
 
-
-class AccountForm(ModelForm):
-    accountfirstname = forms.CharField(required=False)
-    accountlastname = forms.CharField(required=False)
-    accountemail = forms.EmailInput()
-    accountusername = forms.CharField()
-    accountpassword = forms.CharField()
-    accountcity = forms.CharField(required=False)
-
-    class Meta:
-        model = Account
-        fields = ['accountfirstname', 'accountlastname', 'accountemail', 'accountusername', 'accountpassword',
-                  'accountcity']
-        labels = {
-            'accountfirstname': ('First Name'),
-            'accountlastname': ('Last Name'),
-            'accountemail': ('Email'),
-            'accountusername': ('Username'),
-            'accountpassword': ('Password'),
-            'accountcity': ('City'),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(AccountForm, self).__init__(*args, **kwargs)
-        self.fields['accountfirstname'].label = "First Name"
-        self.fields['accountlastname'].label = "Last Name"
-        self.fields['accountemail'].label = "Email"
-        self.fields['accountusername'].label = "Username"
-        self.fields['accountpassword'].label = "Password"
-        self.fields['accountcity'].label = "City"
-        self.fields['accountfirstname'].widget.attrs.update({'class': "form-control"})
-        self.fields['accountlastname'].widget.attrs.update({'class': "form-control"})
-        self.fields['accountemail'].widget.attrs.update({'class': "form-control"})
-        self.fields['accountusername'].widget.attrs.update({'class': "form-control"})
-        self.fields['accountpassword'].widget.attrs.update({'class': "form-control"})
-        self.fields['accountcity'].widget.attrs.update({'class': "form-control"})
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(
@@ -83,8 +47,8 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password')
 
+
 class UserProfileForm(forms.ModelForm):
-    
     usercity = forms.CharField(required=False)
     profpic = forms.ImageField(required=False)
 
@@ -112,9 +76,26 @@ class CommentForm(forms.ModelForm):
     userid = forms.IntegerField()
     text = forms.CharField(max_length=128, help_text="Enter your comment: ")
 
-#    logger = logging.getLogger('django')
-#    logger.debug("comicid:" + str(comicid))
-
     class Meta:
         model = Comment
         fields = ('text', 'userid', 'comicid')
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=255, required=True)
+    password = forms.CharField(widget=forms.PasswordInput, required=True)
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        if not user:
+            raise forms.ValidationError("Wrong Username/Password.")
+        return self.cleaned_data
+
+    def login(self, request):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        user_id = User.objects.get(username=username).pk
+        return user

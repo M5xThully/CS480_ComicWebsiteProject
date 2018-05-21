@@ -127,3 +127,7 @@ class UserProfile(models.Model):
     userid = models.AutoField(primary_key=True)
     usercity = models.TextField(blank=True, null=True)
     profpic = models.ImageField(upload_to='profile_images', blank=True, null=True)
+	
+    class Meta:
+        managed = False
+        db_table = 'user_profile'

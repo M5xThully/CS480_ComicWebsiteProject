@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="p-1 m-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card">
+            {% if user.userprofile.profpic %}
+                <img class="card-img-top" src="{{ user.userprofile.profpic.url }}">
+            {% else %}
+                <img class="card-img-top" src="https://i.imgur.com/93vcaCg.png">
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <li class="list-group-item">Username: {{ user.username }}
+            <br> </li>
+          <li class="list-group-item">First Name: {{ user.first_name }}</li>
+          <li class="list-group-item">Last Name: {{ user.last_name }}</li>
+          <li class="list-group-item">Email: {{ user.email }}</li>
+          <div class="row">
+            <div class="col-md-12"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if not user.is_authenticated %}
+<div class="col-md-9 offset-md-4" >
+  <h1 class="">Please login to view your profile.</h1>
+</div>
+{% endif %}
+
+{% endblock %}

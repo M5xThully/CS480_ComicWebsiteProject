@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from comicsite.models import Comic
@@ -6,33 +6,38 @@ from comicsite.models import Account
 from comicsite.models import Comment
 from comicsite.models import UserProfile
 from comicsite.models import User
-from comicsite.forms import CommentForm
+from comicsite.forms import CommentForm, LoginForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from django.urls import reverse
 import logging
 from comicsite.search import run_query
+from django.contrib import messages
 
 
-def home(request):
-    return render(request, 'frontpage.html')
+def base(request):
+    return render(request, 'base.html')
+
+
+def home(request):    
+    
+    comic = Comic.objects.filter(pk__in=[1,2,13,4,15,6,7,18]).values()
+
+    user.id = request.user.id
+
+    return render(request, 'frontpage.html', {'comic':comic})
 
 
 def loginpage(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('/registered')
-        else:
-            print("Invalid login credentials: {0}, {1}".format(username, password))
-            return HttpResponse("Wrong username or password.")
+    form = LoginForm(request.POST or None)
+    if request.POST and form.is_valid():
+        userx = form.login(request)
+        if userx:
+            login(request, userx)
+            return redirect("/loggedin")
     else:
-        return render(request, 'loginpage.html', {})
+        form = LoginForm()
+    return render(request, 'loginpage.html', {'login_form': form })
 
 
 def loggedin(request):
@@ -58,7 +63,7 @@ def register(request):
             profile.user = user
 
             if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
+                profile.userprofile.profpic = request.FILES['profpic']
 
             profile.save()
 
