@@ -19,7 +19,22 @@
             <li class="list-group-item"><h3>Issue</h3><p>{{ issue }}</p></li>
             <li class="list-group-item"><h3>Ratings</h3><p>{{ rating }}</p></li>
             <li class="list-group-item"><h3>Synopsis</h3><p>{{ synopsis }}</p></li>
-            <li class="list-group-item"><h3>Plot</h3><p>{{ plot }}</p>
+            <li class="list-group-item"><h3>Plot</h3><button onclick= "showContent()">Spoiler</button>
+		<div id="plot" >{{ plot }}</div>
+            <script>
+		var content = document.getElementById("plot");
+		
+		content.style.display = "none";
+
+		function showContent(){
+			if (content.style.display === "none"){
+				content.style.display = "block";
+			}
+			else {
+				content.style.display = "none";
+			}
+		} 
+            </script>
             <li class="list-group-item"><h3>Rating</h3><p>{{ rating }}/5</p>
               <br>
             </li>

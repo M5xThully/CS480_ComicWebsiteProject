@@ -31,5 +31,6 @@ urlpatterns = [
     path('register/', views.register),
     path('registered/', views.registered),
     path('user/', views.user),
+    path('myprofile/', views.user),
     path('comic/<int:pageid>/', views.comic),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
