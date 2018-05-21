@@ -23,12 +23,6 @@ def home(request):
     
     comic = Comic.objects.filter(pk__in=[1,2,13,4,15,6,7,18]).values()
 
-    if not comic:
-        print ("Empty Query.")
-    else:
-        print (comic[1]['comictitle'])
-        print ("Object in query.")
-    
     user.id = request.user.id
 
     return render(request, 'frontpage.html', {'comic':comic})
