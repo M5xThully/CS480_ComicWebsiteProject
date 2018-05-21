@@ -81,7 +81,6 @@ def register(request):
 
 
 def user(request):
-
     return render(request, 'user.html')
 
 
