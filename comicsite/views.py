@@ -95,6 +95,7 @@ def comic(request, pageid):
             logger = logging.getLogger('django')
             logger.debug("userid:" + str(comment.userid) + " comicid:" + str(comment.comicid))
             comment.comicid = pageid
+            comment.userid = request.user.id
             comment.save()
             return redirect(request.path)
 
@@ -112,7 +113,7 @@ def comic(request, pageid):
     for com in comments:
         user_object = User.objects.filter(id=com.userid)[0]
 
-        link_str = "127.0.0.1:8000/user/1/"
+        link_str = "/" + user_object.username
         # adding a dictionary the list to be used in the template
         comment_list.append({
             'link': link_str,
