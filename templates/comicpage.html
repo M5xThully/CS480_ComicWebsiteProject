@@ -51,6 +51,7 @@
               <strong> There are no comments yet. </strong>
             {% endif %}
           </div>
+          {% if user.is_authenticated %}
           <div>
             <form id="comment_form" method="post" action="{{ request.path }}">
                 {% csrf_token %}
@@ -59,8 +60,12 @@
                   {{ field.help_text }}
                   {{ field }} <br>
                 {% endfor %}
-                <input type="submit" name="submit" value="Create Category" />
+                <input type="submit" name="submit" value="Post Comment" />
             </form>
+          </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
 </div>
 {% endblock %}

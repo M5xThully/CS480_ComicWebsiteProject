@@ -63,17 +63,11 @@ class UserProfileForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-#    def __init__(self, *args, **kwargs):
-#        self.comicid = kwargs.pop('comicid')
-#        super(CommentForm, self).__init__(*args, **kwargs)
-
-#    comicid = forms.IntegerField()
-    userid = forms.IntegerField(help_text="DEBUG, enter userid: ")
     text = forms.CharField(max_length=128, help_text="Enter your comment: ")
 
     class Meta:
         model = Comment
-        fields = ('text', 'userid')
+        fields = ('text',)
 
 
 class LoginForm(forms.Form):
