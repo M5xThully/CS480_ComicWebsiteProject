@@ -83,6 +83,10 @@ def user(request):
     return render(request, 'user.html')
 
 
+def myprofile(request):
+    return render(request, 'myprofile.html')
+
+
 def comic(request, pageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
