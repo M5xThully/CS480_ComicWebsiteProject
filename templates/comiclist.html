@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="text-center">
+    <div class="container-fluid">
+	<h1>Comic List</h1>
+	<h4>More coming soon.</h4>
+     <div class="card">
+    {% if comic_list %}
+    <ul class="list-group">
+
+	{% for comic in comic_list %}
+	    <a href = "http://tiltedcomics.me:8000/comic/{{ comic.comicid }}" class="list-group-item list-group-item-action" >{{ comic.comictitle }} V.{{ comic.comicvolume }} I.{{ comic.comicissue }}</a>
+	{% endfor %}
+
+    </ul>
+    {% else %}
+	<p>No comic returned from database.</p>
+    {% endif %}
+     </div>
+    </div>
+  </div>
+{% endblock %}

@@ -19,7 +19,7 @@
             <li class="list-group-item"><h3>Issue</h3><p>{{ issue }}</p></li>
             <li class="list-group-item"><h3>Ratings</h3><p>{{ rating }}</p></li>
             <li class="list-group-item"><h3>Synopsis</h3><p>{{ synopsis }}</p></li>
-            <li class="list-group-item"><h3>Plot</h3><button onclick= "showContent()">Spoiler</button>
+            <li class="list-group-item"><h3>Plot</h3><button class="btn btn-primary dropdown-toggle" onclick= "showContent()">Spoiler</button>
 		<div id="plot" >{{ plot }}</div>
             <script>
 		var content = document.getElementById("plot");
@@ -42,7 +42,7 @@
           <div>
             {% if comments %}
               {% for comment_dict in comments %}
-              <strong>{{ comment_dict.user }}</strong> on {{ comment_dict.date }} commented:<br>
+              <a href="{{ link }}"><strong>{{ comment_dict.user }}</strong></a> on {{ comment_dict.date }} commented:<br>
               {{ comment_dict.comment_text }}<br><br>
             {% endfor %}
             {% else %}
@@ -50,12 +50,12 @@
             {% endif %}
           </div>
           <div>
-            <form id="comment_form" method="post" action="/comic">
+            <form id="comment_form" method="post" action="{{ request.path }}">
                 {% csrf_token %}
                 {% for field in commentform.visible_fields %}
                   {{ field.errors }}
                   {{ field.help_text }}
-                  {{ field }}
+                  {{ field }} <br>
                 {% endfor %}
                 <input type="submit" name="submit" value="Create Category" />
             </form>
