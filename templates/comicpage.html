@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <img class="card-img-top" src={{ MEDIA_URL }}{{ cover }} alt="Card image cap">
+          <img class="card-img-right" src={{ MEDIA_URL }}{{ cover }} alt="Comic cover." >
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><h3>Title</h3><p>{{ title }}</p>
             <li class="list-group-item"><h3>Author</h3><p>{{ author }}</p>
@@ -17,7 +17,6 @@
             <li class="list-group-item"><h3>Volume</h3><p>{{ volume }}</p>
             </li>
             <li class="list-group-item"><h3>Issue</h3><p>{{ issue }}</p></li>
-            <li class="list-group-item"><h3>Ratings</h3><p>{{ rating }}</p></li>
             <li class="list-group-item"><h3>Synopsis</h3><p>{{ synopsis }}</p></li>
             <li class="list-group-item"><h3>Plot</h3><button class="btn btn-primary dropdown-toggle" onclick= "showContent()">Spoiler</button>
 		<div id="plot" >{{ plot }}</div>
