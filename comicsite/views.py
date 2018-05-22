@@ -17,7 +17,7 @@ def base(request):
 
 def home(request):
     
-    comic = Comic.objects.filter(pk__in=[1, 2, 13, 4, 15, 6, 7, 18]).values()
+    comic = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
 
     return render(request, 'frontpage.html', {'comic': comic})
