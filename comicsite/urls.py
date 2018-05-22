@@ -31,7 +31,10 @@ urlpatterns = [
     path('register/', views.register),
     path('registered/', views.registered),
     path('user/', views.user),
+    path('myprofile/', views.user),
     path('comic/<int:pageid>/', views.comic),
-    path('comic/<int:pagid>', views.comic),
-    path('comic', views.comic)
+    path('comic/<int:pageid>', views.comic),
+    path('comic', views.comic),
+    path('comiclist', views.comiclist),
+    path('search', views.search)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

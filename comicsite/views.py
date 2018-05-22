@@ -18,7 +18,6 @@ def base(request):
 def home(request):
     
     comic = Comic.objects.filter(pk__in=[1, 2, 13, 4, 15, 6, 7, 18]).values()
-
     user.id = request.user.id
 
     return render(request, 'frontpage.html', {'comic': comic})
@@ -84,6 +83,10 @@ def user(request):
     return render(request, 'user.html')
 
 
+def myprofile(request):
+    return render(request, 'myprofile.html')
+
+
 def comic(request, pageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -135,6 +138,12 @@ def comic(request, pageid):
 
     return render(request, 'comicpage.html', context_dict)
 
+def comiclist(request):
+
+    comic_list = Comic.objects.all().values()
+
+    return render(request, 'comiclist.html', {'comic_list':comic_list})
+
 
 def account(request, userid):
     account_obj = Account.objects.filter(accountid=userid)[0]
@@ -154,9 +163,9 @@ def account(request, userid):
 
 def search(request):
     result_list = []
-    if request.method == 'POST':
-        query = request.POST['query'].strip()
-        if query:
+    #if request.method == 'POST':
+       # query = request.POST['query'].strip()
+       # if query:
             # Run our Bing function to get the results list!
-            result_list = run_query(query)
-    return render(request, 'search.html', {'result_list': result_list})
+           # result_list = run_query(query)
+    return render(request, 'searchpage.html')#, {'result_list': result_list})
