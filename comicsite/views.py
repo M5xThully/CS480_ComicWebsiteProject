@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from comicsite.models import Comic
 from comicsite.models import Account
@@ -37,6 +37,11 @@ def loginpage(request):
 
 def loggedin(request):
     return render(request, 'loggedin.html')
+
+
+def loggedout(request):
+    logout(request)
+    return render(request, 'loggedout.html')
 
 
 def registered(request):
