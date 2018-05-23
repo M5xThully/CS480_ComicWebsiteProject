@@ -69,9 +69,8 @@ def run_query(search_terms):
             results.append({'title': result['Title'],
                             'link': result['Url'],
                             'summary': result['Description']})
-
-        except:
-            print("Error when querying the Bing API")
+    except:
+        print("Error when querying the Bing API")
 
         # Return the list of results to the calling function.
-        return results
+    return results
