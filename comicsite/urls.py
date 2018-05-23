@@ -28,6 +28,7 @@ urlpatterns = [
     path('home/', views.home),
     path('login/', views.loginpage),
     path('loggedin/', views.loggedin),
+    path('loggedout/', views.loggedout),
     path('register/', views.register),
     path('registered/', views.registered),
     path('user/', views.user),
@@ -37,5 +38,5 @@ urlpatterns = [
     path('comic', views.comic),
     path('comiclist/', views.comiclist),
     path('comiclist/<slug:sortby>', views.comiclist),
-    path('search', views.search)
+    path('search', views.search, name='search')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
