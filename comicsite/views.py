@@ -9,7 +9,7 @@ from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from comicsite.search import run_query
 import logging
-
+import re
 
 def base(request):
     return render(request, 'base.html')
@@ -139,9 +139,12 @@ def comic(request, pageid):
 
     return render(request, 'comicpage.html', context_dict)
 
-def comiclist(request):
+def comiclist(request, sortby=None):
 
     comic_list = Comic.objects.all().values()
+    
+    if sortby is not None:
+        comic_list = Comic.objects.filter(comictitle__startswith=sortby)
 
     return render(request, 'comiclist.html', {'comic_list':comic_list})
 
@@ -169,4 +172,4 @@ def search(request):
         if query:
             # Run our Bing function to get the results list!
             result_list = run_query(query)
-    return render(request, 'searchpage.html'), {'result_list': result_list})
+    return render(request, 'searchpage.html', {'result_list': result_list})
