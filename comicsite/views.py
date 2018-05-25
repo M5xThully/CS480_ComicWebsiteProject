@@ -11,12 +11,12 @@ from comicsite.search import run_query
 import logging
 import re
 
+
 def base(request):
     return render(request, 'base.html')
 
 
 def home(request):
-    
     comic = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
 
@@ -84,7 +84,8 @@ def register(request):
                    'profile_form': profile_form})
 
 
-def user(request):
+def user(request, username):
+    user = User.objects.get(username=username)
     return render(request, 'user.html')
 
 
@@ -144,14 +145,14 @@ def comic(request, pageid):
 
     return render(request, 'comicpage.html', context_dict)
 
-def comiclist(request, sortby=None):
 
+def comiclist(request, sortby=None):
     comic_list = Comic.objects.all().values()
-    
+
     if sortby is not None:
         comic_list = Comic.objects.filter(comictitle__startswith=sortby)
 
-    return render(request, 'comiclist.html', {'comic_list':comic_list})
+    return render(request, 'comiclist.html', {'comic_list': comic_list})
 
 
 def account(request, userid):
