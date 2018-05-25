@@ -86,7 +86,7 @@ def register(request):
 
 def user(request, username):
     user = User.objects.get(username=username)
-    return render(request, 'user.html')
+    return render(request, 'user.html', {'user': user})
 
 
 def myprofile(request):
