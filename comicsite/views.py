@@ -10,6 +10,7 @@ from comicsite.forms import UserProfileForm
 from comicsite.search import run_query
 import logging
 import re
+import operator
 
 
 def base(request):
@@ -180,3 +181,21 @@ def search(request):
             # Run our Bing function to get the results list!
             result_list = run_query(query)
     return render(request, 'searchpage.html', {'result_list': result_list})
+
+class BasicSearchListView(BasicListView):
+    paginate_by = 10
+
+    def get_queryset(self):
+        result = super(BasicSearchListView, self).get_queryset()
+
+        query = self.request.GET.get('q')
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_,
+                       (Comic(title__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Comic(content__icontains=q) for q in query_list))
+            )
+
+        return result
