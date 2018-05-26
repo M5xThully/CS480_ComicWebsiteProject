@@ -38,13 +38,11 @@
         <a class="p-2 text-secondary"></a>
         <div class="collapse navbar-collapse text-center justify-content-end" id="navbarDarkSupportedContent">
           <ul class="navbar-nav"></ul>
-          <form class="form-inline my-2 my-lg-0" action="/search">
-            <input class="form-control mr-sm-2" 
-            type="text" 
-            placeholder="Search"
-            name='search'
-            >
-            <button class="btn my-2 my-sm-0 btn-secondary" type="submit">Search</button>
+          <form id="searchform" action="{% url 'basic_search_list_view' %}" method="get" accept-charset="utf-8">
+            <button class="searchbutton" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+            <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
           </form>
         </div>
         <a class="btn navbar-btn ml-2 text-white btn-secondary" href="/myprofile"><i class="fa d-inline fa-lg fa-user-circle-o ml-1"></i>&nbsp;</a>
@@ -76,13 +74,11 @@
         <a class="p-2 text-secondary"></a>
           <div class="collapse navbar-collapse text-center justify-content-end" id="navbarDarkSupportedContent">
             <ul class="navbar-nav"></ul>
-            <form class="form-inline my-2 my-lg-0" action="/search">
-              <input class="form-control mr-sm-2" 
-              type="text" 
-              placeholder="Search"
-              name ='search'
-              >
-              <button class="btn my-2 my-sm-0 btn-secondary" type="submit">Search</button>
+            <form id="searchform" action="{% url 'basic_search_list_view' %}" method="get" accept-charset="utf-8">
+              <button class="searchbutton" type="submit">
+                <i class="fa fa-search"></i>
+              </button>
+              <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
             </form>
           </div>
         <a class="p-2 text-secondary" href="/register">Register</a>
