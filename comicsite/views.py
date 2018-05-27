@@ -181,8 +181,6 @@ def comiclist(request, sortby=None):
 
     return render(request, 'comiclist.html', {'comic_list': comic_list})
 
-def searchlist(request)
-    comic_list = Comic.objects
 def account(request, userid):
     account_obj = Account.objects.filter(accountid=userid)[0]
 
@@ -198,33 +196,13 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 
-"""
-def search(request):
-    result_list = []
-    if request.method == 'POST':
-        query = request.POST['query'].strip()
-        if query:
-            # Run our Bing function to get the results list!
-            result_list = run_query(query)
-    return render(request, 'searchpage.html', {'result_list': result_list})
-"""
-class BlogSearchListView(Comic):
-    """
-    Display a Blog List page filtered by the search query.
-    """
-    paginate_by = 10
 
-    def get_queryset(self):
-        result = super(BlogSearchListView, self).get_queryset()
+    def search(request):
+    if 'q' in request.GET and request.GET['q']:
+        q=request.GET['q']
+        comic_list = Comic.objects.filter(comic_list_icontains =q)
+        return render(request, 'comiclist.html', {'comic_list':comic_list})
 
-        query = self.request.GET.get('q')
-        if query:
-            query_list = query.split()
-            result = result.filter(
-                reduce(operator.and_,
-                       (Comic(title__icontains=q) for q in query_list)) |
-                reduce(operator.and_,
-                       (Comic(content__icontains=q) for q in query_list))
-            )
+    else:
+        return HttpResponse('Please submit a search term.')
 
-        return result
