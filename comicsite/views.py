@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
-from comicsite.models import Comic
+from comicsite.models import Comic, Post
 from comicsite.models import Account
 from comicsite.models import Comment
 from comicsite.models import User
