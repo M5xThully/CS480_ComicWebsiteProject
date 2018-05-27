@@ -95,6 +95,7 @@ def myprofile(request):
 
 
 def createpost(request):
+    #PASS USERID TO CREATE POST!
     if request.method == 'POST':
         post_form = PostForm(request.POST)
         if post_form.is_valid():
