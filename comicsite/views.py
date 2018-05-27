@@ -196,7 +196,7 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 
-
+'''
     def search(request):
         result_list = []
         if 'q' in request.GET and request.GET['q']:
@@ -207,7 +207,7 @@ def account(request, userid):
     else:
         return HttpResponse('Please submit a search term.')
 
-"""
+
 def search(request):
     result_list = []
 
@@ -217,4 +217,4 @@ def search(request):
         # Run our Bing function to get the results list!
         result_list = run_query(query)
     return render (request, 'comiclist.html', {'comic_list':comic_list})
-"""
+'''
