@@ -7,7 +7,7 @@ from comicsite.models import User
 from comicsite.forms import CommentForm, LoginForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
-#from comicsite.search import run_query
+# from comicsite.search import run_query
 import logging
 import re
 import operator
@@ -95,7 +95,7 @@ def myprofile(request):
 
 
 def createpost(request):
-    #PASS USERID TO CREATE POST!
+    # PASS USERID TO CREATE POST!
     if request.method == 'POST':
         post_form = PostForm(request.POST)
         if post_form.is_valid():
@@ -108,7 +108,7 @@ def createpost(request):
 
 
 def post(request, pageid):
-    post_obj = Post.objects.filter(postid = pageid)[0]
+    post_obj = Post.objects.filter(postid=pageid)[0]
     context_dict = {
         'title': post_obj.title,
         'text': post_obj.text,
@@ -181,6 +181,7 @@ def comiclist(request, sortby=None):
 
     return render(request, 'comiclist.html', {'comic_list': comic_list})
 
+
 def account(request, userid):
     account_obj = Account.objects.filter(accountid=userid)[0]
 
@@ -195,6 +196,7 @@ def account(request, userid):
                     'picture': account_obj.picture}
 
     return render(request, 'user.html', context_dict)
+
 
 '''
     def search(request):
