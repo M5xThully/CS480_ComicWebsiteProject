@@ -7,7 +7,7 @@ from comicsite.models import User
 from comicsite.forms import CommentForm, LoginForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
-from comicsite.search import run_query
+#from comicsite.search import run_query
 import logging
 import re
 import operator
@@ -196,17 +196,18 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 
-"""
+
     def search(request):
-    if 'q' in request.GET and request.GET['q']:
-        q=request.GET['q']
-        comic_list = Comic.objects.filter(comic_list__icontains =q)
-        return render(request, 'comiclist.html', {'comic_list':comic_list})
+        result_list = []
+        if 'q' in request.GET and request.GET['q']:
+            q=request.GET['q']
+            comic_list = Comic.objects.filter(comic_list__icontains =q)
+        return render(request, 'searchpage.html', {'comic_list':result_list})
 
     else:
         return HttpResponse('Please submit a search term.')
-"""
 
+"""
 def search(request):
     result_list = []
 
@@ -216,3 +217,4 @@ def search(request):
         # Run our Bing function to get the results list!
         result_list = run_query(query)
     return render (request, 'comiclist.html', {'comic_list':comic_list})
+"""
