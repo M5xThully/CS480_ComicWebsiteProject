@@ -169,6 +169,8 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 
+def article(request):
+    return render(request,'articlepage.html')
 
 def search(request):
     result_list = []
