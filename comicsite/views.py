@@ -7,7 +7,7 @@ from comicsite.models import User
 from comicsite.forms import CommentForm, LoginForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
-from comicsite.search import run_query
+#from comicsite.search import run_query
 import logging
 import re
 import operator
@@ -206,7 +206,7 @@ def search(request):
             # Run our Bing function to get the results list!
             result_list = run_query(query)
     return render(request, 'searchpage.html', {'result_list': result_list})
-
+'''
 class BasicSearchListView(BasicListView):
     paginate_by = 10
 
@@ -224,3 +224,4 @@ class BasicSearchListView(BasicListView):
             )
 
         return result
+'''
