@@ -93,6 +93,18 @@ def user(request, username):
 def myprofile(request):
     return render(request, 'myprofile.html')
 
+def post(request, pageid):
+    post_obj = Post.objects.filter(postid = pageid)[0]
+    context_dict = {
+        'title': post_obj.title,
+        'text': post_obj.text,
+        'image': post_obj.image,
+        'date': post_obj.date,
+        'id': post_obj.postid,
+        'user': post_obj.userid
+    }
+    return render(request, 'post.html', context_dict)
+
 
 def comic(request, pageid):
     if request.method == 'POST':
