@@ -4,7 +4,7 @@ from comicsite.models import Comic
 from comicsite.models import Account
 from comicsite.models import Comment
 from comicsite.models import User
-from comicsite.forms import CommentForm, LoginForm
+from comicsite.forms import CommentForm, LoginForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from comicsite.search import run_query
@@ -92,6 +92,19 @@ def user(request, username):
 
 def myprofile(request):
     return render(request, 'myprofile.html')
+
+
+def createpost(request):
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+        if post_form.is_valid():
+            post = post_form.save()
+            post.save()
+    else:
+        post_form = PostForm()
+
+    return render(request, 'createpost.html', {'post_form': post_form})
+
 
 def post(request, pageid):
     post_obj = Post.objects.filter(postid = pageid)[0]
