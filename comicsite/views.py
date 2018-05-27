@@ -196,7 +196,7 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 
-
+'''
 def search(request):
     result_list = []
     if request.method == 'POST':
@@ -206,7 +206,7 @@ def search(request):
             # Run our Bing function to get the results list!
             result_list = run_query(query)
     return render(request, 'searchpage.html', {'result_list': result_list})
-'''
+
 class BasicSearchListView(BasicListView):
     paginate_by = 10
 
