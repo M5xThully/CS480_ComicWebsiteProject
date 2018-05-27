@@ -79,15 +79,15 @@ class FavoriteComics(models.Model):
         managed = False
         db_table = 'favorite_comics'
 
-class Post(models.Model):
-    postid = models.AutoField(db_column='postID', primary_key=True)  # Field name made lowercase.
-    postcontent = models.TextField(db_column='postContent', blank=True, null=True)  # Field name made lowercase.
-    postdate = models.DateField(db_column='postDate', blank=True, null=True)  # Field name made lowercase.
-    postrating = models.IntegerField(db_column='postRating', blank=True, null=True)  # Field name made lowercase.
+# class Post(models.Model):
+#     postid = models.AutoField(db_column='postID', primary_key=True)  # Field name made lowercase.
+#     postcontent = models.TextField(db_column='postContent', blank=True, null=True)  # Field name made lowercase.
+#     postdate = models.DateField(db_column='postDate', blank=True, null=True)  # Field name made lowercase.
+#     postrating = models.IntegerField(db_column='postRating', blank=True, null=True)  # Field name made lowercase.
 
-    class Meta:
-        managed = False
-        db_table = 'post'
+#     class Meta:
+#         managed = False
+#         db_table = 'post'
 
         
 class Comment(models.Model):
@@ -114,7 +114,8 @@ class Rating(models.Model):
     rating = models.IntegerField(null=False, blank=False)
     # the id of the user who made this rating
     userid = models.IntegerField(null=False)
-    # the id of the comic being rated     comicid = models.IntegerField(null=False)
+    # the id of the comic being rated     
+    comicid = models.IntegerField(null=False)
  
     class Meta:
         managed = False
@@ -131,3 +132,21 @@ class UserProfile(models.Model):
     class Meta:
         managed = False
         db_table = 'user_profile'
+
+class Post(models.Model):
+    # id of the post
+    postid = models.AutoField(primary_key = True)
+    # title of each post
+    title = models.TextField(blank = False)
+    # text body of the post
+    text = models.TextField(blank = False)
+    # image a user can upload with the post
+    image = models.ImageField(upload_to = 'post_images', blank = True, null = True)
+    # the user posting the post
+    userid = models.IntegerField(null = False)
+    # date of the post
+    date = models.DateTimeField(auto_now = True, null = False)
+
+    class Meta:
+        managed = False
+        db_table = 'post'

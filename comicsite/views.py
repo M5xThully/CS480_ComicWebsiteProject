@@ -1,22 +1,23 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
-from comicsite.models import Comic
+from comicsite.models import Comic, Post
 from comicsite.models import Account
 from comicsite.models import Comment
 from comicsite.models import User
-from comicsite.forms import CommentForm, LoginForm
+from comicsite.forms import CommentForm, LoginForm#, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
-from comicsite.search import run_query
+#from comicsite.search import run_query
 import logging
 import re
+import operator
+
 
 def base(request):
     return render(request, 'base.html')
 
 
 def home(request):
-    
     comic = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
 
@@ -84,12 +85,38 @@ def register(request):
                    'profile_form': profile_form})
 
 
-def user(request):
-    return render(request, 'user.html')
+def user(request, username):
+    user = User.objects.get(username=username)
+    return render(request, 'user.html', {'user': user})
 
 
 def myprofile(request):
     return render(request, 'myprofile.html')
+
+
+def createpost(request):
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+        if post_form.is_valid():
+            post = post_form.save()
+            post.save()
+    else:
+        post_form = PostForm()
+
+    return render(request, 'createpost.html', {'post_form': post_form})
+
+
+def post(request, pageid):
+    post_obj = Post.objects.filter(postid = pageid)[0]
+    context_dict = {
+        'title': post_obj.title,
+        'text': post_obj.text,
+        'image': post_obj.image,
+        'date': post_obj.date,
+        'id': post_obj.postid,
+        'user': post_obj.userid
+    }
+    return render(request, 'post.html', context_dict)
 
 
 def comic(request, pageid):
@@ -144,14 +171,14 @@ def comic(request, pageid):
 
     return render(request, 'comicpage.html', context_dict)
 
-def comiclist(request, sortby=None):
 
+def comiclist(request, sortby=None):
     comic_list = Comic.objects.all().values()
-    
+
     if sortby is not None:
         comic_list = Comic.objects.filter(comictitle__startswith=sortby)
 
-    return render(request, 'comiclist.html', {'comic_list':comic_list})
+    return render(request, 'comiclist.html', {'comic_list': comic_list})
 
 
 def account(request, userid):
@@ -172,6 +199,7 @@ def account(request, userid):
 def article(request):
     return render(request,'articlepage.html')
 
+'''
 def search(request):
     result_list = []
     if request.method == 'POST':
@@ -181,3 +209,22 @@ def search(request):
             # Run our Bing function to get the results list!
             result_list = run_query(query)
     return render(request, 'searchpage.html', {'result_list': result_list})
+
+class BasicSearchListView(BasicListView):
+    paginate_by = 10
+
+    def get_queryset(self):
+        result = super(BasicSearchListView, self).get_queryset()
+
+        query = self.request.GET.get('q')
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_,
+                       (Comic(title__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (Comic(content__icontains=q) for q in query_list))
+            )
+
+        return result
+'''
