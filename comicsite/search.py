@@ -2,7 +2,7 @@ import json
 import urllib
 
 
-def raed_bing_key():
+def read_bing_key():
     """
     this function reads the api key from a file called 'bing.key'
     returns: a string which will either return key found or key
@@ -22,7 +22,7 @@ def run_query(search_terms):
     """
     this function returns a list of results from the Bing search engine
     """
-    bing_api_key = raed_bing_key()
+    bing_api_key = read_bing_key()
 
     if not bing_api_key:
         raise KeyError("Bing Key Not Found")
