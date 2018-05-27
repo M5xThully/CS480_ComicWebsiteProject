@@ -215,4 +215,4 @@ def search(request):
         if query:
         # Run our Bing function to get the results list!
         result_list = run_query(query)
-    return render(request, 'rango/search.html', {'result_list': result_list})
+    return render (request, 'comiclist.html', {'comic_list':comic_list})
