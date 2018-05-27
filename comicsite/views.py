@@ -181,7 +181,8 @@ def comiclist(request, sortby=None):
 
     return render(request, 'comiclist.html', {'comic_list': comic_list})
 
-
+def searchlist(request)
+    comic_list = Comic.objects
 def account(request, userid):
     account_obj = Account.objects.filter(accountid=userid)[0]
 
@@ -207,7 +208,7 @@ def search(request):
             result_list = run_query(query)
     return render(request, 'searchpage.html', {'result_list': result_list})
 """
-class BlogSearchListView(BlogListView):
+class BlogSearchListView(Comic):
     """
     Display a Blog List page filtered by the search query.
     """
