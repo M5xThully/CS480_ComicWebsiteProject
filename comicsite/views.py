@@ -197,22 +197,24 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 
-'''
+"""
 def search(request):
     result_list = []
     if request.method == 'POST':
         query = request.POST['query'].strip()
-        print(query)
         if query:
             # Run our Bing function to get the results list!
             result_list = run_query(query)
     return render(request, 'searchpage.html', {'result_list': result_list})
-
-class BasicSearchListView(BasicListView):
+"""
+class BlogSearchListView(BlogListView):
+    """
+    Display a Blog List page filtered by the search query.
+    """
     paginate_by = 10
 
     def get_queryset(self):
-        result = super(BasicSearchListView, self).get_queryset()
+        result = super(BlogSearchListView, self).get_queryset()
 
         query = self.request.GET.get('q')
         if query:
@@ -225,4 +227,3 @@ class BasicSearchListView(BasicListView):
             )
 
         return result
-'''

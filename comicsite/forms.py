@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from comicsite.models import User
 from comicsite.models import UserProfile
 from comicsite.models import Comment
+from comicsite.models import C
 
 
 class UserForm(forms.ModelForm):
@@ -88,3 +89,7 @@ class LoginForm(forms.Form):
         user = authenticate(username=username, password=password)
         user_id = User.objects.get(username=username).pk
         return user
+
+class SearchForm(forms.ModelForm)
+    
+    
