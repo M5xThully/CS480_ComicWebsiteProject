@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate
-from comicsite.models import User
+from comicsite.models import User, Post
 from comicsite.models import UserProfile
 from comicsite.models import Comment
 from comicsite.models import C
@@ -90,5 +90,22 @@ class LoginForm(forms.Form):
         user_id = User.objects.get(username=username).pk
         return user
 
-    
-    
+
+class PostForm(forms.ModelForm):
+    title = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': "form-control",
+            'placeholder': 'title'
+        }
+    ))
+
+    text = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': "form-control",
+            'placeholder': 'text'
+        }
+    ))
+
+    class Meta:
+        model = Post
+        fields = ('title', 'text')
