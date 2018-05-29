@@ -102,6 +102,7 @@ def createpost(request):
             return redirect("/postcreated")
     else:
         post_form = PostForm()
+        return redirect("/broke")
 
     return render(request, 'createpost.html', {'post_form': post_form})
 
@@ -208,6 +209,10 @@ def account(request, userid):
                     'picture': account_obj.picture}
 
     return render(request, 'user.html', context_dict)
+
+
+def broke(request):
+    return render(request, 'broke.html')
 
 
 '''
