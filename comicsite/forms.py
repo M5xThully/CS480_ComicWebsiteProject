@@ -92,6 +92,7 @@ class LoginForm(forms.Form):
 
 
 class PostForm(forms.ModelForm):
+    title = forms.CharField(required=True)
     title = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': "form-control",
@@ -99,6 +100,7 @@ class PostForm(forms.ModelForm):
         }
     ))
 
+    text = forms.CharField(required=True)
     text = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': "form-control",
@@ -106,6 +108,8 @@ class PostForm(forms.ModelForm):
         }
     ))
 
+    image = forms.ImageField(required=False)
+
     class Meta:
         model = Post
-        fields = ('title', 'text')
+        fields = ('title', 'text', 'userid', 'image')
