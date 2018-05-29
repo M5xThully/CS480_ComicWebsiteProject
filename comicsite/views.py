@@ -1,6 +1,8 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
-from comicsite.models import Comic
+from django.utils.datetime_safe import date
+
+from comicsite.models import Comic, Post
 from comicsite.models import Account
 from comicsite.models import Comment
 from comicsite.models import User
@@ -8,7 +10,7 @@ from comicsite.models import Post
 from comicsite.forms import CommentForm, LoginForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
-#from comicsite.search import run_query
+# from comicsite.search import run_query
 import logging
 import re
 import operator
@@ -65,7 +67,7 @@ def register(request):
             profile.user = user
 
             if 'picture' in request.FILES:
-                profile.userprofile.profpic = request.FILES['profpic']
+                profile.userprofile.profpic = request.FILES['picture']
 
             profile.save()
 
@@ -86,6 +88,29 @@ def register(request):
                    'profile_form': profile_form})
 
 
+def createpost(request):
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            post.username = request.user.username
+
+            if 'picture' in request.FILES:
+                post.image = request.FILES['picture']
+
+            post.save()
+
+            return redirect("/postcreated")
+    else:
+        post_form = PostForm()
+
+    return render(request, 'createpost.html', {'post_form': post_form})
+
+
+def postcreated(request):
+    return render(request, 'postcreated.html')
+
+
 def user(request, username):
     user = User.objects.get(username=username)
     return render(request, 'user.html', {'user': user})
@@ -95,21 +120,8 @@ def myprofile(request):
     return render(request, 'myprofile.html')
 
 
-def createpost(request):
-    #PASS USERID TO CREATE POST!
-    if request.method == 'POST':
-        post_form = PostForm(request.POST)
-        if post_form.is_valid():
-            post = post_form.save(commit = False)
-            post.user = request.user.name
-            post.save()
-    else:
-        post_form = PostForm()
-
-    return render(request, 'createpost.html', {'post_form': post_form})
-
 def post(request, pageid):
-    post_obj = Post.objects.filter(postid = pageid)[0]
+    post_obj = Post.objects.filter(postid=pageid)[0]
     context_dict = {
         'title': post_obj.title,
         'text': post_obj.text,
@@ -202,13 +214,30 @@ def account(request, userid):
 
     return render(request, 'user.html', context_dict)
 
+
+def broke(request):
+    return render(request, 'broke.html')
+
+
 '''
+    def search(request):
+        result_list = []
+        if 'q' in request.GET and request.GET['q']:
+            q=request.GET['q']
+            comic_list = Comic.objects.filter(comic_list__icontains =q)
+        return render(request, 'searchpage.html', {'comic_list':result_list})
+
+    else:
+        return HttpResponse('Please submit a search term.')
+
+
 def search(request):
     result_list = []
+
     if request.method == 'POST':
         query = request.POST['query'].strip()
-        print(query)
         if query:
+<<<<<<< HEAD
             # Run our Bing function to get the results list!
             result_list = run_query(query)
     return render(request, 'searchpage.html', {'result_list': result_list})
@@ -230,4 +259,9 @@ class BasicSearchListView(BasicListView):
             )
 
         return result
+=======
+        # Run our Bing function to get the results list!
+        result_list = run_query(query)
+    return render (request, 'comiclist.html', {'comic_list':comic_list})
+>>>>>>> b47e10dcbf629b5be2c3203f78625548aaed9e80
 '''

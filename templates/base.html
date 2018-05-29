@@ -30,6 +30,8 @@
         <a class="p-2 text-secondary" href="/comiclist">Comics
           <br> </a>
         <a class="p-2 text-secondary" href="/postlist">News
+	  <br> </a>
+        <a class="p-2 text-secondary" href="/createpost">Create Post
           <br> </a>
         <a class="p-2 text-secondary">
           <br> </a>
@@ -38,11 +40,9 @@
         <a class="p-2 text-secondary"></a>
         <div class="collapse navbar-collapse text-center justify-content-end" id="navbarDarkSupportedContent">
           <ul class="navbar-nav"></ul>
-          <form id="searchform" action="" method="get" accept-charset="utf-8">
-            <button class="searchbutton" type="submit">
-              <i class="fa fa-search"></i>
-            </button>
-            <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
+          <form class="form-inline my-2 my-lg-0" action="/searchpage" method="get">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">Search</button>
           </form>
         </div>
         <a class="btn navbar-btn ml-2 text-white btn-secondary" href="/myprofile"><i class="fa d-inline fa-lg fa-user-circle-o ml-1"></i>&nbsp;</a>
@@ -74,11 +74,9 @@
         <a class="p-2 text-secondary"></a>
           <div class="collapse navbar-collapse text-center justify-content-end" id="navbarDarkSupportedContent">
             <ul class="navbar-nav"></ul>
-            <form id="searchform" action="" method="get" accept-charset="utf-8">
-              <button class="searchbutton" type="submit">
-                <i class="fa fa-search"></i>
-              </button>
-              <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
+            <form class="form-inline my-2 my-lg-0" action="/searchpage/" method="get">
+              <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">Search</button>
             </form>
           </div>
         <a class="p-2 btn text-secondary" href="/register">Register</a>

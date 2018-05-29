@@ -7,6 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import CASCADE
 
 
 class Comic(models.Model):
@@ -79,6 +80,7 @@ class FavoriteComics(models.Model):
         managed = False
         db_table = 'favorite_comics'
 
+
 # class Post(models.Model):
 #     postid = models.AutoField(db_column='postID', primary_key=True)  # Field name made lowercase.
 #     postcontent = models.TextField(db_column='postContent', blank=True, null=True)  # Field name made lowercase.
@@ -89,7 +91,7 @@ class FavoriteComics(models.Model):
 #         managed = False
 #         db_table = 'post'
 
-        
+
 class Comment(models.Model):
     # a integer field which uniquely identifies the comment
     commentid = models.AutoField(primary_key=True)
@@ -105,8 +107,8 @@ class Comment(models.Model):
     class Meta:
         managed = False
         db_table = 'comments'
- 
- 
+
+
 class Rating(models.Model):
     # a integer field which uniquely identifies the rating
     ratingid = models.AutoField(primary_key=True)
@@ -116,7 +118,7 @@ class Rating(models.Model):
     userid = models.IntegerField(null=False)
     # the id of the comic being rated     
     comicid = models.IntegerField(null=False)
- 
+
     class Meta:
         managed = False
         db_table = 'ratings'
@@ -128,24 +130,25 @@ class UserProfile(models.Model):
     userid = models.AutoField(primary_key=True)
     usercity = models.TextField(blank=True, null=True)
     profpic = models.ImageField(upload_to='profile_images', blank=True, null=True)
-	
+
     class Meta:
         managed = False
         db_table = 'user_profile'
 
+
 class Post(models.Model):
     # id of the post
-    postid = models.AutoField(primary_key = True)
+    postid = models.AutoField(primary_key=True)
     # title of each post
-    title = models.TextField(blank = False)
+    title = models.TextField(blank=False)
     # text body of the post
-    text = models.TextField(blank = False)
+    text = models.TextField(blank=False)
     # image a user can upload with the post
-    image = models.ImageField(upload_to = 'post_images', blank = True, null = True)
+    image = models.ImageField(upload_to='post_images', blank=True, null=True)
     # the user posting the post
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     # date of the post
-    date = models.DateTimeField(auto_now = True, null = False)
+    date = models.DateTimeField(auto_now_add=True, null=False)
 
     class Meta:
         managed = False

@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth import authenticate
-from comicsite.models import User
+from comicsite.models import User, Post
 from comicsite.models import UserProfile
 from comicsite.models import Comment
-from comicsite.models import Post
+#from comicsite.models import C
+
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(
