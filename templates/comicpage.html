@@ -34,14 +34,29 @@
 			}
 		} 
             </script>
-            <li class="list-group-item"><h3>Rating</h3><p>{{ rating }}/5</p>
+            <li class="list-group-item"><h3>Rating</h3><p>{{ rating }}/5 {% if user.is_authenticated %}
+                                                                         {% if user_rating %}
+                                                                          You gave this comic a {{ user_rating }}
+                                                                         {% else %}
+                                                                          You have not rated this comic yet
+                                                                         {% endif %}
+                                                                              <form id="rating_form" method="post" action="{{ request.path }}">
+                                                                              {% csrf_token %}
+                                                                              {% for field in ratingform.visible_fields %}
+                                                                                {{ field.errors }}
+                                                                                {{ field.help_text }}
+                                                                                {{ field }} <br>
+                                                                              {% endfor %}
+                                                                              <input type="submit" name="rating_submit" value="rate">
+                                                                              </form>
+                                                                              {% endif %}</p>
               <br>
             </li>
           </ul>
           <div>
             {% if comments %}
               {% for comment_dict in comments %}
-              <a href="{{ link }}"><strong>{{ comment_dict.user }}</strong></a> on {{ comment_dict.date }} commented:<br>
+              <a href="{{ comment_dict.link }}"><strong>{{ comment_dict.user }}</strong></a> on {{ comment_dict.date }} commented:<br>
               {{ comment_dict.comment_text }}<br><br>
             {% endfor %}
             {% else %}
@@ -51,12 +66,7 @@
           {% if user.is_authenticated %}
           <div>
             <form id="comment_form" method="post" action="{{ request.path }}">
-                {% csrf_token %}
-                {% for field in commentform.visible_fields %}
-                  {{ field.errors }}
-                  {{ field.help_text }}
-                  {{ field }} <br>
-                {% endfor %}
+
                 <input type="submit" name="submit" value="Post Comment" />
             </form>
           </div>
