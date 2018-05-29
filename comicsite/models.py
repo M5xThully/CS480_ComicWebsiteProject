@@ -7,6 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import CASCADE
 
 
 class Comic(models.Model):
@@ -137,7 +138,7 @@ class Post(models.Model):
     # image a user can upload with the post
     image = models.ImageField(upload_to='post_images', blank=True, null=True)
     # the user posting the post
-    userid = models.IntegerField(null=False)
+    username = models.ForeignKey(User, on_delete=CASCADE)
     # date of the post
     date = models.DateTimeField(auto_now_add=True, null=False)
 

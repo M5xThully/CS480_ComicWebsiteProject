@@ -92,7 +92,7 @@ def createpost(request):
         post_form = PostForm(request.POST)
         if post_form.is_valid():
             post = post_form.save(commit=False)
-            post.userid = request.user.id
+            post.username = request.user.username
 
             if 'picture' in request.FILES:
                 post.image = request.FILES['picture']
