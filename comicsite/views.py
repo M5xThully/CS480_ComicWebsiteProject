@@ -64,7 +64,7 @@ def register(request):
             profile.user = user
 
             if 'picture' in request.FILES:
-                profile.userprofile.profpic = request.FILES['profpic']
+                profile.userprofile.profpic = request.FILES['picture']
 
             profile.save()
 
@@ -85,6 +85,25 @@ def register(request):
                    'profile_form': profile_form})
 
 
+def createpost(request):
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+        if post_form.is_valid():
+            posty = post_form.save(commit=False)
+            posty.userid = request.userid
+            posty.save()
+
+            return redirect("/postcreated")
+    else:
+        post_form = PostForm()
+
+    return render(request, 'createpost.html', {'post_form': post_form})
+
+
+def postcreated(request):
+    return render(request, 'postcreated.html')
+
+
 def user(request, username):
     user = User.objects.get(username=username)
     return render(request, 'user.html', {'user': user})
@@ -92,19 +111,6 @@ def user(request, username):
 
 def myprofile(request):
     return render(request, 'myprofile.html')
-
-
-def createpost(request):
-    # PASS USERID TO CREATE POST!
-    if request.method == 'POST':
-        post_form = PostForm(request.POST)
-        if post_form.is_valid():
-            post = post_form.save()
-            post.save()
-    else:
-        post_form = PostForm()
-
-    return render(request, 'createpost.html', {'post_form': post_form})
 
 
 def post(request, pageid):
