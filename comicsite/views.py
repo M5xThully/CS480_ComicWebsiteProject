@@ -1,5 +1,7 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
+from django.utils.datetime_safe import date
+
 from comicsite.models import Comic, Post
 from comicsite.models import Account
 from comicsite.models import Comment
@@ -89,9 +91,9 @@ def createpost(request):
     if request.method == 'POST':
         post_form = PostForm(request.POST)
         if post_form.is_valid():
-            posty = post_form.save(commit=False)
-            posty.userid = request.userid
-            posty.save()
+            post = post_form.save(commit=False)
+            post.userid = request.user.id
+            post.save()
 
             return redirect("/postcreated")
     else:
