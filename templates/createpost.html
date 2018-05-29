@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <form id ="login_form" method="post" style="opacity: 1;">
+            <h1 class="" >Create Post</h1>
+            {% csrf_token %}
+            <br>
+            {{ post_form.title }}
+            <br>
+            {{ post_form.text }}
+            <br>
+            <p class="" >Upload Post Image:</p>
+            {{ post_form.image }} <br> <br>
+
+            <button type="submit" class="btn btn-secondary">Submit Post
+              <br> </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if not user.is_authenticated %}
+<h1 class="" >Please login to create a post.</h1>
+{% endif %}
+
+{% endblock %}

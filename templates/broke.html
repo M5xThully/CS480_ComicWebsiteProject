@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <form id ="login_form" method="post" style="opacity: 1;">
+            <h1 class="" >You Broke It... GJ.</h1>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if not user.is_authenticated %}
+<h1 class="" >Please login to create a post.</h1>
+{% endif %}
+
+{% endblock %}
