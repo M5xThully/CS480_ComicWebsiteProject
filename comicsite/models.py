@@ -8,6 +8,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import CASCADE
+from django.utils import timezone
 
 
 class Comic(models.Model):
@@ -141,8 +142,8 @@ class Post(models.Model):
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.DO_NOTHING) //BACKUP
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     # date of the post
-    date = models.DateTimeField(auto_now_add=True, null=False)
+    date = models.DateTimeField(default=timezone.localtime(timezone.now()))
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'post'
