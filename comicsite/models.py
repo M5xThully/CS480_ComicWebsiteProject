@@ -146,7 +146,7 @@ class Post(models.Model):
     # image a user can upload with the post
     image = models.ImageField(upload_to='post_images', blank=True, null=True)
     # the user posting the post
-    username = models.ForeignKey(User, default=CASCADE)
+    username = models.ForeignKey(User, on_delete=CASCADE)
     # date of the post
     date = models.DateTimeField(auto_now_add=True, null=False)
 
