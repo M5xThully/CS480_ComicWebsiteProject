@@ -93,6 +93,10 @@ def createpost(request):
         if post_form.is_valid():
             post = post_form.save(commit=False)
             post.userid = request.user.id
+
+            if 'picture' in request.FILES:
+                post.image = request.FILES['picture']
+
             post.save()
 
             return redirect("/postcreated")
