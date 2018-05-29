@@ -102,7 +102,6 @@ def createpost(request):
             return redirect("/postcreated")
     else:
         post_form = PostForm()
-        return redirect("/broke")
 
     return render(request, 'createpost.html', {'post_form': post_form})
 
