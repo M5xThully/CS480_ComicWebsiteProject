@@ -1,10 +1,11 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
-from comicsite.models import Comic, Post
+from comicsite.models import Comic
 from comicsite.models import Account
 from comicsite.models import Comment
 from comicsite.models import User
-from comicsite.forms import CommentForm, LoginForm#, PostForm
+from comicsite.models import Post
+from comicsite.forms import CommentForm, LoginForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 #from comicsite.search import run_query
@@ -99,13 +100,13 @@ def createpost(request):
     if request.method == 'POST':
         post_form = PostForm(request.POST)
         if post_form.is_valid():
-            post = post_form.save()
+            post = post_form.save(commit = False)
+            post.user = request.user.name
             post.save()
     else:
         post_form = PostForm()
 
     return render(request, 'createpost.html', {'post_form': post_form})
-
 
 def post(request, pageid):
     post_obj = Post.objects.filter(postid = pageid)[0]
@@ -115,9 +116,9 @@ def post(request, pageid):
         'image': post_obj.image,
         'date': post_obj.date,
         'id': post_obj.postid,
-        'user': post_obj.userid
+        'user': post_obj.user
     }
-    return render(request, 'post.html', context_dict)
+    return render(request, 'postpage.html', context_dict)
 
 
 def comic(request, pageid):
@@ -181,6 +182,10 @@ def comiclist(request, sortby=None):
 
     return render(request, 'comiclist.html', {'comic_list': comic_list})
 
+def postlist(request):
+    post_list = Post.objects.all().values()
+
+    return render(request,'postlist.html', {'post_list': post_list}) 
 
 def account(request, userid):
     account_obj = Account.objects.filter(accountid=userid)[0]
@@ -196,9 +201,6 @@ def account(request, userid):
                     'picture': account_obj.picture}
 
     return render(request, 'user.html', context_dict)
-
-def article(request):
-    return render(request,'articlepage.html')
 
 '''
 def search(request):

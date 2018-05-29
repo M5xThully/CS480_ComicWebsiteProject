@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container-fluid">
+    <h1>{{ title }}</h1>
+      <h6>By {{ user }} {{ date }}</h6>
+    {% if image %}
+    	<img class="img-fluid d-block" src="{{ image.url }}">
+    {% endif %}
+    <p>{{ text }}</p>
+  </div>
+{% endblock %}

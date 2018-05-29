@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and user.is_staff %}
 <div class="py-5">
     <div class="container">
       <div class="row">
@@ -17,12 +17,14 @@
             <br>
 
             <button type="submit" class="btn btn-secondary">Submit Post
-              <br> </button>
+            <br> </button>
           </form>
         </div>
       </div>
     </div>
   </div>
+{% else %}
+<h1 class=""> You are not authorized to create a news post."</h1>
 {% endif %}
 
 {% if not user.is_authenticated %}

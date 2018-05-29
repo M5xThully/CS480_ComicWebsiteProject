@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="text-center">
+    <div class="container-fluid">
+	<h1>Post List</h1>
+	<h4>Check all news here.</h4>
+    <div class="card">
+
+    <div class="py-5" >
+    <div class="container">
+      <div class="row">
+        <div class="col-md-1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    {% if post_list %}
+    <ul class="list-group">
+
+	{% for post in post_list %}
+	    <a href = "post/{{ post.postid }}" class="list-group-item list-group-item-action" >{{ post.title }}  Posted - {{ post.date }}</a>
+	{% endfor %}
+
+    </ul>
+    {% else %}
+	<p>No posts returned from database.</p>
+    {% endif %}
+     </div>
+    </div>
+  </div>
+{% endblock %}

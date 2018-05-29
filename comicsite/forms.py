@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from comicsite.models import User
 from comicsite.models import UserProfile
 from comicsite.models import Comment
-
+from comicsite.models import Post
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(
@@ -88,3 +88,26 @@ class LoginForm(forms.Form):
         user = authenticate(username=username, password=password)
         user_id = User.objects.get(username=username).pk
         return user
+
+class PostForm(forms.ModelForm):
+    title = forms.CharField(required=True)
+    title = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': "form-control",
+            'placeholder': 'title'
+        }
+    ))
+
+    text = forms.CharField(required=True)
+    text = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': "form-control",
+            'placeholder': 'text'
+        }
+    ))
+
+    image = forms.ImageField(required=False)
+
+    class Meta:
+        model = Post
+        fields = ('title', 'text', 'user', 'image')
