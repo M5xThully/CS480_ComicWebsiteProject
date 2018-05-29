@@ -94,15 +94,14 @@ def createpost(request):
         print("Is valid?")
         if post_form.is_valid():
             print("Valid.")
-            post = post_form.save(commit = False)
+            post = post_form.save(commit=False)
             post.user = User.objects.get(username=request.user.username)
             print("Got User")
             if 'picture' in request.FILES:
                 post.image = request.FILES['picture']
-            
-            
+
             post.save()
-            print("Redirecting.") 
+            print("Redirecting.")
             return redirect("/postcreated")
     else:
         print("Failing.")
@@ -216,7 +215,7 @@ def comic(request, pageid):
                     'volume': comic_obj.comicvolume,
                     'issue': comic_obj.comicissue,
                     'rating': comic_obj.comicrating,
-                    'ratingform' : RatingForm(),
+                    'ratingform': RatingForm(),
                     'synopsis': comic_obj.comicsynopsis,
                     'plot': comic_obj.comicplot,
                     'cover': comic_obj.comiccover,
@@ -240,10 +239,12 @@ def comiclist(request, sortby=None):
 
     return render(request, 'comiclist.html', {'comic_list': comic_list})
 
+
 def postlist(request):
     post_list = Post.objects.all().values()
 
-    return render(request,'postlist.html', {'post_list': post_list}) 
+    return render(request, 'postlist.html', {'post_list': post_list})
+
 
 def account(request, userid):
     account_obj = Account.objects.filter(accountid=userid)[0]
