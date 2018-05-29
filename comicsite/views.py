@@ -5,9 +5,9 @@ from django.utils.datetime_safe import date
 from comicsite.models import Comic, Post
 from comicsite.models import Account
 from comicsite.models import Comment
-from comicsite.models import User
 from comicsite.models import Post
-from comicsite.forms import CommentForm, LoginForm, PostForm
+from comicsite.models import User, Rating
+from comicsite.forms import CommentForm, LoginForm, RatingForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 # from comicsite.search import run_query
@@ -91,17 +91,21 @@ def register(request):
 def createpost(request):
     if request.method == 'POST':
         post_form = PostForm(request.POST)
+        print("Is valid?")
         if post_form.is_valid():
-            post = post_form.save(commit=False)
-            post.username = request.user.username
-
+            print("Valid.")
+            post = post_form.save(commit = False)
+            post.user = User.objects.get(username=request.user.username)
+            print("Got User")
             if 'picture' in request.FILES:
                 post.image = request.FILES['picture']
-
+            
+            
             post.save()
-
+            print("Redirecting.") 
             return redirect("/postcreated")
     else:
+        print("Failing.")
         post_form = PostForm()
 
     return render(request, 'createpost.html', {'post_form': post_form})
@@ -133,16 +137,50 @@ def post(request, pageid):
     return render(request, 'postpage.html', context_dict)
 
 
+def update_comic_rating(incomicid):
+    # getting the comic object to be updated
+    comic = Comic.objects.filter(comicid=incomicid)[0]
+
+    # getting the ratings associated with the comic
+    ratings = Rating.objects.filter(comicid=incomicid)
+
+    counter = 0
+    avg_rating = 0
+    for rat in ratings:
+        avg_rating += rat.rating
+        counter += 1
+
+    avg_rating /= counter
+
+    comic.comicrating = avg_rating
+
+    comic.save()
+
+
 def comic(request, pageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
+        rating_form = RatingForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            logger = logging.getLogger('django')
-            logger.debug("userid:" + str(comment.userid) + " comicid:" + str(comment.comicid))
             comment.comicid = pageid
             comment.userid = request.user.id
             comment.save()
+            return redirect(request.path)
+
+        if rating_form.is_valid():
+            rating = rating_form.save(commit=False)
+
+            # deleting an previous ratings by this user about this comic (there should only be max one)
+            ratings = Rating.objects.filter(userid=request.user.id, comicid=pageid)
+            if ratings:
+                for rat in ratings:
+                    rat.delete()
+
+            rating.comicid = pageid
+            rating.userid = request.user.id
+            rating.save()
+            update_comic_rating(pageid)
             return redirect(request.path)
 
     # the comment form
@@ -159,7 +197,8 @@ def comic(request, pageid):
     for com in comments:
         user_object = User.objects.filter(id=com.userid)[0]
 
-        link_str = "/" + user_object.username
+        link_str = "/user/" + user_object.username
+
         # adding a dictionary the list to be used in the template
         comment_list.append({
             'link': link_str,
@@ -177,11 +216,18 @@ def comic(request, pageid):
                     'volume': comic_obj.comicvolume,
                     'issue': comic_obj.comicissue,
                     'rating': comic_obj.comicrating,
+                    'ratingform' : RatingForm(),
                     'synopsis': comic_obj.comicsynopsis,
                     'plot': comic_obj.comicplot,
                     'cover': comic_obj.comiccover,
                     'commentform': comment_form,
                     'comments': comment_list}
+
+    # getting the rating made by this user for the comic, if it exists
+    rating_list = Rating.objects.filter(comicid=pageid, userid=request.user.id)
+    if rating_list:
+        user_rating = rating_list[0].rating
+        context_dict['user_rating'] = user_rating
 
     return render(request, 'comicpage.html', context_dict)
 
@@ -242,6 +288,7 @@ def search(request):
             result_list = run_query(query)
     return render(request, 'searchpage.html', {'result_list': result_list})
 
+<<<<<<< HEAD
 class BasicSearchListView(BasicListView):
     paginate_by = 10
 
@@ -259,6 +306,8 @@ class BasicSearchListView(BasicListView):
             )
 
         return result
+=======
+>>>>>>> 7d9fc82d8e5e2760129e5bb4a245fec7f38b4056
 =======
         # Run our Bing function to get the results list!
         result_list = run_query(query)

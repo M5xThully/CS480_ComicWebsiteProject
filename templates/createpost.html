@@ -17,7 +17,8 @@
             <br>
             <p class="" >Upload Post Image:</p>
             {{ post_form.image }} <br> <br>
-
+            {{post_form.errors}}
+            {{post_form.non_field_errors}}
             <button type="submit" class="btn btn-secondary">Submit Post
             <br> </button>
           </form>

@@ -2,8 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from comicsite.models import User, Post
 from comicsite.models import UserProfile
-from comicsite.models import Comment
-#from comicsite.models import C
+from comicsite.models import Comment, Rating
 
 
 class UserForm(forms.ModelForm):
@@ -71,6 +70,14 @@ class CommentForm(forms.ModelForm):
         fields = ('text',)
 
 
+class RatingForm(forms.ModelForm):
+    rating = forms.IntegerField(max_value=5, min_value=0)
+
+    class Meta:
+        model = Rating
+        fields = ('rating',)
+
+
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=255, required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
@@ -111,4 +118,5 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'text', 'user', 'image')
+        exclude = ["user"]
+        fields = ('title', 'text', 'image')
