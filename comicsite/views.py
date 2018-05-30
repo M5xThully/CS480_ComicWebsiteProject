@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import date
 
-from comicsite.models import Comic, Post
+from comicsite.models import Comic
 from comicsite.models import Account
 from comicsite.models import Comment
 from comicsite.models import Post
@@ -25,6 +25,7 @@ def home(request):
     user.id = request.user.id
 
     post_list = Post.objects.all().values()
+    #latest = Post.objects.all().order_by('-date')[:5]
 
     return render(request, 'frontpage.html', {'comic': comic}, {'post_list': post_list})
 
