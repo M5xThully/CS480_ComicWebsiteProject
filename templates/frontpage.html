@@ -12,28 +12,11 @@
           </p>
           <img class="img-fluid d-block" src="{{ MEDIA_URL }}{{ comic.0.comiccover}}" width="450" height=="400" > </div>
 
-        <!-- News Feed -->
-        <div class="col mx-2 pt-5 px-5 bg-dark mb-3">
-              <div class="text-center">
-                <div class="container-fluid">
-                <h1>News Feed</h1>
-                <div class="card">
-
-                {% if all_lists %}
-
-                {% for post in all_lists %}
-                    <a href = "http://127.0.0.1:8000/post/{{ post.postid }}" class="list-group-item list-group-item-action" >{{ post.title }} | {{ post.date }}</a>
-                {% endfor %}
-
-                {% else %}
-                <p>No posts returned from database.</p>
-                {% endif %}
-
-                 </div>
-                </div>
-              </div>
-        </div>
+      <!-- News Feed -->
+          {% block newsfeed %}
+          {% endblock %}
       <!-- End News Feed -->
+
       </div>
       <div class="row px-2">
         <div class="col mx-2 pt-5 px-5 mb-3 bg-dark">

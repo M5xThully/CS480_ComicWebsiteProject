@@ -24,8 +24,8 @@ from comicsite import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('base/', views.base),
-    path('', views.home),
-    path('home/', views.home),
+    path('', views.newsfeed),
+    path('home/', views.newsfeed),
     path('createpost/', views.createpost),
     path('postcreated/', views.postcreated),
     path('login/', views.loginpage),
@@ -44,5 +44,5 @@ urlpatterns = [
     #path('search/', views.search, name='search'),
     #path('search/', views.search),
     path('post/<int:pageid>/', views.post),
-    path('broke/', views.broke),
+    path('newsfeed/', views.newsfeed),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
