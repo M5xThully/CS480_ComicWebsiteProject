@@ -3,20 +3,26 @@
 {% block content %}
   <div class="text-center">
     <div class="container-fluid">
-              <!-- News Feed -->
+      <div class="row px-2">
+        <div class="col mx-2 bg-dark pt-5 px-5 mb-3">
+          <h3 class="mt-3">
+            <a href="comic/{{ comic.0.comicid }}" style="color:#2E9AFE"><b>{{ comic.0.comictitle }}</b> </a>
+          </h3>
+          <p class="lead mb-5 text-secondary">Volume - {{comic.0.comicvolume}} Issue - {{comic.0.comicissue}}
+          </p>
+          <img class="img-fluid d-block" src="{{ MEDIA_URL }}{{ comic.0.comiccover}}" width="450" height=="400" > </div>
+
+        <!-- News Feed -->
+        <div class="col mx-2 pt-5 px-5 bg-dark mb-3">
+              <div class="text-center">
+                <div class="container-fluid">
                 <h1>News Feed</h1>
                 <div class="card">
 
-                {% if all_list %}
-                <div class="col mx-2 pt-5 px-5 bg-dark mb-3">
-                  <div class="text-center">
-                    <div class="container-fluid">
-                {% for post in all_list %}
-                     {% if post.postid %}
-                     <a href = "post/{{ post.postid }}" class="list-group-item list-group-item-action" >{{ post.title }} | {{ post.date }}</a>
-                     {% else %}
-                     <a href = "comic/{{ post.comicid}}" style="color:#2E9AFE"><b>{{ post.comictitle}}</b> </a>
-                     {% endif %}
+                {% if post_list %}
+
+                {% for post in post_list %}
+                    <a href = "post/{{ post.postid }}" class="list-group-item list-group-item-action" >{{ post.title }} | {{ post.date }}</a>
                 {% endfor %}
 
                 {% else %}
@@ -27,14 +33,8 @@
                 </div>
               </div>
         </div>
-      <div class="row px-2">
-        <div class="col mx-2 bg-dark pt-5 px-5 mb-3">
-          <h3 class="mt-3">
-            <a href="comic/{{ comic.0.comicid }}" style="color:#2E9AFE"><b>{{ comic.0.comictitle }}</b> </a>
-          </h3>
-          <p class="lead mb-5 text-secondary">Volume - {{comic.0.comicvolume}} Issue - {{comic.0.comicissue}}
-          </p>
-          <img class="img-fluid d-block" src="{{ MEDIA_URL }}{{ comic.0.comiccover}}" width="450" height=="400" > </div>
+        <!-- End News Feed -->
+
       </div>
       <div class="row px-2">
         <div class="col mx-2 pt-5 px-5 mb-3 bg-dark">
