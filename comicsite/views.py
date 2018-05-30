@@ -10,6 +10,7 @@ from comicsite.models import User, Rating
 from comicsite.forms import CommentForm, LoginForm, RatingForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
+from itertools import chain
 # from comicsite.search import run_query
 import logging
 import re
@@ -21,19 +22,24 @@ def base(request):
 
 
 def home(request):
-    comic = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
+    comic_list = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
 
-    post_list = Post.objects.all().values()
-    #latest = Post.objects.all().order_by('-date')[:5]
+    post_list = Post.objects.all().order_by('-date')[:5]
 
-    return render(request, 'frontpage.html', {'comic': comic}, {'post_list': post_list})
+    all_lists = list(chain(post_list, comic_list))
+
+    return render(request, 'frontpage.html', {'all_lists': all_lists})
 
 
 def postlist(request):
     post_list = Post.objects.all().values()
-
     return render(request, 'postlist.html', {'post_list': post_list})
+
+
+def broke(request):
+    post_listforbroke = Post.objects.all().values()
+    return render(request, 'broke.html', {'post_listforbroke': post_listforbroke})
 
 
 def loginpage(request):
@@ -263,10 +269,6 @@ def account(request, userid):
                     'picture': account_obj.picture}
 
     return render(request, 'user.html', context_dict)
-
-
-def broke(request):
-    return render(request, 'broke.html')
 
 
 '''

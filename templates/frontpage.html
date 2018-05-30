@@ -11,6 +11,7 @@
           <p class="lead mb-5 text-secondary">Volume - {{comic.0.comicvolume}} Issue - {{comic.0.comicissue}}
           </p>
           <img class="img-fluid d-block" src="{{ MEDIA_URL }}{{ comic.0.comiccover}}" width="450" height=="400" > </div>
+
         <!-- News Feed -->
         <div class="col mx-2 pt-5 px-5 bg-dark mb-3">
               <div class="text-center">
@@ -18,10 +19,10 @@
                 <h1>News Feed</h1>
                 <div class="card">
 
-                {% if post_list %}
+                {% if all_lists %}
 
-                {% for post in post_list %}
-                    <a href = "post/{{ post.postid }}" class="list-group-item list-group-item-action" >{{ post.title }}  Posted - {{ post.date }}</a>
+                {% for post in all_lists %}
+                    <a href = "http://127.0.0.1:8000/post/{{ post.postid }}" class="list-group-item list-group-item-action" >{{ post.title }}  Posted - {{ post.date }}</a>
                 {% endfor %}
 
                 {% else %}
