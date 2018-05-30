@@ -22,7 +22,7 @@
                 {% if all_lists %}
 
                 {% for post in all_lists %}
-                    <a href = "http://127.0.0.1:8000/post/{{ post.postid }}" class="list-group-item list-group-item-action" >{{ post.title }}  Posted - {{ post.date }}</a>
+                    <a href = "http://127.0.0.1:8000/post/{{ post.postid }}" class="list-group-item list-group-item-action" >{{ post.title }} | {{ post.date }}</a>
                 {% endfor %}
 
                 {% else %}
