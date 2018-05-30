@@ -17,16 +17,16 @@ import operator
 
 
 def base(request):
-    post_list = Post.objects.all().values()
-
-    return render(request, 'base.html', {'post_list': post_list})
+    return render(request, 'base.html')
 
 
 def home(request):
     comic = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
 
-    return render(request, 'frontpage.html', {'comic': comic})
+    post_list = Post.objects.all().values()
+
+    return render(request, 'frontpage.html', {'comic': comic}, {'post_list': post_list})
 
 
 def loginpage(request):
@@ -138,6 +138,12 @@ def post(request, pageid):
     return render(request, 'postpage.html', context_dict)
 
 
+def postlist(request):
+    post_list = Post.objects.all().values()
+
+    return render(request, 'postlist.html', {'post_list': post_list})
+
+
 def update_comic_rating(incomicid):
     # getting the comic object to be updated
     comic = Comic.objects.filter(comicid=incomicid)[0]
@@ -240,12 +246,6 @@ def comiclist(request, sortby=None):
         comic_list = Comic.objects.filter(comictitle__startswith=sortby)
 
     return render(request, 'comiclist.html', {'comic_list': comic_list})
-
-
-def postlist(request):
-    post_list = Post.objects.all().values()
-
-    return render(request, 'postlist.html', {'post_list': post_list})
 
 
 def account(request, userid):
