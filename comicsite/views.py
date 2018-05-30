@@ -29,6 +29,12 @@ def home(request):
     return render(request, 'frontpage.html', {'comic': comic}, {'post_list': post_list})
 
 
+def postlist(request):
+    post_list = Post.objects.all().values()
+
+    return render(request, 'postlist.html', {'post_list': post_list})
+
+
 def loginpage(request):
     form = LoginForm(request.POST or None)
     if request.POST and form.is_valid():
@@ -136,12 +142,6 @@ def post(request, pageid):
         'user': post_obj.user
     }
     return render(request, 'postpage.html', context_dict)
-
-
-def postlist(request):
-    post_list = Post.objects.all().values()
-
-    return render(request, 'postlist.html', {'post_list': post_list})
 
 
 def update_comic_rating(incomicid):

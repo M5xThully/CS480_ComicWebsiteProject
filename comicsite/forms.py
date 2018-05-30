@@ -97,6 +97,7 @@ class LoginForm(forms.Form):
         user_id = User.objects.get(username=username).pk
         return user
 
+
 class PostForm(forms.ModelForm):
     title = forms.CharField(required=True)
     title = forms.CharField(widget=forms.TextInput(
