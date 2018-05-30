@@ -24,8 +24,8 @@ from comicsite import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('base/', views.base),
-    path('', views.newsfeed),
-    path('home/', views.newsfeed),
+    path('', views.home),
+    path('home/', views.home),
     path('createpost/', views.createpost),
     path('postcreated/', views.postcreated),
     path('login/', views.loginpage),
