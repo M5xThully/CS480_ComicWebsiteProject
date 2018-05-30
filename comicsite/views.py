@@ -26,7 +26,6 @@ def home(request):
     user.id = request.user.id
 
     #post_list = Post.objects.all().order_by('-date')[:5]
-
     #all_lists = list(chain(post_list, comic))
 
     return render(request, 'frontpage.html', {'comic': comic})
