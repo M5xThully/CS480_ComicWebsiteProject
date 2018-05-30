@@ -27,6 +27,7 @@ urlpatterns = [
     path('', views.home),
     path('home/', views.home),
     path('createpost/', views.createpost),
+    path('postcreated/', views.postcreated),
     path('login/', views.loginpage),
     path('loggedin/', views.loggedin),
     path('loggedout/', views.loggedout),
@@ -42,6 +43,7 @@ urlpatterns = [
     path('postlist', views.postlist),
     #path('search/', views.search, name='search'),
     path('searchpage/', views.search),
+    #path('search/', views.search),
     path('post/<int:pageid>/', views.post),
     path('broke/', views.broke),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

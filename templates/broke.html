@@ -2,7 +2,6 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
 <div class="py-5">
     <div class="container">
       <div class="row">
@@ -14,10 +13,6 @@
       </div>
     </div>
   </div>
-{% endif %}
-
-{% if not user.is_authenticated %}
-<h1 class="" >Please login to create a post.</h1>
 {% endif %}
 
 {% endblock %}
