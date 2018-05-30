@@ -1,6 +1,7 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import date
+from django.views.generic import TemplateView
 
 from comicsite.models import Comic
 from comicsite.models import Account
@@ -25,10 +26,22 @@ def home(request):
     comic = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
 
-    #post_list = Post.objects.all().order_by('-date')[:5]
-    #all_lists = list(chain(post_list, comic))
+    post_list = Post.objects.all().order_by('-date')[:5]
 
-    return render(request, 'frontpage.html', {'comic': comic})
+    return render(request, 'frontpage.html', {'comic': comic, 'post_list': post_list})
+
+
+def post(request, pageid):
+    post_obj = Post.objects.filter(postid=pageid)[0]
+    context_dict = {
+        'title': post_obj.title,
+        'text': post_obj.text,
+        'image': post_obj.image,
+        'date': post_obj.date,
+        'id': post_obj.postid,
+        'user': post_obj.user
+    }
+    return render(request, 'postpage.html', context_dict)
 
 
 def postlist(request):
@@ -135,19 +148,6 @@ def user(request, username):
 
 def myprofile(request):
     return render(request, 'myprofile.html')
-
-
-def post(request, pageid):
-    post_obj = Post.objects.filter(postid=pageid)[0]
-    context_dict = {
-        'title': post_obj.title,
-        'text': post_obj.text,
-        'image': post_obj.image,
-        'date': post_obj.date,
-        'id': post_obj.postid,
-        'user': post_obj.user
-    }
-    return render(request, 'postpage.html', context_dict)
 
 
 def update_comic_rating(incomicid):
