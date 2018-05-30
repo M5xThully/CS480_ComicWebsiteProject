@@ -25,22 +25,28 @@ def home(request):
     comic = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
 
-    post_list = Post.objects.all().order_by('-date')[:5]
+    #post_list = Post.objects.all().order_by('-date')[:5]
 
-    all_lists = list(chain(post_list, comic))
+#<<<<<<< HEAD
+#    all_lists = list(chain(post_list, comic))
     
-    for comic in comic:
-        print(comic)
-    return render(request, 'frontpage.html', {'all_lists': all_lists})
+#    for comic in comic:
+#        print(comic)
+#    return render(request, 'frontpage.html', {'all_lists': all_lists})
+#=======
+    #all_lists = list(chain(post_list, comic))
+
+    return render(request, 'frontpage.html', {'comic': comic})
+#>>>>>>> 7b896a8578cd27abb28b157aa107898dc71b9fa3
 
 def postlist(request):
     post_list = Post.objects.all().values()
     return render(request, 'postlist.html', {'post_list': post_list})
 
 
-def broke(request):
-    post_listforbroke = Post.objects.all().values()
-    return render(request, 'broke.html', {'post_listforbroke': post_listforbroke})
+def newsfeed(request):
+    post_list = Post.objects.all().order_by('-date')[:5]
+    return render(request, 'newsfeed.html', {'post_list': post_list})
 
 
 def loginpage(request):
