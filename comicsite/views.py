@@ -22,12 +22,12 @@ def base(request):
 
 
 def home(request):
-    comic_list = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
+    comic = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
 
     post_list = Post.objects.all().order_by('-date')[:5]
 
-    all_lists = list(chain(post_list, comic_list))
+    all_lists = list(chain(post_list, comic))
 
     return render(request, 'frontpage.html', {'all_lists': all_lists})
 
