@@ -10,6 +10,7 @@ from comicsite.models import User, Rating
 from comicsite.forms import CommentForm, LoginForm, RatingForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
+from itertools import chain
 # from comicsite.search import run_query
 import logging
 import re
@@ -24,16 +25,22 @@ def home(request):
     comic = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
 
-    post_list = Post.objects.all().values()
-    #latest = Post.objects.all().order_by('-date')[:5]
+    post_list = Post.objects.all().order_by('-date')[:5]
 
-    return render(request, 'frontpage.html', {'comic': comic, 'post`_list': post_list})
-
+    all_lists = list(chain(post_list, comic))
+    
+    for comic in comic:
+        print(comic)
+    return render(request, 'frontpage.html', {'all_lists': all_lists})
 
 def postlist(request):
     post_list = Post.objects.all().values()
-
     return render(request, 'postlist.html', {'post_list': post_list})
+
+
+def broke(request):
+    post_listforbroke = Post.objects.all().values()
+    return render(request, 'broke.html', {'post_listforbroke': post_listforbroke})
 
 
 def loginpage(request):
@@ -267,6 +274,18 @@ def account(request, userid):
 
 def broke(request):
     return render(request, 'broke.html')
+'''
+    def search(request):
+        result_list = []
+        if 'q' in request.GET and request.GET['q']:
+            q=request.GET['q']
+            comic_list = Comic.objects.filter(comic_list__icontains =q)
+        return render(request, 'searchpage.html', {'comic_list':result_list})
+
+    else:
+        return HttpResponse('Please submit a search term.')
+
+>>>>>>> d3abdd607d85156354b9d19a0c4e8b6ce15fecd2
 
 def search(request):
     result_list = []
@@ -276,3 +295,4 @@ def search(request):
        # q=request.GET['q']
        # comic_list = Comic.objects.filter(comictitle__icontains =q)
     return render(request, 'searchpage.html', {'result_list':result_list})
+'''

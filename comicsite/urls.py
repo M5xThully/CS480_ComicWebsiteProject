@@ -42,7 +42,7 @@ urlpatterns = [
     path('comiclist/<slug:sortby>', views.comiclist),
     path('postlist', views.postlist),
     #path('search/', views.search, name='search'),
-    path('searchpage/', views.search),
+    #path('searchpage/', views.search),
     #path('search/', views.search),
     path('post/<int:pageid>/', views.post),
     path('broke/', views.broke),
