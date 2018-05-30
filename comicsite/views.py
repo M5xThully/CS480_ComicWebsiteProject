@@ -17,7 +17,9 @@ import operator
 
 
 def base(request):
-    return render(request, 'base.html')
+    post_list = Post.objects.all().values()
+
+    return render(request, 'base.html', {'post_list': post_list})
 
 
 def home(request):
