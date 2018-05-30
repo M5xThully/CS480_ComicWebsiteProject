@@ -264,53 +264,11 @@ def account(request, userid):
 def broke(request):
     return render(request, 'broke.html')
 
-
-'''
-    def search(request):
-        result_list = []
-        if 'q' in request.GET and request.GET['q']:
-            q=request.GET['q']
-            comic_list = Comic.objects.filter(comic_list__icontains =q)
-        return render(request, 'searchpage.html', {'comic_list':result_list})
-
-    else:
-        return HttpResponse('Please submit a search term.')
-
-
 def search(request):
     result_list = []
-
-    if request.method == 'POST':
-        query = request.POST['query'].strip()
-        if query:
-<<<<<<< HEAD
-            # Run our Bing function to get the results list!
-            result_list = run_query(query)
-    return render(request, 'searchpage.html', {'result_list': result_list})
-
-<<<<<<< HEAD
-class BasicSearchListView(BasicListView):
-    paginate_by = 10
-
-    def get_queryset(self):
-        result = super(BasicSearchListView, self).get_queryset()
-
-        query = self.request.GET.get('q')
-        if query:
-            query_list = query.split()
-            result = result.filter(
-                reduce(operator.and_,
-                       (Comic(title__icontains=q) for q in query_list)) |
-                reduce(operator.and_,
-                       (Comic(content__icontains=q) for q in query_list))
-            )
-
-        return result
-=======
->>>>>>> 7d9fc82d8e5e2760129e5bb4a245fec7f38b4056
-=======
-        # Run our Bing function to get the results list!
-        result_list = run_query(query)
-    return render (request, 'comiclist.html', {'comic_list':comic_list})
->>>>>>> b47e10dcbf629b5be2c3203f78625548aaed9e80
-'''
+    result_list.append("a")
+    result_list.append("b")
+    #if 'q' in request.GET and request.GET['q']:
+       # q=request.GET['q']
+       # comic_list = Comic.objects.filter(comictitle__icontains =q)
+    return render(request, 'searchpage.html', {'result_list':result_list})
