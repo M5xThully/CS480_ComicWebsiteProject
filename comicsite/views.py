@@ -271,25 +271,14 @@ def account(request, userid):
 
 def broke(request):
     return render(request, 'broke.html')
-'''
-    def search(request):
-        result_list = []
-        if 'q' in request.GET and request.GET['q']:
-            q=request.GET['q']
-            comic_list = Comic.objects.filter(comic_list__icontains =q)
-        return render(request, 'searchpage.html', {'comic_list':result_list})
 
-    else:
-        return HttpResponse('Please submit a search term.')
-
->>>>>>> d3abdd607d85156354b9d19a0c4e8b6ce15fecd2
-
-def search(request):
-    result_list = []
-    result_list.append("a")
-    result_list.append("b")
-    #if 'q' in request.GET and request.GET['q']:
-       # q=request.GET['q']
-       # comic_list = Comic.objects.filter(comictitle__icontains =q)
-    return render(request, 'searchpage.html', {'result_list':result_list})
-'''
+def searchpage(request):
+    q = request.GET['q']
+    result_listComicTitle = []
+    result_listAuthor = []
+    result_listUser = []
+    if (q != ""):
+        result_listComicTitle = Comic.objects.filter(comictitle__icontains = q)
+        result_listAuthor = Comic.objects.filter(comicauthor__icontains = q )
+        result_listUser = User.objects.filter(username__icontains = q)
+    return render(request, 'searchpage.html', {'result_listComicTitle':result_listComicTitle,'result_listAuthor':result_listAuthor,'result_listUser':result_listUser})   
