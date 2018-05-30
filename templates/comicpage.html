@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="py-1 bg-primary">
-  <div class="container">
+<div class="py-1">
+  <div class="container bg-primary">
       <div class="row">
-        <div class="col-md-4 col-md-6">
-          <img class="img-fluid" width="450" height="400" src={{ MEDIA_URL }}{{ cover }} alt="Comic cover.">
+        <div class="col-md-6">
+          <img class="img-thumbnail img-responsive" src={{ MEDIA_URL }}{{ cover }} alt="Comic cover.">
         </div>
-        <div class="align-self-center">
+        <div class="col-sm-6">
           <ul class= " list-group list-group-flush" >
             <li class="list-group-item"><h5 >Title</h5><p>{{ title }}</p></li>
             <li class="list-group-item"><h5 >Author</h5><p>{{ author }}</p></li>
