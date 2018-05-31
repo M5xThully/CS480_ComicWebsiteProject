@@ -85,7 +85,7 @@ class Post(models.Model):
     # id of the post
     postid = models.AutoField(primary_key=True)
     # title of each post
-    title = models.TextField(blank=False)
+    title = models.TextField(blank=True)
     # text body of the post
     text = models.TextField(blank=True)
     # image a user can upload with the post
@@ -101,9 +101,8 @@ class Post(models.Model):
         db_table = 'post'
 
 class FavoriteComics(models.Model):
-    userid = models.IntegerField( null=True, blank=True)
-    comicid = models.IntegerField( null = True, blank = True)
-
+    userid = models.ForeignKey(User, on_delete=models.CASCADE)
+    comicid = models.IntegerField( null = True)
     class Meta:
         managed = True
         db_table = 'fav_comic'

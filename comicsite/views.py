@@ -7,9 +7,11 @@ from comicsite.models import Comic
 from comicsite.models import Comment
 from comicsite.models import Post
 from comicsite.models import User, Rating
+from comicsite.models import FavoriteComics
 from comicsite.forms import CommentForm, LoginForm, RatingForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
+from comicsite.forms import FavComicForm
 from itertools import chain
 # from comicsite.search import run_query
 import logging
@@ -172,6 +174,7 @@ def comic(request, pageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         rating_form = RatingForm(request.POST)
+        fav_comic_form = FavComicForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.comicid = pageid
@@ -193,7 +196,20 @@ def comic(request, pageid):
             rating.save()
             update_comic_rating(pageid)
             return redirect(request.path)
+        
+        if fav_comic_form.is_valid():
+            fav_comic = fav_comic_form.save(commit = False)
+ 
+            is_fav = FavoriteComic.objects.filter(userid = request.user, comicid=pageid)
+ 
+            if is_fav:
+               is_fav.delete()
+            else:
+               userid = request.user
+               comicid = pageid
+               fav_comic.save()
 
+            return redirect(request.path)
     # the comment form
     comment_form = CommentForm()
 
@@ -218,6 +234,8 @@ def comic(request, pageid):
             'comment_text': com.text
         })
 
+    
+
     context_dict = {'title': comic_obj.comictitle,
                     'id': comic_obj.comicid,
                     'author': comic_obj.comicauthor,
@@ -239,7 +257,17 @@ def comic(request, pageid):
     if rating_list:
         user_rating = rating_list[0].rating
         context_dict['user_rating'] = user_rating
-
+    
+    fav_comic = FavoriteComics.objects.filter(userid=request.user)
+    
+    if fav_comic:
+        is_fav = fav_comic.filter(comicid = pageid)
+        context_dict['is_fav'] = is_fav
+        #if is_fav:  
+        #    context_dict['fav_comic'] = True
+        #else:
+        #    context_dict['fav_comic'] = False 
+    
     return render(request, 'comicpage.html', context_dict)
 
 

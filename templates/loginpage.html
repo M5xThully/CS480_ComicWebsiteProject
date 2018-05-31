@@ -2,16 +2,13 @@
 
 {% block content %}
 <div class="py-5">
-    <div class="container card align-center">
+    <div class="container card">
       <div class="row">
         <div class="align-center">
           <form id ="login_form" method="post" style="opacity: 1;">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-          <form class="" id ="login_form" method="post" style="opacity: 1;">
+          <form class="align-center" id ="login_form" method="post" style="opacity: 1;">
             <h1 class="" >ᶘಠᴥಠᶅ Stay awhile and listen.</h1>
             {% csrf_token %}
-
             {% if form.non_field_errors %}
                <ul class='form-errors'>
                   {% for error in form.non_field_errors %}

@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container align-center">
+  <div class="container">
     <article>
     <h1>{{ title }}</h1>
     <h6>By {{ user }} {{ date }}</h6>
+    <div class="align-center">
     {% if image %}
-    	<img class="img-fluid d-block" src="{{ image.url }}">
+    	<img class="img-thumbnail align-center" src="{{ image.url }}">
         <br>
-    {% endif %} 
+    {% endif %}
+    </div> 
     {{ text|safe }}
     </article>
   </div>
