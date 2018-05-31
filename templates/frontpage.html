@@ -1,43 +1,43 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block content %}
-<div class="container">
+<div style="background-image:url("{{MEDIA_URL}}background.jpg");">
+<div class="container bg-info bg-dark">
 <div class="row no-gutters">
   <!-- News Feed -->
-  <div class="col-8 col-sm-6 col-md-8">
+  <div class="col-8 col-sm-6 col-md-8 text-secondary bg-dark">
       <h1>News Feed</h1>
 
-        {% if post_list %} 
-        {% for post in post_list %}
+        {% if post_list %} {% for post in post_list %}
         <a href="post/{{ post.postid }}"><article>{{ post.title }}</article></a>
-        {% endfor %} 
-        {% else %}
+        {% endfor %} {% else %}
         <p>No posts returned from database.</p>
         {% endif %}
   </div>
 <!-- End News Feed -->
 
 <!-- Comic List -->
- <div class="text-center col-6 col-md-4 ">
-    <ul class=" list-group"> 
-        <li class="list-group-item">
+ <div class="text-center col-6 col-md-4">
+    <ul class=" list-group">
+        <li class="list-group-item bg-dark text-secondary">
           <h6>Recent Comics</h6>
         </li>
         {% for c in comic %}
-      <li class="list-group-item">
+      <li class="list-group-item bg-dark">
       <div class="container">
       <a href="comic/{{ c.comicid }}">
         <img class="align-center position-relative" height="400" src="{{ MEDIA_URL }}{{ c.comiccover}}">
-        
+
         <a class="position-absolute fixed-bottom py-1" style="background-color: rgb(46, 154, 254, .5);" href="comic/{{ c.comicid }}" style="color:#2E9AFE">
-          <strong class="text-white">{{ c.comictitle }}</strong>
+          <strong class="text-light">{{ c.comictitle }}</strong>
         </a>
 
       </a>
       </div>
       </li>
-      {% endfor %} 
+      {% endfor %}
     </ul>
   </div>
+</div>
 </div>
 </div>
 

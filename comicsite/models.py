@@ -73,8 +73,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     # additional attributes
     userid = models.AutoField(primary_key=True)
-    usercity = models.TextField(blank=True, null=True)
-    profpic = models.ImageField(upload_to='profile_images', blank=True, null=True)
+    usercity = models.TextField(blank=True)
+    profpic = models.ImageField(upload_to='profile_images', blank=True)
 
     class Meta:
         managed = True
@@ -94,7 +94,7 @@ class Post(models.Model):
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.DO_NOTHING) //BACKUP
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     # date of the post
-    date = models.DateTimeField(default=timezone.localtime(timezone.now()))
+    date = models.DateTimeField(default=timezone.now())
 
     class Meta:
         managed = True

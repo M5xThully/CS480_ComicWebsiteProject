@@ -83,16 +83,16 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput, required=True)
 
     def clean(self):
-        username = self.cleaned_data.get('Username')
-        password = self.cleaned_data.get('Password')
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         if not user:
             raise forms.ValidationError("Wrong Username/Password.")
         return self.cleaned_data
 
     def login(self, request):
-        username = self.cleaned_data.get('Username')
-        password = self.cleaned_data.get('Password')
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         user_id = User.objects.get(username=username).pk
         return user
