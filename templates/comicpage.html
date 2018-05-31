@@ -68,7 +68,12 @@
           {% if user.is_authenticated %}
           <div>
             <form id="comment_form" method="post" action="{{ request.path }}">
-
+                {% csrf_token %}
+                {% for field in commentform.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }} <br>
+                {% endfor %}
                 <input type="submit" name="submit" value="Post Comment" />
             </form>
           </div>
