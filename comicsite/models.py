@@ -142,7 +142,7 @@ class Post(models.Model):
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.DO_NOTHING) //BACKUP
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     # date of the post
-    date = models.DateTimeField(default=timezone.localtime(timezone.now()))
+    date = models.DateTimeField(default=timezone.now())
 
     class Meta:
         managed = True
