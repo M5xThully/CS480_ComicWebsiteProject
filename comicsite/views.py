@@ -200,16 +200,18 @@ def comic(request, pageid):
         if fav_comic_form.is_valid():
             fav_comic = fav_comic_form.save(commit = False)
  
-            is_fav = FavoriteComic.objects.filter(userid = request.user, comicid=pageid)
+            is_fav = FavoriteComics.objects.filter(userid = request.user, comicid=pageid)
  
             if is_fav:
                is_fav.delete()
             else:
-               userid = request.user
-               comicid = pageid
+               fav_comic.userid = request.user
+               fav_comic.comicid = pageid
                fav_comic.save()
 
             return redirect(request.path)
+    
+    fav_comic_form = FavComicForm() 
     # the comment form
     comment_form = CommentForm()
 
@@ -250,7 +252,8 @@ def comic(request, pageid):
                     'plot': comic_obj.comicplot,
                     'cover': comic_obj.comiccover,
                     'commentform': comment_form,
-                    'comments': comment_list}
+                    'comments': comment_list,
+                    'fav_comic_form':fav_comic_form}
 
     # getting the rating made by this user for the comic, if it exists
     rating_list = Rating.objects.filter(comicid=pageid, userid=request.user.id)

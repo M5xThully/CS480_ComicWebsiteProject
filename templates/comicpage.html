@@ -3,6 +3,23 @@
 {% block content %}
 <div class="py-1">
   <div class="container bg-dark">
+  <div class="text-right">   
+  {% if user.is_authenticated %}
+    {% if is_fav %}
+        <form method="post" action={{ request.path}}>
+        {% csrf_token %}
+        {{ fav_comic_form }}
+        <button type="submit" class="btn btn-primary" >Favorited</button>
+        </form>
+    {% else %}
+        <form method="post" action={{ request.path }}>
+        {% csrf_token %}
+        {{ fav_comic_form }}
+        <button type="submit" class="btn btn-primary">Favorite</button>
+        </form>
+    {% endif %}
+  {% endif %}
+  </div>
       <div class="row">
         <div class="col-md-6">
           <img class="img-thumbnail img-responsive" src={{ MEDIA_URL }}{{ cover }} alt="Comic cover.">

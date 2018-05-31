@@ -123,8 +123,6 @@ class PostForm(forms.ModelForm):
         fields = ('title', 'text', 'image')
 
 class FavComicForm(forms.ModelForm):
-    comicid= forms.IntegerField(required=True)
     class Meta:
         model = FavoriteComics
-        exclude = ["userid"]
-        fields = ('comicid')
+        exclude = ["userid","comicid"]
