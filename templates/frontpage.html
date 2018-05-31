@@ -8,6 +8,7 @@
 
         {% if post_list %} {% for post in post_list %}
         <a href="post/{{ post.postid }}"><article>{{ post.title }}</article></a>
+        <br>
         {% endfor %} {% else %}
         <p>No posts returned from database.</p>
         {% endif %}
