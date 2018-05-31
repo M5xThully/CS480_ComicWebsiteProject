@@ -110,8 +110,8 @@ class PostForm(forms.ModelForm):
     text = forms.CharField(required=False)
     text = forms.CharField(widget=forms.TextInput(
         attrs={
-            'class': "form-control",
-            'placeholder': 'Text'
+            'class': "form-control2",
+            'placeholder': 'Body',
         }
     ))
 
