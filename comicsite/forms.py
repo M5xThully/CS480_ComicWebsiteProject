@@ -107,7 +107,7 @@ class PostForm(forms.ModelForm):
         }
     ))
 
-    text = forms.CharField(required=True)
+    text = forms.CharField(required=False)
     text = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': "form-control",
