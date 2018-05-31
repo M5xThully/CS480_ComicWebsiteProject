@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate
-from comicsite.models import User, Post
+from comicsite.models import User, Follow, Post
 from comicsite.models import UserProfile, FavoriteComics
 from comicsite.models import Comment, Rating
 
@@ -108,7 +108,7 @@ class PostForm(forms.ModelForm):
     ))
 
     text = forms.CharField(required=False)
-    text = forms.CharField(widget=forms.TextInput(
+    text = forms.CharField(widget=forms.Textarea(
         attrs={
             'class': "form-control2",
             'placeholder': 'Body',
@@ -126,3 +126,8 @@ class FavComicForm(forms.ModelForm):
     class Meta:
         model = FavoriteComics
         exclude = ["userid","comicid"]
+
+class FollowForm(forms.ModelForm):
+    class Meta:
+        model = Follow
+        exclude = ["user","following"]

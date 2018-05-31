@@ -13,7 +13,6 @@
  <div>
 	<h3 align="center">Results</h3>
      {% if result_listComicTitle %}
-
      <!-- Display search results in an ordered list -->
          <div class="list-group">
 		 <h3>Comics:</h3>
@@ -22,7 +21,6 @@
                   <h4 class="list-group-item-heading">
                      <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-primary">{{ result.comictitle}}</a>
                      </h4>
-                     <!-- <p class="list-group-item-text">{{ result.comicid}}</p> -->
              </div>
         {% endfor %}
         </div>
@@ -38,7 +36,6 @@
                      <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action">{{ result.comictitle}}</a>
                      </h5>
                      </h4>
-                     <!-- <p class="list-group-item-text">{{ result.comicid}}</p> -->
              </div>
         {% endfor %}
         </div>
@@ -53,7 +50,6 @@
                   <h5 class="list-group-item-heading">
                      <a href = "/user/{{ result.username }}" class="list-group-item list-group-item-action">{{ result.username}}</a>
                      </h4>
-                     <!-- <p class="list-group-item-text">{{ result.comicid}}</p> -->
              </div>
         {% endfor %}
         </div>

@@ -106,3 +106,11 @@ class FavoriteComics(models.Model):
     class Meta:
         managed = True
         db_table = 'fav_comic'
+
+class Follow(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_follower")
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_following")
+
+    class Meta:
+        managed = True
+        db_table = 'following' 

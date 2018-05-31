@@ -147,7 +147,10 @@ def user(request, username):
 
 
 def myprofile(request):
-    return render(request, 'myprofile.html')
+    
+    fav_list = FavoriteComics.objects.filter(userid = request.user)
+
+    return render(request, 'myprofile.html', {'fav_list':fav_list})
 
 
 def update_comic_rating(incomicid):
@@ -261,15 +264,10 @@ def comic(request, pageid):
         user_rating = rating_list[0].rating
         context_dict['user_rating'] = user_rating
     
-    fav_comic = FavoriteComics.objects.filter(userid=request.user)
-    
-    if fav_comic:
+    if request.user.is_active:
+        fav_comic = FavoriteComics.objects.filter(userid=request.user)
         is_fav = fav_comic.filter(comicid = pageid)
         context_dict['is_fav'] = is_fav
-        #if is_fav:  
-        #    context_dict['fav_comic'] = True
-        #else:
-        #    context_dict['fav_comic'] = False 
     
     return render(request, 'comicpage.html', context_dict)
 
