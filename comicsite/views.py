@@ -272,6 +272,7 @@ def account(request, userid):
 def broke(request):
     return render(request, 'broke.html')
 
+
 def searchpage(request):
     q = request.GET['q']
     result_listComicTitle = []
