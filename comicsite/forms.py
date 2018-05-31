@@ -122,6 +122,7 @@ class PostForm(forms.ModelForm):
         exclude = ["user"]
         fields = ('title', 'text', 'image')
 
+
 class FavComicForm(forms.ModelForm):
     class Meta:
         model = FavoriteComics
