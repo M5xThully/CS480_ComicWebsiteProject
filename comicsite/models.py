@@ -122,7 +122,7 @@ class UserProfile(models.Model):
     # additional attributes
     userid = models.AutoField(primary_key=True)
     usercity = models.TextField(blank=True)
-    profpic = models.FileField(upload_to='profile_images', blank=True)
+    profpic = models.ImageField(upload_to='profile_images', blank=True)
 
     class Meta:
         managed = True
@@ -135,9 +135,9 @@ class Post(models.Model):
     # title of each post
     title = models.TextField(blank=False)
     # text body of the post
-    text = models.TextField(blank=False)
+    text = models.TextField(blank=True)
     # image a user can upload with the post
-    image = models.ImageField(upload_to='post_images', blank=True, null=True)
+    image = models.ImageField(upload_to='post_images', blank=True)
     # the user posting the post
     # user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.DO_NOTHING) //BACKUP
     user = models.ForeignKey(User, on_delete=models.CASCADE)
