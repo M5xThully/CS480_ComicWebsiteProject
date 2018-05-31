@@ -74,7 +74,7 @@ class UserProfile(models.Model):
     # additional attributes
     userid = models.AutoField(primary_key=True)
     usercity = models.TextField(blank=True)
-    profpic = models.ImageField(upload_to='profile_images', blank=True)
+    profpic = models.FileField(upload_to='profile_images', blank=True)
 
     class Meta:
         managed = True
@@ -99,3 +99,11 @@ class Post(models.Model):
     class Meta:
         managed = True
         db_table = 'post'
+
+class FavoriteComics(models.Model):
+    userid = models.IntegerField( null=True, blank=True)
+    comicid = models.IntegerField( null = True, blank = True)
+
+    class Meta:
+        managed = True
+        db_table = 'fav_comic'

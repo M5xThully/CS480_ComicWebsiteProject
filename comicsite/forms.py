@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate
 from comicsite.models import User, Post
-from comicsite.models import UserProfile
+from comicsite.models import UserProfile, FavoriteComics
 from comicsite.models import Comment, Rating
 
 
@@ -121,3 +121,11 @@ class PostForm(forms.ModelForm):
         model = Post
         exclude = ["user"]
         fields = ('title', 'text', 'image')
+
+class FavComicForm(forms.ModelForm):
+    userid = forms.IntegerField(required=True)
+    comicid= forms.IntegerField(required=True)
+
+    class Meta:
+        model = FavoriteComics
+        exclude = ["userid","comicid"]
