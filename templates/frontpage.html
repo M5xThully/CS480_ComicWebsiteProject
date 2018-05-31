@@ -21,7 +21,7 @@
           <h6>Recent Comics</h6>
         </li>
         {% for c in comic %}
-      <li class="list-group-item">
+      <li class="list-group-item bg-dark">
       <div class="container">
       <a href="comic/{{ c.comicid }}">
         <img class="align-center position-relative" height="400" src="{{ MEDIA_URL }}{{ c.comiccover}}">

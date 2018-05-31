@@ -122,7 +122,7 @@ class UserProfile(models.Model):
     # additional attributes
     userid = models.AutoField(primary_key=True)
     usercity = models.TextField(blank=True)
-    profpic = models.ImageField(upload_to='profile_images', blank=True)
+    profpic = models.FileField(upload_to='profile_images', blank=True)
 
     class Meta:
         managed = True
