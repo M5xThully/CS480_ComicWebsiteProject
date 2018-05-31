@@ -64,10 +64,10 @@ body {
   font-size: 1rem;
   font-weight: 200;
   line-height: 1.5;
-  color: #333;
   text-align: left;
   background-image: url("strange.jpg");
-  background-color: #343a40; }
+
+  }
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -178,7 +178,8 @@ figure {
 
 img {
   vertical-align: middle;
-  border-style: none; }
+  border-style: none;
+  opacity: 1;}
 
 svg:not(:root) {
   overflow: hidden; }

@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="py-1">
-  <div class="container bg-primary">
+  <div class="container bg-dark">
       <div class="row">
         <div class="col-md-6">
           <img class="img-thumbnail img-responsive" src={{ MEDIA_URL }}{{ cover }} alt="Comic cover.">
@@ -23,11 +23,10 @@
             <li class="list-group-item"><h3>Synopsis</h3><p>{{ synopsis }}</p></li>
             <li class="list-group-item"><h3>Plot</h3><button class="btn btn-primary dropdown-toggle" onclick= "showContent()">Spoiler</button>
 		<div id="plot" >{{ plot }}</div>
-            <script>
+        <script>
 		var content = document.getElementById("plot");
 		
 		content.style.display = "none";
-
 		function showContent(){
 			if (content.style.display === "none"){
 				content.style.display = "block";
@@ -35,7 +34,7 @@
 			else {
 				content.style.display = "none";
 			}
-		} 
+		}
             </script>
             <li class="list-group-item"><h3>Rating</h3><p>{{ rating }}/5 {% if user.is_authenticated %}
                                                                          {% if user_rating %}
@@ -69,7 +68,12 @@
           {% if user.is_authenticated %}
           <div>
             <form id="comment_form" method="post" action="{{ request.path }}">
-
+                {% csrf_token %}
+                {% for field in commentform.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }} <br>
+                {% endfor %}
                 <input type="submit" name="submit" value="Post Comment" />
             </form>
           </div>
