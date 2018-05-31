@@ -34,54 +34,6 @@ class Comic(models.Model):
         managed = True
         db_table = 'comic'
 
-
-class ComicUserContent(models.Model):
-    comic_comicid = models.ForeignKey(Comic, models.DO_NOTHING, db_column='comic_comicID')  # Field name made lowercase.
-    post_postid = models.ForeignKey('Post', models.DO_NOTHING, db_column='post_postID')  # Field name made lowercase.
-
-    class Meta:
-        managed = True
-        db_table = 'comic_user_content'
-
-
-class Account(models.Model):
-    accountid = models.AutoField(db_column='accountID', primary_key=True)  # Field name made lowercase.
-    accountfirstname = models.TextField(db_column='accountFirstName', blank=True,
-                                        null=True)  # Field name made lowercase.
-    accountlastname = models.TextField(db_column='accountLastName', blank=True, null=True)  # Field name made lowercase.
-    accountemail = models.EmailField(db_column='accountEmail')  # Field name made lowercase.
-    accountusername = models.TextField(db_column='accountUserName')  # Field name made lowercase.
-    accountpassword = models.TextField(db_column='accountPassword')  # Field name made lowercase.
-    accountcity = models.TextField(db_column='accountCity', blank=True, null=True)  # Field name made lowercase.
-    accountpicture = models.ImageField(db_column='accountPicture', upload_to='accounts', blank=True,
-                                       null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = True
-        db_table = 'account'
-
-
-class AccountPosts(models.Model):
-    account_accountid = models.ForeignKey(Account, models.DO_NOTHING,
-                                          db_column='account_accountID')  # Field name made lowercase.
-    post_postid = models.ForeignKey('Post', models.DO_NOTHING, db_column='post_postID')  # Field name made lowercase.
-
-    class Meta:
-        managed = True
-        db_table = 'account_posts'
-
-
-class FavoriteComics(models.Model):
-    account_accountid = models.ForeignKey(Account, models.DO_NOTHING,
-                                          db_column='account_accountID')  # Field name made lowercase.
-    comic_comicid = models.ForeignKey(Comic, models.DO_NOTHING,
-                                      db_column='comic _comicID')  # Field name made lowercase.
-
-    class Meta:
-        managed = True
-        db_table = 'favorite_comics'
-
-
 class Comment(models.Model):
     # a integer field which uniquely identifies the comment
     commentid = models.AutoField(primary_key=True)

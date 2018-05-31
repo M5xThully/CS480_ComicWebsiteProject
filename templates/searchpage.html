@@ -6,22 +6,22 @@
 
 {% block content %}
 <div>
-    <h1>Search with Tilted Comics!</h1>
+    <h1 align="center">Search with Tilted Comics!</h1>
     <br/>
     
 
  <div>
-	<h3>Results</h3>
+	<h3 align="center">Results</h3>
      {% if result_listComicTitle %}
 
      <!-- Display search results in an ordered list -->
          <div class="list-group">
-		 <h1>Comics</h1>
+		 <h4 align="center">Comics</h4>
          {% for result in result_listComicTitle %}
              <div class="list-group-item">  
-                  <h4 class="list-group-item-heading">
+                  <h5 class="list-group-item-heading">
                      <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action">{{ result.comictitle}}</a>
-                     </h4>
+                     </h5>
                      <p class="list-group-item-text">{{ result.comicid}}</p>
              </div>
         {% endfor %}
@@ -31,12 +31,12 @@
 
      <!-- Display search results in an ordered list -->
          <div class="list-group">
-		 <h1>Author</h1>
+		 <h4 align="center">Author</h4>
          {% for result in result_listAuthor %}
              <div class="list-group-item">  
-                  <h4 class="list-group-item-heading">
+                  <h5 class="list-group-item-heading">
                      <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action">{{ result.comictitle}}</a>
-                     </h4>
+                     </h5>
                      <p class="list-group-item-text">{{ result.comicid}}</p>
              </div>
         {% endfor %}
@@ -46,12 +46,12 @@
 
      <!-- Display search results in an ordered list -->
          <div class="list-group">
-		 <h1>Users</h1>
+		 <h4 align="center">Users</h4>
          {% for result in result_listUser %}
              <div class="list-group-item">  
-                  <h4 class="list-group-item-heading">
+                  <h5 class="list-group-item-heading">
                      <a href = "/user/{{ result.username }}" class="list-group-item list-group-item-action">{{ result.username}}</a>
-                     </h4>
+                     </h5>
                      <p class="list-group-item-text">{{ result.userid}}</p>
              </div>
         {% endfor %}

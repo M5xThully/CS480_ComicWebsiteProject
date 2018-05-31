@@ -4,7 +4,6 @@ from django.utils.datetime_safe import date
 from django.views.generic import TemplateView
 
 from comicsite.models import Comic
-from comicsite.models import Account
 from comicsite.models import Comment
 from comicsite.models import Post
 from comicsite.models import User, Rating
