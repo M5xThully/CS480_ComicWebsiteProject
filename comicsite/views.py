@@ -6,12 +6,13 @@ from django.views.generic import TemplateView
 from comicsite.models import Comic
 from comicsite.models import Comment
 from comicsite.models import Post
-from comicsite.models import User, Rating
+from comicsite.models import User,Follow, Rating
 from comicsite.models import FavoriteComics
 from comicsite.forms import CommentForm, LoginForm, RatingForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from comicsite.forms import FavComicForm
+from comicsite.forms import FollowForm
 from itertools import chain
 # from comicsite.search import run_query
 import logging
@@ -143,13 +144,20 @@ def postcreated(request):
 
 def user(request, username):
     user = User.objects.get(username=username)
-    return render(request, 'user.html', {'user': user})
+    fav_list = FavoriteComics.objects.filter(userid=user)
+    follow_list = Follow.objects.filter(user=user) 
+
+    context_dict={'user':user,
+                  'fav_list':fav_list,
+                  'follow_list':follow_list}
+
+    return render(request, 'user.html', context_dict)
 
 
 def myprofile(request):
     
     fav_list = FavoriteComics.objects.filter(userid = request.user)
-
+    follow_list = Follow.objects.filter(user = request.user)
     return render(request, 'myprofile.html', {'fav_list':fav_list})
 
 

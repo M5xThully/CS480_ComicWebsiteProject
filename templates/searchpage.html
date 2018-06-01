@@ -6,12 +6,27 @@
 
 {% block content %}
 <div class="container-fluid col-md-5 offset-md-4 bg-dark text-secondary">
-    <h1>Search Results:</h1>
     <br>
-    
+
 
  <div>
-	<h3 align="center">Results</h3>
+	<h1 align="center">Results</h1>
+     {% if result_listUser %}
+
+     <!-- Display search results in an ordered list -->
+         <div class="list-group">
+		 <h3>Users:</h3>
+         {% for result in result_listUser %}
+             <div class="list-group-item bg-dark">
+                  <h5 class="list-group-item-heading">
+                     <a href = "/user/{{ result.username }}" class="list-group-item list-group-item-action bg-primary">{{ result.username}}</a>
+                     </h4>
+                     <!-- <p class="list-group-item-text">{{ result.comicid}}</p> -->
+             </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+
      {% if result_listComicTitle %}
      <!-- Display search results in an ordered list -->
          <div class="list-group">
@@ -31,29 +46,16 @@
          <div class="list-group">
 		 <h3>Author:</h3>
          {% for result in result_listAuthor %}
-             <div class="list-group-item">  
+             <div class="list-group-item bg-dark">
                   <h5 class="list-group-item-heading">
-                     <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action">{{ result.comictitle}}</a>
+                     <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-primary">{{ result.comictitle}}</a>
                      </h5>
                      </h4>
              </div>
         {% endfor %}
         </div>
         {% endif %}
-		{% if result_listUser %}
 
-     <!-- Display search results in an ordered list -->
-         <div class="list-group">
-		 <h3>Users:</h3>
-         {% for result in result_listUser %}
-             <div class="list-group-item">  
-                  <h5 class="list-group-item-heading">
-                     <a href = "/user/{{ result.username }}" class="list-group-item list-group-item-action">{{ result.username}}</a>
-                     </h4>
-             </div>
-        {% endfor %}
-        </div>
-        {% endif %}
      </div>
     <br>
  </div>
