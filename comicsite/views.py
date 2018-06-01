@@ -164,9 +164,11 @@ def user(request, username):
             return redirect(request.path)
 
     follow_form = FollowForm()
-
+    print(username)
     user = User.objects.get(username=username)
     fav_list = Comic.objects.filter(comicid__in=FavoriteComics.objects.filter(userid=user))
+    print("Fav List:")
+    print(fav_list)
     follow_list = Follow.objects.filter(user=user) 
     is_followed = None
  
