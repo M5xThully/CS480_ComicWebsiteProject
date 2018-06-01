@@ -10,7 +10,7 @@
             {% if user.userprofile.profpic %}
                 <img class="card-img-top" src="{{ user.userprofile.profpic.url }}">
             {% else %}
-                <img class="card-img-top" src="https://i.imgur.com/93vcaCg.png">
+                <img class="card-img-top" src="https://procurement.unl.edu/images/staff-photos/y_u_no_photo_Square.png">
             {% endif %}
           </div>
         </div>
@@ -24,7 +24,23 @@
             <div class="col-md-12"></div>
           </div>
           <br>
-          <a class="btn btn-secondary" href="#">Follow</a>
+
+  {% if user.is_authenticated %}
+    {% if is_followed %}
+        <form method="post" action={{ request.path}}>
+        {% csrf_token %}
+        {{ follow_form }}
+        <button type="submit" class="btn btn-primary" >Unfollow</button>
+        </form>
+    {% else %}
+        <form method="post" action={{ request.path }}>
+        {% csrf_token %}
+        {{ follow_form }}
+        <button type="submit" class="btn btn-primary">Follow</button>
+        </form>
+    {% endif %}
+  {% endif %}
+
         </div>
       </div>
     </div>

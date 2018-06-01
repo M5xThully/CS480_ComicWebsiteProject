@@ -143,13 +143,37 @@ def postcreated(request):
 
 
 def user(request, username):
+    if request.method == 'POST':
+        follow_form = FollowForm(request.POST)
+        
+        if follow_form.is_valid():
+            following = follow_form.save(commit=False)
+            
+            followed=Follow.objects.filter(user=request.user, following=username)
+            
+            if followed:
+                followed.delete()
+            else:
+                following.user = request.user
+                following.following = username
+                following.save()
+            return redirect(request.path)
+    
+    follow_form = FollowForm()
+    
     user = User.objects.get(username=username)
     fav_list = FavoriteComics.objects.filter(userid=user)
     follow_list = Follow.objects.filter(user=user) 
-
+    
+    if request.user.is_active:
+        followed = Follow.objects.filter(user = request.user)
+        is_followed = followed.filter(following = user) 
+   
     context_dict={'user':user,
                   'fav_list':fav_list,
-                  'follow_list':follow_list}
+                  'follow_list':follow_list,
+                  'follow_form':follow_form,
+                  'is_followed':is_followed} 
 
     return render(request, 'user.html', context_dict)
 
