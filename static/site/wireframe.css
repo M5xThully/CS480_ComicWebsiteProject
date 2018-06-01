@@ -4235,6 +4235,9 @@ button.bg-light:focus {
 .bg-dark {
   background-color: #000000 !important; }
 
+.bg-allen {
+  background-color: #000000 !important; }
+
 a.bg-dark:hover, a.bg-dark:focus,
 button.bg-dark:hover,
 button.bg-dark:focus {

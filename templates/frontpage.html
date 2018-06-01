@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container bg-info bg-dark">
+<div class="container bg-info bg-allen">
 <div class="row no-gutters">
   <!-- News Feed -->
-  <div class="col-8 col-sm-6 col-md-8 text-secondary bg-dark">
+  <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
     <ul class="list-group-flush container-fluid">
 
-        <li class="list-group-item bg-dark text-secondary">
+        <li class="list-group-item bg-allen text-secondary">
             <h2>News</h2>
         </li>
 
         {% if post_list %} 
         
         {% for post in post_list %}
-        <li class="list-group-item bg-dark">
+        <li class="list-group-item bg-allen">
 
         <div class="row article">
           
@@ -39,11 +39,11 @@
 <!-- Comic List -->
  <div class="text-center col-6 col-md-4">
     <ul class=" list-group">
-        <li class="list-group-item bg-dark text-secondary">
+        <li class="list-group-item bg-allen text-secondary">
           <h2>Recent Comics</h2>
         </li>
         {% for c in comic %}
-      <li class="list-group-item bg-dark">
+      <li class="list-group-item bg-allen">
       <div class="container">
       <a href="comic/{{ c.comicid }}">
         <img class="align-center position-relative" height="400" src="{{ MEDIA_URL }}{{ c.comiccover}}">
