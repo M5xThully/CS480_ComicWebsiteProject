@@ -63,7 +63,13 @@ class UserProfileForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    text = forms.CharField(max_length=128, help_text="Enter your comment: ")
+    text = forms.CharField(max_length=128)
+    text = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': "form-control",
+            'placeholder': 'enter your comment',
+        }
+    ))
 
     class Meta:
         model = Comment
@@ -126,9 +132,10 @@ class PostForm(forms.ModelForm):
 class FavComicForm(forms.ModelForm):
     class Meta:
         model = FavoriteComics
-        exclude = ["userid","comicid"]
+        exclude = ["userid", "comicid"]
+
 
 class FollowForm(forms.ModelForm):
     class Meta:
         model = Follow
-        exclude = ["user","following"]
+        exclude = ["user", "following"]
