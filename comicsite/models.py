@@ -74,7 +74,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     # additional attributes
     userid = models.AutoField(primary_key=True)
-    usercity = models.TextField(blank=True)
+    usercity = models.TextField(blank=True, null=True, default= "N/A" )
     profpic = models.ImageField(upload_to='profile_images', blank=True)
 
     class Meta:

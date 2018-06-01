@@ -7,19 +7,19 @@
       <div class="row">
         <div class="col-md-3">
           <div class="card">
-            {% if user.userprofile.profpic %}
-                <img class="card-img-top" src="{{ user.userprofile.profpic.url }}">
+            {% if profpic %}
+                <img class="card-img-top" src="{{ profpic.url }}">
             {% else %}
                 <img class="card-img-top" src="https://procurement.unl.edu/images/staff-photos/y_u_no_photo_Square.png">
             {% endif %}
           </div>
         </div>
         <div class="col-md-6">
-          <li class="list-group-item">Username: {{ user.username }}
+          <li class="list-group-item">Username: {{ username }}
             <br> </li>
-          <li class="list-group-item">First Name: {{ user.first_name }}</li>
-          <li class="list-group-item">Last Name: {{ user.last_name }}</li>
-          <li class="list-group-item">Email: {{ user.email }}</li>
+          <li class="list-group-item">First Name: {{ first_name }}</li>
+          <li class="list-group-item">Last Name: {{ last_name }}</li>
+          <li class="list-group-item">Email: {{ email }}</li>
           <div class="row">
             <div class="col-md-12"></div>
           </div>

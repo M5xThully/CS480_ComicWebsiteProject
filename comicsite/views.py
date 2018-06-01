@@ -41,7 +41,7 @@ def post(request, pageid):
         'image': post_obj.image,
         'date': post_obj.date,
         'id': post_obj.postid,
-        'user': post_obj.user
+        'user': post_obj.user.username
     }
     return render(request, 'postpage.html', context_dict)
 
@@ -164,20 +164,23 @@ def user(request, username):
             return redirect(request.path)
 
     follow_form = FollowForm()
-    print(username)
-    user = User.objects.get(username=username)
-    fav_list = Comic.objects.filter(comicid__in=FavoriteComics.objects.filter(userid=user))
-    print("Fav List:")
-    print(fav_list)
-    follow_list = Follow.objects.filter(user=user) 
+    
+    user_profile = User.objects.get(username=username)
+    fav_list = FavoriteComics.objects.filter(userid=user_profile).values('comicid')
+    fav_comic_list = Comic.objects.filter(comicid__in=fav_list)
+    follow_list = Follow.objects.filter(user=user_profile) 
     is_followed = None
  
     if request.user.is_active:
         followed = Follow.objects.filter(user=request.user)
-        is_followed = followed.filter(following=user)
+        is_followed = followed.filter(following=user_profile)
 
-    context_dict = {'user': user,
-                    'fav_list': fav_list,
+    context_dict = {'username': user_profile.username,
+                    'first_name': user_profile.first_name,
+                    'last_name': user_profile.last_name,
+                    'email': user_profile.email,
+                    'profpic' : user_profile.userprofile.profpic,
+                    'fav_list': fav_comic_list,
                     'follow_list': follow_list,
                     'follow_form': follow_form,
                     'is_followed': is_followed}
@@ -187,11 +190,12 @@ def user(request, username):
 
 def myprofile(request):
     
-    fav_list = Comic.objects.filter(comicid__in=FavoriteComics.objects.filter(userid = request.user))
+    fav_list = FavoriteComics.objects.filter(userid = request.user).values('comicid')
+    fav_comic_list = Comic.objects.filter(comicid__in=fav_list)
     follow_list = Follow.objects.filter(user = request.user)
 
 
-    context_dict={'fav_list':fav_list,
+    context_dict={'fav_list':fav_comic_list,
                   'follow_list':follow_list} 
 
     return render(request, 'myprofile.html', context_dict)
