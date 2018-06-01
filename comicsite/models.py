@@ -34,6 +34,7 @@ class Comic(models.Model):
         managed = True
         db_table = 'comic'
 
+
 class Comment(models.Model):
     # a integer field which uniquely identifies the comment
     commentid = models.AutoField(primary_key=True)
@@ -100,17 +101,20 @@ class Post(models.Model):
         managed = True
         db_table = 'post'
 
+
 class FavoriteComics(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
-    comicid = models.IntegerField( null = True)
+    comicid = models.IntegerField(null=True)
+
     class Meta:
         managed = True
         db_table = 'fav_comic'
 
+
 class Follow(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_follower")
-    following = models.TextField(blank = True, null = True)
+    following = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = True
-        db_table = 'following' 
+        db_table = 'following'

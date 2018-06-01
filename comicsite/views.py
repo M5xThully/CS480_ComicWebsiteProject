@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from comicsite.models import Comic
 from comicsite.models import Comment
 from comicsite.models import Post
-from comicsite.models import User,Follow, Rating
+from comicsite.models import User, Follow, Rating
 from comicsite.models import FavoriteComics
 from comicsite.forms import CommentForm, LoginForm, RatingForm, PostForm
 from comicsite.forms import UserForm
@@ -44,6 +44,7 @@ def post(request, pageid):
         'user': post_obj.user
     }
     return render(request, 'postpage.html', context_dict)
+
 
 def postlist(request):
     post_list = Post.objects.all().values()
@@ -145,12 +146,12 @@ def postcreated(request):
 def user(request, username):
     if request.method == 'POST':
         follow_form = FollowForm(request.POST)
-        
+
         if follow_form.is_valid():
             following = follow_form.save(commit=False)
-            
-            followed=Follow.objects.filter(user=request.user, following=username)
-            
+
+            followed = Follow.objects.filter(user=request.user, following=username)
+
             if followed:
                 followed.delete()
             else:
@@ -158,31 +159,30 @@ def user(request, username):
                 following.following = username
                 following.save()
             return redirect(request.path)
-    
+
     follow_form = FollowForm()
-    
+
     user = User.objects.get(username=username)
     fav_list = FavoriteComics.objects.filter(userid=user)
-    follow_list = Follow.objects.filter(user=user) 
-    
+    follow_list = Follow.objects.filter(user=user)
+
     if request.user.is_active:
-        followed = Follow.objects.filter(user = request.user)
-        is_followed = followed.filter(following = user) 
-   
-    context_dict={'user':user,
-                  'fav_list':fav_list,
-                  'follow_list':follow_list,
-                  'follow_form':follow_form,
-                  'is_followed':is_followed} 
+        followed = Follow.objects.filter(user=request.user)
+        is_followed = followed.filter(following=user)
+
+    context_dict = {'user': user,
+                    'fav_list': fav_list,
+                    'follow_list': follow_list,
+                    'follow_form': follow_form,
+                    'is_followed': is_followed}
 
     return render(request, 'user.html', context_dict)
 
 
 def myprofile(request):
-    
-    fav_list = FavoriteComics.objects.filter(userid = request.user)
-    follow_list = Follow.objects.filter(user = request.user)
-    return render(request, 'myprofile.html', {'fav_list':fav_list})
+    fav_list = FavoriteComics.objects.filter(userid=request.user)
+    follow_list = Follow.objects.filter(user=request.user)
+    return render(request, 'myprofile.html', {'fav_list': fav_list})
 
 
 def update_comic_rating(incomicid):
@@ -231,22 +231,22 @@ def comic(request, pageid):
             rating.save()
             update_comic_rating(pageid)
             return redirect(request.path)
-        
+
         if fav_comic_form.is_valid():
-            fav_comic = fav_comic_form.save(commit = False)
- 
-            is_fav = FavoriteComics.objects.filter(userid = request.user, comicid=pageid)
- 
+            fav_comic = fav_comic_form.save(commit=False)
+
+            is_fav = FavoriteComics.objects.filter(userid=request.user, comicid=pageid)
+
             if is_fav:
-               is_fav.delete()
+                is_fav.delete()
             else:
-               fav_comic.userid = request.user
-               fav_comic.comicid = pageid
-               fav_comic.save()
+                fav_comic.userid = request.user
+                fav_comic.comicid = pageid
+                fav_comic.save()
 
             return redirect(request.path)
-    
-    fav_comic_form = FavComicForm() 
+
+    fav_comic_form = FavComicForm()
     # the comment form
     comment_form = CommentForm()
 
@@ -271,8 +271,6 @@ def comic(request, pageid):
             'comment_text': com.text
         })
 
-    
-
     context_dict = {'title': comic_obj.comictitle,
                     'id': comic_obj.comicid,
                     'author': comic_obj.comicauthor,
@@ -288,19 +286,19 @@ def comic(request, pageid):
                     'cover': comic_obj.comiccover,
                     'commentform': comment_form,
                     'comments': comment_list,
-                    'fav_comic_form':fav_comic_form}
+                    'fav_comic_form': fav_comic_form}
 
     # getting the rating made by this user for the comic, if it exists
     rating_list = Rating.objects.filter(comicid=pageid, userid=request.user.id)
     if rating_list:
         user_rating = rating_list[0].rating
         context_dict['user_rating'] = user_rating
-    
+
     if request.user.is_active:
         fav_comic = FavoriteComics.objects.filter(userid=request.user)
-        is_fav = fav_comic.filter(comicid = pageid)
+        is_fav = fav_comic.filter(comicid=pageid)
         context_dict['is_fav'] = is_fav
-    
+
     return render(request, 'comicpage.html', context_dict)
 
 
@@ -313,22 +311,6 @@ def comiclist(request, sortby=None):
     return render(request, 'comiclist.html', {'comic_list': comic_list})
 
 
-def account(request, userid):
-    account_obj = Account.objects.filter(accountid=userid)[0]
-
-    context_dict = {'id': account_obj.accountid,
-                    'firstname': account_obj.accountfirstname,
-                    'lastname': account_obj.accountlastname,
-                    'email': account_obj.accountemail,
-                    'username': account_obj.accountusername,
-                    'password': account_obj.accountpassword,
-                    'city': account_obj.accountcity,
-                    'followid': account_obj.followingid,
-                    'picture': account_obj.picture}
-
-    return render(request, 'user.html', context_dict)
-
-
 def broke(request):
     return render(request, 'broke.html')
 
@@ -339,7 +321,9 @@ def searchpage(request):
     result_listAuthor = []
     result_listUser = []
     if (q != ""):
-        result_listComicTitle = Comic.objects.filter(comictitle__icontains = q)
-        result_listAuthor = Comic.objects.filter(comicauthor__icontains = q )
-        result_listUser = User.objects.filter(username__icontains = q)
-    return render(request, 'searchpage.html', {'result_listComicTitle':result_listComicTitle,'result_listAuthor':result_listAuthor,'result_listUser':result_listUser})   
+        result_listComicTitle = Comic.objects.filter(comictitle__icontains=q)
+        result_listAuthor = Comic.objects.filter(comicauthor__icontains=q)
+        result_listUser = User.objects.filter(username__icontains=q)
+    return render(request, 'searchpage.html',
+                  {'result_listComicTitle': result_listComicTitle, 'result_listAuthor': result_listAuthor,
+                   'result_listUser': result_listUser})
