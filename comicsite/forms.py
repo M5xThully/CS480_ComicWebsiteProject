@@ -126,9 +126,10 @@ class PostForm(forms.ModelForm):
 class FavComicForm(forms.ModelForm):
     class Meta:
         model = FavoriteComics
-        exclude = ["userid","comicid"]
+        exclude = ["userid", "comicid"]
+
 
 class FollowForm(forms.ModelForm):
     class Meta:
         model = Follow
-        exclude = ["user","following"]
+        exclude = ["user", "following"]
