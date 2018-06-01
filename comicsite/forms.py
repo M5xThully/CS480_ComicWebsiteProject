@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from comicsite.models import User, Follow, Post
 from comicsite.models import UserProfile, FavoriteComics
-from comicsite.models import Comment, Rating
+from comicsite.models import Comment, Rating, PostRating
 
 
 class UserForm(forms.ModelForm):
@@ -74,6 +74,14 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('text',)
+
+
+class PostRatingForm(forms.ModelForm):
+    post_rating = models.BooleanField(null=True)
+
+    class Meta:
+        model = PostRating
+        fields = ('post rating',)
 
 
 class RatingForm(forms.ModelForm):

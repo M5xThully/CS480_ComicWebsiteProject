@@ -6,15 +6,14 @@ from django.views.generic import TemplateView
 from comicsite.models import Comic
 from comicsite.models import Comment
 from comicsite.models import Post
-from comicsite.models import User, Follow, Rating
+from comicsite.models import User, Follow, Rating,PostRating
 from comicsite.models import FavoriteComics
-from comicsite.forms import CommentForm, LoginForm, RatingForm, PostForm
+from comicsite.forms import CommentForm, LoginForm, RatingForm, PostForm, PostRatingForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from comicsite.forms import FavComicForm
 from comicsite.forms import FollowForm
 from itertools import chain
-# from comicsite.search import run_query
 import logging
 import re
 import operator
