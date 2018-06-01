@@ -25,7 +25,7 @@ def base(request):
 
 
 def home(request):
-    comic = Comic.objects.filter(pk__in=[11, 2, 23, 4, 15, 6, 7, 18]).values()
+    comic = Comic.objects.filter(pk__in=[1, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
 
     post_list = Post.objects.all().order_by('-date')[:5]

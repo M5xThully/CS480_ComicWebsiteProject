@@ -2,30 +2,40 @@
 
 {% block content %}
 <div class="py-1">
+
+
+
   <div class="container bg-dark">
-  <div class="text-right">   
-  {% if user.is_authenticated %}
-    {% if is_fav %}
-        <form method="post" action={{ request.path}}>
-        {% csrf_token %}
-        {{ fav_comic_form }}
-        <button type="submit" class="btn btn-primary fa fa-heart" >&nbsp;Favorited</button>
-        </form>
-    {% else %}
-        <form method="post" action={{ request.path }}>
-        {% csrf_token %}
-        {{ fav_comic_form }}
-        <button type="submit" class="btn btn-primary fa fa-heart-o">&nbsp;Favorite</button>
-        </form>
-    {% endif %}
-  {% endif %}
-  </div>
+      <br>
+
+
       <div class="row">
         <div class="col-md-6">
           <img class="img-thumbnail img-responsive" src={{ MEDIA_URL }}{{ cover }} alt="Comic cover.">
+            <br><br>
         </div>
         <div class="col-sm-6">
           <ul class= " list-group list-group-flush" >
+
+          <div class="text-right">
+          {% if user.is_authenticated %}
+            {% if is_fav %}
+                <form method="post" action={{ request.path}}>
+                {% csrf_token %}
+                {{ fav_comic_form }}
+                <button type="submit" class="btn btn-primary fa fa-heart" >&nbsp;Favorited</button>
+                </form>
+            {% else %}
+                <form method="post" action={{ request.path }}>
+                {% csrf_token %}
+                {{ fav_comic_form }}
+                <button type="submit" class="btn btn-secondary fa fa-heart-o">&nbsp;Favorite</button>
+                </form>
+            {% endif %}
+          {% endif %}
+          <br>
+          </div>
+
             <li class="list-group-item"><h5 >Title</h5><p>{{ title }}</p></li>
             <li class="list-group-item"><h5 >Author</h5><p>{{ author }}</p></li>
             <li class="list-group-item"><h5 >Publisher</h5><p>{{ publisher }}</p></li>
@@ -72,6 +82,7 @@
               <br>
             </li>
           </ul>
+      <br>
           <div>
             {% if comments %}
               {% for comment_dict in comments %}
@@ -95,6 +106,7 @@
             </form>
           </div>
           {% endif %}
+      <br>
         </div>
       </div>
     </div>
