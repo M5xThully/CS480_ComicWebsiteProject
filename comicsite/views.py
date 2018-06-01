@@ -93,6 +93,7 @@ def register(request):
 
             profile = profile_form.save(commit=False)
             profile.user = user
+            profile.save()
 
             if 'picture' in request.FILES:
                 profile.userprofile.profpic = request.FILES['picture']
@@ -125,6 +126,7 @@ def createpost(request):
             post = post_form.save(commit=False)
             post.user = User.objects.get(username=request.user.username)
             print("Got User")
+            post.save()
             if 'picture' in request.FILES:
                 post.image = request.FILES['picture']
 
@@ -162,9 +164,10 @@ def user(request, username):
     follow_form = FollowForm()
     
     user = User.objects.get(username=username)
-    fav_list = FavoriteComics.objects.filter(userid=user)
+    fav_list = Comic.objects.filter(comicid__in=FavoriteComics.objects.filter(userid=user))
     follow_list = Follow.objects.filter(user=user) 
-    
+    is_followed = None
+ 
     if request.user.is_active:
         followed = Follow.objects.filter(user = request.user)
         is_followed = followed.filter(following = user) 
@@ -180,9 +183,14 @@ def user(request, username):
 
 def myprofile(request):
     
-    fav_list = FavoriteComics.objects.filter(userid = request.user)
+    fav_list = Comic.objects.filter(comicid__in=FavoriteComics.objects.filter(userid = request.user))
     follow_list = Follow.objects.filter(user = request.user)
-    return render(request, 'myprofile.html', {'fav_list':fav_list})
+
+
+    context_dict={'fav_list':fav_list,
+                  'follow_list':follow_list} 
+
+    return render(request, 'myprofile.html', context_dict)
 
 
 def update_comic_rating(incomicid):

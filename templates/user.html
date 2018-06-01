@@ -25,7 +25,7 @@
           </div>
           <br>
 
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and user.username != request.user.username %}
     {% if is_followed %}
         <form method="post" action={{ request.path}}>
         {% csrf_token %}
@@ -40,7 +40,16 @@
         </form>
     {% endif %}
   {% endif %}
-
+  {% if fav_list %}
+     {% for fav in fav_list %}
+         <li class="list-group-item">{{fav.comictitle}}</li>
+     {% endfor %}
+  {% endif %}
+  {% if follow_list %}
+     {% for fol in follow_list %}
+        <li class="list-group-item">{{fol.following}}</li>
+     {% endfor %}
+  {% endif %}
         </div>
       </div>
     </div>
