@@ -69,6 +69,20 @@ class Rating(models.Model):
         managed = True
         db_table = 'ratings'
 
+'''
+class PostRating(models.Model):
+    # the post id
+    postid = models.AutoField(primary_key=True)
+    # user id 
+    userid = models.IntergerField(null=False)
+    # rating of the post in boolean value
+    post_rating = models.BooleanField(null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'post_rating'
+'''
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)

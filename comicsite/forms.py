@@ -67,13 +67,22 @@ class CommentForm(forms.ModelForm):
     text = forms.CharField(widget=forms.TextInput(
         attrs={
             'class': "form-control",
-            'placeholder': 'enter your comment',
+            'placeholder': 'enter your comment here',
         }
     ))
 
     class Meta:
         model = Comment
         fields = ('text',)
+
+'''
+class PostRatingForm(forms.ModelForm):
+    post_rating = models.BooleanField(null=True)
+
+    class Meta:
+        model = PostRating
+        fields = ('post rating',)
+'''
 
 
 class RatingForm(forms.ModelForm):

@@ -30,13 +30,13 @@
         <form method="post" action={{ request.path}}>
         {% csrf_token %}
         {{ follow_form }}
-        <button type="submit" class="btn btn-primary" >Unfollow</button>
+        <button type="submit" class="btn btn-secondary fa fa-check" >&nbsp; Followed</button>
         </form>
     {% else %}
         <form method="post" action={{ request.path }}>
         {% csrf_token %}
         {{ follow_form }}
-        <button type="submit" class="btn btn-primary">Follow</button>
+        <button type="submit" class="btn btn-secondary fa fa-plus">&nbsp; Follow</button>
         </form>
     {% endif %}
   {% endif %}
