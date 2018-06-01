@@ -23,13 +23,15 @@
                 <form method="post" action={{ request.path}}>
                 {% csrf_token %}
                 {{ fav_comic_form }}
-                <button type="submit" class="btn btn-primary fa fa-heart" >&nbsp;Favorited</button>
+                <!-- favorited -->
+                <button type="submit" class="btn btn-pink fa fa-heart" ></button>
                 </form>
             {% else %}
                 <form method="post" action={{ request.path }}>
                 {% csrf_token %}
                 {{ fav_comic_form }}
-                <button type="submit" class="btn btn-secondary fa fa-heart-o">&nbsp;Favorite</button>
+                <!-- favorite -->
+                <button type="submit" class="btn btn-secondary fa fa-heart-o"></button>
                 </form>
             {% endif %}
           {% endif %}
@@ -74,9 +76,9 @@
                                                                               {% for field in ratingform.visible_fields %}
                                                                                 {{ field.errors }}
                                                                                 {{ field.help_text }}
-                                                                                {{ field }} <br>
+                                                                                {{ field }}
                                                                               {% endfor %}
-                                                                              <input type="submit" name="rating_submit" value="rate">
+                                                                              <input type="submit" class="btn btn-warning" name="rating_submit" value="rate">
                                                                               </form>
                                                                               {% endif %}</p>
               <br>
@@ -102,7 +104,7 @@
                     {{ field.help_text }}
                     {{ field }} <br>
                 {% endfor %}
-                <input type="submit" name="submit" value="Post Comment" />
+                <input type="submit" class="btn btn-secondary" name="submit" value="Post Comment" />
             </form>
           </div>
           {% endif %}

@@ -63,7 +63,13 @@ class UserProfileForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    text = forms.CharField(max_length=128, help_text="Enter your comment: ")
+    text = forms.CharField(max_length=128)
+    text = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': "form-control",
+            'placeholder': 'enter your comment',
+        }
+    ))
 
     class Meta:
         model = Comment
