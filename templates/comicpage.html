@@ -9,13 +9,13 @@
         <form method="post" action={{ request.path}}>
         {% csrf_token %}
         {{ fav_comic_form }}
-        <button type="submit" class="btn btn-primary" >Favorited</button>
+        <button type="submit" class="btn btn-primary fa fa-heart" >&nbsp;Favorited</button>
         </form>
     {% else %}
         <form method="post" action={{ request.path }}>
         {% csrf_token %}
         {{ fav_comic_form }}
-        <button type="submit" class="btn btn-primary">Favorite</button>
+        <button type="submit" class="btn btn-primary fa fa-heart-o">&nbsp;Favorite</button>
         </form>
     {% endif %}
   {% endif %}
