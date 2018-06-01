@@ -85,7 +85,7 @@ def register(request):
     isregistered = False
     if request.method == 'POST':
         user_form = UserForm(request.POST)
-        profile_form = UserProfileForm(request.POST)
+        profile_form = UserProfileForm(request.POST, request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
 
             user = user_form.save()
@@ -120,7 +120,7 @@ def register(request):
 
 def createpost(request):
     if request.method == 'POST':
-        post_form = PostForm(request.POST)
+        post_form = PostForm(request.POST, request.FILES)
         print("Is valid?")
         if post_form.is_valid():
             print("Valid.")
@@ -128,6 +128,7 @@ def createpost(request):
             post.user = User.objects.get(username=request.user.username)
             print("Got User")
             post.save()
+
             if 'picture' in request.FILES:
                 post.image = request.FILES['picture']
 
