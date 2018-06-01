@@ -6,9 +6,9 @@ from django.views.generic import TemplateView
 from comicsite.models import Comic
 from comicsite.models import Comment
 from comicsite.models import Post
-from comicsite.models import User, Follow, Rating,PostRating
+from comicsite.models import User, Follow, Rating
 from comicsite.models import FavoriteComics
-from comicsite.forms import CommentForm, LoginForm, RatingForm, PostForm, PostRatingForm
+from comicsite.forms import CommentForm, LoginForm, PostForm
 from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from comicsite.forms import FavComicForm
@@ -166,9 +166,9 @@ def user(request, username):
 
     user = User.objects.get(username=username)
     fav_list = Comic.objects.filter(comicid__in=FavoriteComics.objects.filter(userid=user))
-    follow_list = Follow.objects.filter(user=user) 
+    follow_list = Follow.objects.filter(user=user)
     is_followed = None
- 
+
     if request.user.is_active:
         followed = Follow.objects.filter(user=request.user)
         is_followed = followed.filter(following=user)
@@ -183,13 +183,13 @@ def user(request, username):
 
 
 def myprofile(request):
-    
+
     fav_list = Comic.objects.filter(comicid__in=FavoriteComics.objects.filter(userid = request.user))
     follow_list = Follow.objects.filter(user = request.user)
 
 
     context_dict={'fav_list':fav_list,
-                  'follow_list':follow_list} 
+                  'follow_list':follow_list}
 
     return render(request, 'myprofile.html', context_dict)
 
@@ -217,7 +217,7 @@ def update_comic_rating(incomicid):
 def comic(request, pageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
-        rating_form = RatingForm(request.POST)
+        #rating_form = RatingForm(request.POST)
         fav_comic_form = FavComicForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
@@ -226,8 +226,8 @@ def comic(request, pageid):
             comment.save()
             return redirect(request.path)
 
-        if rating_form.is_valid():
-            rating = rating_form.save(commit=False)
+        #if rating_form.is_valid():
+            #rating = rating_form.save(commit=False)
 
             # deleting an previous ratings by this user about this comic (there should only be max one)
             ratings = Rating.objects.filter(userid=request.user.id, comicid=pageid)
@@ -289,7 +289,7 @@ def comic(request, pageid):
                     'volume': comic_obj.comicvolume,
                     'issue': comic_obj.comicissue,
                     'rating': comic_obj.comicrating,
-                    'ratingform': RatingForm(),
+                    #'ratingform': RatingForm(),
                     'synopsis': comic_obj.comicsynopsis,
                     'plot': comic_obj.comicplot,
                     'cover': comic_obj.comiccover,

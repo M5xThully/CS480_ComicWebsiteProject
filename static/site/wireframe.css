@@ -1720,14 +1720,38 @@ fieldset:disabled a.btn {
       box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125), 0 0 0 0.2rem rgba(46, 154, 254, 0.5); }
 
 .btn-success {
+  color: #00D33D;
+  background-color: #3FFF76;
+  border-color:#3FFF76;
+  box-shadow: inset 0 1px 0 rgba(0, 195, 56, 0.15), 0 1px 1px rgba0, 195, 56, 0.15); }
+  .btn-success:hover {
+    color: #00D33D;
+    background-color: #00D33D;
+    border-color: #00D33D; }
+  .btn-success:focus, .btn-success.focus {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.2rem rgba(40, 167, 69, 0.5); }
+  .btn-success.disabled, .btn-success:disabled {
+    color: #fff;
+    background-color: #00D33D;
+    border-color: #00D33D; }
+  .btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
+  .show > .btn-success.dropdown-toggle {
+    color: #fff;
+    background-color: #00D33D;
+    border-color: #00D33D; }
+    .btn-success:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-success.dropdown-toggle:focus {
+      box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125), 0 0 0 0.2rem rgba(40, 167, 69, 0.5); }
+
+.btn-failure {
   color: #fff;
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #8e8e8e;
+  border-color:#8e8e8e;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075); }
   .btn-success:hover {
     color: #fff;
-    background-color: #218838;
-    border-color: #1e7e34; }
+    background-color: #7b7b7b;
+    border-color: #757575; }
   .btn-success:focus, .btn-success.focus {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.2rem rgba(40, 167, 69, 0.5); }
   .btn-success.disabled, .btn-success:disabled {
