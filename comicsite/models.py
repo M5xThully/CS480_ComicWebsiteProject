@@ -87,8 +87,10 @@ class Comment(models.Model):
     commentid = models.AutoField(primary_key=True)
     # the id of the user who made this comment
     userid = models.IntegerField(null=False)
-    # the id of the comic on which this comment was made
-    comicid = models.IntegerField(null=False)
+    # specifies whether this comment is for a comic or a post
+    type = models.CharField(max_length=32)
+    # the id of the comic or post on which this comment was made
+    pageid = models.IntegerField(null=False)
     # the actual comment itself
     text = models.TextField(blank=False)
     # the date of the comment

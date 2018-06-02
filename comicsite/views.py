@@ -169,13 +169,13 @@ def update_comic_rating(incomicid):
     comic.save()
 
 
-def comic(request, pageid):
+def comic(request, inpageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         rating_form = RatingForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.comicid = pageid
+            comment.pageid = inpageid
             comment.userid = request.user.id
             comment.save()
             return redirect(request.path)
@@ -184,25 +184,25 @@ def comic(request, pageid):
             rating = rating_form.save(commit=False)
 
             # deleting an previous ratings by this user about this comic (there should only be max one)
-            ratings = Rating.objects.filter(userid=request.user.id, comicid=pageid)
+            ratings = Rating.objects.filter(userid=request.user.id, comicid=inpageid)
             if ratings:
                 for rat in ratings:
                     rat.delete()
 
-            rating.comicid = pageid
+            rating.comicid = inpageid
             rating.userid = request.user.id
             rating.save()
-            update_comic_rating(pageid)
+            update_comic_rating(inpageid)
             return redirect(request.path)
 
     # the comment form
     comment_form = CommentForm()
 
     # picking the comic whose id is equal to the pageid
-    comic_obj = Comic.objects.filter(comicid=pageid)[0]
+    comic_obj = Comic.objects.filter(comicid=inpageid)[0]
 
     # getting the top five most recent comments for the comic
-    comments = Comment.objects.filter(comicid=pageid).order_by('-date')[:5]
+    comments = Comment.objects.filter(pageid=inpageid, type="comic").order_by('-date')[:5]
 
     # going through each comic and constructing a dictionary to be used in the template
     comment_list = []
@@ -236,7 +236,7 @@ def comic(request, pageid):
                     'comments': comment_list}
 
     # getting the rating made by this user for the comic, if it exists
-    rating_list = Rating.objects.filter(comicid=pageid, userid=request.user.id)
+    rating_list = Rating.objects.filter(comicid=inpageid, userid=request.user.id)
     if rating_list:
         user_rating = rating_list[0].rating
         context_dict['user_rating'] = user_rating
