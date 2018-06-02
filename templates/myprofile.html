@@ -34,12 +34,12 @@
 <br>
 
 <!-- FAVORITE LIST -->
+      {% if fav_list %}
+
 <div class="container bg-info bg-allen">
     <div class="row no-gutters">
-      <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
+      <div class="col-8 col-sm-6 col-md-6 text-secondary bg-allen">
         <ul class="list-group-flush container-fluid">
-
-      {% if fav_list %}
             <li class="list-group-item bg-allen text-secondary">
                 <h3>Favorite Comics</h3>
             </li>
@@ -55,12 +55,11 @@
 <br>
 
 <!-- FOLLOW LIST -->
+  {% if follow_list %}
 <div class="container bg-info bg-allen">
     <div class="row no-gutters">
-      <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
+      <div class="col-8 col-sm-6 col-md-3 text-secondary bg-allen">
         <ul class="list-group-flush container-fluid">
-
-  {% if follow_list %}
             <li class="list-group-item bg-allen text-secondary">
                 <h3>Following</h3>
             </li>
@@ -76,12 +75,11 @@
 <br>
 
 <!-- POST LIST -->
+  {% if timeline_posts %}
 <div class="container bg-info bg-allen">
     <div class="row no-gutters">
-      <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
+      <div class="col-8 col-sm-6 col-md-7 text-secondary bg-allen">
         <ul class="list-group-flush container-fluid">
-
-  {% if timeline_posts %}
             <li class="list-group-item bg-allen text-secondary">
                 <h3>Posts</h3>
             </li>
