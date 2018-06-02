@@ -53,7 +53,7 @@ def post(request, pageid):
 
 
 def postlist(request):
-    post_list = Post.objects.all().values()
+    post_list = Post.objects.all().order_by('-date')
     return render(request, 'postlist.html', {'post_list': post_list})
 
 
