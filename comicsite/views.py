@@ -193,14 +193,20 @@ def user(request, username):
 
 
 def myprofile(request):
-    
     fav_list = FavoriteComics.objects.filter(userid = request.user).values('comicid')
     fav_comic_list = Comic.objects.filter(comicid__in=fav_list)
     follow_list = Follow.objects.filter(user = request.user)
 
+    # timeline
+    user_posts = Post.objects.filter(user = request.user)
+    following_ids = Follow.objects.filter(user = request.user).values('user')
+    following_posts = Post.objects.filter(user__in = following_ids)
+    combined_posts = user_posts | following_posts
+    timeline_posts = combined_posts.distinct().order_by('-date')[:10]
 
     context_dict={'fav_list':fav_comic_list,
-                  'follow_list':follow_list} 
+                  'follow_list':follow_list,
+                  'timeline_posts':timeline_posts} 
 
     return render(request, 'myprofile.html', context_dict)
 
