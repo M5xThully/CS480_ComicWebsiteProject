@@ -6,7 +6,7 @@
 <div class="p-1 m-0">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-6">
           <div class="card">
             {% if user.userprofile.profpic %}
                 <img class="img-thumbnail" src="{{ user.userprofile.profpic.url }}">
@@ -15,7 +15,7 @@
             {% endif %}
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
           <li class="list-group-item bg-dark text-secondary">Username: {{ user.username }}
             <br> </li>
           <li class="list-group-item bg-dark text-secondary">First Name: {{ user.first_name }}</li>
@@ -36,10 +36,10 @@
       <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
         <ul class="list-group-flush container-fluid">
 
+      {% if fav_list %}
             <li class="list-group-item bg-allen text-secondary">
                 <h3>Favorite Comics</h3>
             </li>
-      {% if fav_list %}
          {% for fav in fav_list %}
             <a href="/comic/{{fav.comicid}}"></a> <li class="list-group-item">{{fav.comictitle}}</a></li>
          {% endfor %}
@@ -49,16 +49,18 @@
     </div>
 </div>
 
+<br>
+
 <!-- FOLLOW LIST -->
 <div class="container bg-info bg-allen">
     <div class="row no-gutters">
       <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
         <ul class="list-group-flush container-fluid">
 
+  {% if follow_list %}
             <li class="list-group-item bg-allen text-secondary">
                 <h3>Following</h3>
             </li>
-  {% if follow_list %}
      {% for fol in follow_list %}
        <a href="/user/{{fol.following}}"></a> <li class="list-group-item">{{fol.following}}</a></li>
      {% endfor %}
@@ -68,16 +70,18 @@
     </div>
 </div>
 
+<br>
+
 <!-- POST LIST -->
 <div class="container bg-info bg-allen">
     <div class="row no-gutters">
       <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
         <ul class="list-group-flush container-fluid">
 
-            <li class="list-group-item bg-allen text-secondary">
-                <h3>Following</h3>
-            </li>
   {% if timeline_posts %}
+            <li class="list-group-item bg-allen text-secondary">
+                <h3>Posts</h3>
+            </li>
     {% for post in timeline_posts %}
       <a href = "/post/{{post.postid}}"></a> <li class = "list-group-item">{{post.title}}</a></li>
     {% endfor %}
