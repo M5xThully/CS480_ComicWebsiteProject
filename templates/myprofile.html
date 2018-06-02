@@ -33,17 +33,17 @@
 
   {% if fav_list %}
      {% for fav in fav_list %}
-        <a href="/comic/{{fav.comicid}}" <li class="list-group-item">{{fav.comictitle}}</a></li>
+        <a href="/comic/{{fav.comicid}}"></a> <li class="list-group-item">{{fav.comictitle}}</a></li>
      {% endfor %}
   {% endif %}
   {% if follow_list %}
      {% for fol in follow_list %}
-       <a href="/user/{{fol.following}}" <li class="list-group-item">{{fol.following}}</a></li>
+       <a href="/user/{{fol.following}}"></a> <li class="list-group-item">{{fol.following}}</a></li>
      {% endfor %}
   {% endif %}
   {% if timeline_posts %}
     {% for post in timeline_posts %}
-      <a href = "/post/{{post.postid}}" <li class = "list-group-item">{{post.title}}</a></li>
+      <a href = "/post/{{post.postid}}"></a> <li class = "list-group-item">{{post.title}}</a></li>
     {% endfor %}
   {% endif %}
 
