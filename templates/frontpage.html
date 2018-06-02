@@ -23,7 +23,9 @@
         </a>
 
         <a href="post/{{ post.postid }}">
-        <img class="align-center position-relative img-thumbnail" height="200" src="{{ MEDIA_URL}}{{post.image}}">
+        {% if post.image %}
+         <img class="align-center position-relative img-thumbnail" height="200" src="{{ MEDIA_URL}}{{post.image}}">
+        {% endif %}
         </a>
 
         </div>
