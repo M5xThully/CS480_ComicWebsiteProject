@@ -30,22 +30,62 @@
     </div>
   </div>
 {% endif %}
+<!-- FAVORITE LIST -->
+<div class="container bg-info bg-allen">
+    <div class="row no-gutters">
+      <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
+        <ul class="list-group-flush container-fluid">
 
-  {% if fav_list %}
-     {% for fav in fav_list %}
-        <a href="/comic/{{fav.comicid}}"></a> <li class="list-group-item">{{fav.comictitle}}</a></li>
-     {% endfor %}
-  {% endif %}
+            <li class="list-group-item bg-allen text-secondary">
+                <h3>Favorite Comics</h3>
+            </li>
+      {% if fav_list %}
+         {% for fav in fav_list %}
+            <a href="/comic/{{fav.comicid}}"></a> <li class="list-group-item">{{fav.comictitle}}</a></li>
+         {% endfor %}
+      {% endif %}
+        </ul>
+      </div>
+    </div>
+</div>
+
+<!-- FOLLOW LIST -->
+<div class="container bg-info bg-allen">
+    <div class="row no-gutters">
+      <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
+        <ul class="list-group-flush container-fluid">
+
+            <li class="list-group-item bg-allen text-secondary">
+                <h3>Following</h3>
+            </li>
   {% if follow_list %}
      {% for fol in follow_list %}
        <a href="/user/{{fol.following}}"></a> <li class="list-group-item">{{fol.following}}</a></li>
      {% endfor %}
   {% endif %}
+        </ul>
+      </div>
+    </div>
+</div>
+
+<!-- POST LIST -->
+<div class="container bg-info bg-allen">
+    <div class="row no-gutters">
+      <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
+        <ul class="list-group-flush container-fluid">
+
+            <li class="list-group-item bg-allen text-secondary">
+                <h3>Following</h3>
+            </li>
   {% if timeline_posts %}
     {% for post in timeline_posts %}
       <a href = "/post/{{post.postid}}"></a> <li class = "list-group-item">{{post.title}}</a></li>
     {% endfor %}
   {% endif %}
+        </ul>
+      </div>
+    </div>
+</div>
 
 {% if not user.is_authenticated %}
 <div class="col-md-9 offset-md-4" >
