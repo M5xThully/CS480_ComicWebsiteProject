@@ -36,6 +36,7 @@ urlpatterns = [
     path('registered/', views.registered),
     path('user/<username>', views.user),
     path('myprofile/', views.myprofile),
+    path('myprofile/edit/', views.editprofile),
     path('comic/<int:pageid>/', views.comic),
     path('comic/<int:pageid>', views.comic),
     path('comic', views.comic),

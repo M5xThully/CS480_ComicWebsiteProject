@@ -215,6 +215,10 @@ def myprofile(request):
     return render(request, 'myprofile.html', context_dict)
 
 
+def editprofile(request):
+    return
+
+
 def update_comic_rating(incomicid):
     # getting the comic object to be updated
     comic = Comic.objects.filter(comicid=incomicid)[0]

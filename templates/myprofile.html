@@ -24,12 +24,6 @@
           <div class="row">
             <div class="col-md-12"></div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endif %}
-
 <br>
 
 <!-- FAVORITE LIST -->
@@ -37,13 +31,13 @@
 
 <div class="container bg-info bg-allen">
     <div class="row no-gutters">
-      <div class="col-8 col-sm-6 col-md-6 text-secondary bg-allen">
+      <div class="text-secondary bg-allen">
         <ul class="list-group-flush container-fluid">
             <li class="list-group-item bg-allen text-secondary">
                 <h3>Favorite Comics</h3>
             </li>
          {% for fav in fav_list %}
-            <a href="/comic/{{fav.comicid}}"><li class="list-group-item">{{fav.comictitle}}</a></li>
+            <a href="/comic/{{fav.comicid}}"><li class="list-group-item bg-dark">{{fav.comictitle}}</a></li>
          {% endfor %}
       {% endif %}
         </ul>
@@ -57,13 +51,13 @@
   {% if follow_list %}
 <div class="container bg-info bg-allen">
     <div class="row no-gutters">
-      <div class="col-8 col-sm-6 col-md-3 text-secondary bg-allen">
+      <div class="text-secondary bg-allen">
         <ul class="list-group-flush container-fluid">
             <li class="list-group-item bg-allen text-secondary">
                 <h3>Following</h3>
             </li>
      {% for fol in follow_list %}
-       <a href="/user/{{fol.following}}"><li class="list-group-item">{{fol.following}}</a></li>
+       <a href="/user/{{fol.following}}"><li class="list-group-item bg-dark">{{fol.following}}</a></li>
      {% endfor %}
   {% endif %}
         </ul>
@@ -77,19 +71,26 @@
   {% if timeline_posts %}
 <div class="container bg-info bg-allen">
     <div class="row no-gutters">
-      <div class="col-8 col-sm-6 col-md-7 text-secondary bg-allen">
+      <div class="text-secondary bg-allen">
         <ul class="list-group-flush container-fluid">
             <li class="list-group-item bg-allen text-secondary">
                 <h3>Posts</h3>
             </li>
     {% for post in timeline_posts %}
-      <a href = "/post/{{post.postid}}"> <li class = "list-group-item">{{post.title}}</a></li>
+      <a href = "/post/{{post.postid}}"> <li class="list-group-item bg-dark">{{post.title}}</a></li>
     {% endfor %}
   {% endif %}
         </ul>
       </div>
     </div>
 </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
 
 {% if not user.is_authenticated %}
 <div class="col-md-9 offset-md-4" >
