@@ -10,6 +10,7 @@ from comicsite.models import User, Follow, Rating
 from comicsite.models import FavoriteComics
 from comicsite.forms import CommentForm, LoginForm, PostForm
 from comicsite.forms import UserForm
+from comicsite.forms import RatingForm
 from comicsite.forms import UserProfileForm
 from comicsite.forms import FavComicForm
 from comicsite.forms import FollowForm
@@ -237,7 +238,7 @@ def update_comic_rating(incomicid):
 def comic(request, pageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
-        #rating_form = RatingForm(request.POST)
+        rating_form = RatingForm(request.POST)
         fav_comic_form = FavComicForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
@@ -246,8 +247,8 @@ def comic(request, pageid):
             comment.save()
             return redirect(request.path)
 
-        #if rating_form.is_valid():
-            #rating = rating_form.save(commit=False)
+        if rating_form.is_valid():
+            rating = rating_form.save(commit=False)
 
             # deleting an previous ratings by this user about this comic (there should only be max one)
             ratings = Rating.objects.filter(userid=request.user.id, comicid=pageid)
@@ -309,7 +310,7 @@ def comic(request, pageid):
                     'volume': comic_obj.comicvolume,
                     'issue': comic_obj.comicissue,
                     'rating': comic_obj.comicrating,
-                    #'ratingform': RatingForm(),
+                    'ratingform': RatingForm(),
                     'synopsis': comic_obj.comicsynopsis,
                     'plot': comic_obj.comicplot,
                     'cover': comic_obj.comiccover,
