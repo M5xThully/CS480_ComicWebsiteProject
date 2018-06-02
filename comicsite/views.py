@@ -24,12 +24,17 @@ def base(request):
 
 
 def home(request):
-    comic = Comic.objects.filter(pk__in=[102, 2, 23, 4, 15, 6, 7, 18]).values()
     user.id = request.user.id
-
+    
+    comic = Comic.objects.filter(pk__in=[102, 104, 21, 24, 18]).values()
+    recent_comic = Comic.objects.all().order_by('-comicid')[:5]
     post_list = Post.objects.all().order_by('-date')[:5]
 
-    return render(request, 'frontpage.html', {'comic': comic, 'post_list': post_list})
+    context_dict = { 'comic':comic,
+                     'post_list':post_list,
+                     'recent_comic':recent_comic}
+
+    return render(request, 'frontpage.html', context_dict)
 
 
 def post(request, pageid):
