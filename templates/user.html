@@ -42,12 +42,12 @@
   {% endif %}
   {% if fav_list %}
      {% for fav in fav_list %}
-         <a href="/comic/{{fav.comicid}}" <li class="list-group-item">{{fav.comictitle}}</a></li>
+         <a href="/comic/{{fav.comicid}}"> <li class="list-group-item">{{fav.comictitle}}</a></li>
      {% endfor %}
   {% endif %}
   {% if follow_list %}
      {% for fol in follow_list %}
-        <a href="/user/{{fol.username}}" <li class="list-group-item">{{fol.following}}</a></li>
+        <a href="/user/{{fol.username}}"> <li class="list-group-item">{{fol.following}}</a></li>
      {% endfor %}
   {% endif %}
         </div>
