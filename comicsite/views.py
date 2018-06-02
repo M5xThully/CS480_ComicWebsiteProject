@@ -13,6 +13,7 @@ from comicsite.forms import UserForm
 from comicsite.forms import UserProfileForm
 from comicsite.forms import FavComicForm
 from comicsite.forms import FollowForm
+
 from itertools import chain
 import logging
 import re
@@ -199,8 +200,10 @@ def myprofile(request):
 
     # timeline
     user_posts = Post.objects.filter(user = request.user)
-    following_ids = Follow.objects.filter(user = request.user).values('user')
-    following_posts = Post.objects.filter(user__in = following_ids)
+    following_ids = Follow.objects.filter(user = request.user).values('following')
+    following = User.objects.filter(username__in = following_ids)
+    following_posts = Post.objects.filter(user__in = following)
+    following_comment = Comment.objects.filter(userid__in = following) 
     combined_posts = user_posts | following_posts
     timeline_posts = combined_posts.distinct().order_by('-date')[:10]
 
