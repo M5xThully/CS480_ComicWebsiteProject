@@ -25,7 +25,7 @@
           </div>
           <br>
 
-  {% if user.is_authenticated and request.user.username != user.username %}
+  {% if request.user.is_active and request.user.username !=  username  %}
     {% if is_followed %}
         <form method="post" action={{ request.path}}>
         {% csrf_token %}
