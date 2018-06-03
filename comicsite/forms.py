@@ -164,7 +164,3 @@ class UploadPhotoForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('profpic',)
-
-    def clean_photo(self):
-        profpic = self.cleaned_data.get('profpic')
-        return profpic

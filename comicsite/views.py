@@ -10,7 +10,7 @@ from comicsite.models import Comment
 from comicsite.models import Post
 from comicsite.models import User, Follow, Rating
 from comicsite.models import FavoriteComics
-from comicsite.forms import CommentForm, LoginForm, PostForm, UploadPhotoForm
+from comicsite.forms import CommentForm, LoginForm, PostForm, UploadPhotoForm, EditProfileForm
 from comicsite.forms import UserForm
 from comicsite.forms import RatingForm
 from comicsite.forms import UserProfileForm
@@ -224,13 +224,13 @@ def myprofile(request):
 
 def editprofile(request):
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=request.user)
+        form = EditProfileForm(request.POST, instance=request.user)
 
         if form.is_valid():
             form.save()
             return redirect('/myprofile')
     else:
-        form = UserChangeForm(instance=request.user)
+        form = EditProfileForm(instance=request.user)
         args = {'form': form}
         return render(request, 'edit.html', args)
     return render(request, 'edit.html')
@@ -254,12 +254,15 @@ def changepw(request):
 
 def uploadprofpic(request):
     if request.method == "POST":
-        form = UploadPhotoForm(request.POST, request.FILES, instance=request.user)
+        form = UploadPhotoForm(request.FILES, request.POST, instance=request.user)
         if form.is_valid():
             profile = form.save(commit=False)
-            profile.user = request.user
-            profile.save()
-            return redirect('/myprofile/edit')
+            profile.user = user
+            if 'picture' in request.FILES:
+                profile.profpic = request.FILES['picture']
+
+            form.save()
+            return redirect('/myprofile')
     else:
         form = UploadPhotoForm(instance=request.user)
     return render(request, 'uploadprofpic.html', {'form': form})
