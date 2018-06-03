@@ -126,7 +126,7 @@ class FavoriteComics(models.Model):
 
 
 class Follow(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_follower")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     following = models.TextField(blank=True, null=True)
 
     class Meta:

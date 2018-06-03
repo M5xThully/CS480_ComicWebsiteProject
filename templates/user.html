@@ -52,7 +52,7 @@
                             <h3>Favorite Comics</h3>
                         </li>
                      {% for fav in fav_list %}
-                        <a href="/comic/{{fav.comicid}}"></a> <li class="list-group-item">{{fav.comictitle}}</a></li>
+                        <a href="/comic/{{fav.comicid}}"><li class="list-group-item">{{fav.comictitle}}</a></li>
                      {% endfor %}
                   {% endif %}
                     </ul>
@@ -73,7 +73,7 @@
                     <h3>Following</h3>
                 </li>
                  {% for fol in follow_list %}
-                   <a href="/user/{{fol.following}}"></a> <li class="list-group-item">{{fol.following}}</a></li>
+                   <a href="/user/{{fol.following}}"><li class="list-group-item">{{fol.following}}</a></li>
                  {% endfor %}
               {% endif %}
                     </ul>

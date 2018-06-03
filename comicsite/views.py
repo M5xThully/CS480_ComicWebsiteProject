@@ -28,7 +28,7 @@ def base(request):
 def home(request):
     user.id = request.user.id
     
-    comic = Comic.objects.filter(pk__in=[102, 104, 21, 24, 18]).values()
+    comic = Comic.objects.all().order_by('-comicrating')[:5]
     recent_comic = Comic.objects.all().order_by('-comicid')[:5]
     post_list = Post.objects.all().order_by('-date')[:5]
 
@@ -40,14 +40,17 @@ def home(request):
 
 
 def post(request, pageid):
+
     post_obj = Post.objects.filter(postid=pageid)[0]
+    recent_post = Post.objects.all().order_by('-date')[:5] 
     context_dict = {
         'title': post_obj.title,
         'text': post_obj.text,
         'image': post_obj.image,
         'date': post_obj.date,
         'id': post_obj.postid,
-        'user': post_obj.user.username
+        'user': post_obj.user.username,
+        'recent_post': recent_post
     }
     return render(request, 'postpage.html', context_dict)
 
@@ -175,7 +178,6 @@ def user(request, username):
     fav_list = FavoriteComics.objects.filter(userid=user_profile).values('comicid')
     fav_comic_list = Comic.objects.filter(comicid__in=fav_list)
     follow_list = Follow.objects.filter(user=user_profile) 
-    is_followed = None
 
     if request.user.is_active:
         followed = Follow.objects.filter(user=request.user)
