@@ -1,5 +1,5 @@
-from django.contrib.auth import login, logout
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import date
 from django.views.generic import TemplateView
@@ -10,7 +10,7 @@ from comicsite.models import Comment
 from comicsite.models import Post
 from comicsite.models import User, Follow, Rating
 from comicsite.models import FavoriteComics
-from comicsite.forms import CommentForm, LoginForm, PostForm
+from comicsite.forms import CommentForm, LoginForm, PostForm, UploadPhotoForm
 from comicsite.forms import UserForm
 from comicsite.forms import RatingForm
 from comicsite.forms import UserProfileForm
@@ -234,6 +234,35 @@ def editprofile(request):
         args = {'form': form}
         return render(request, 'edit.html', args)
     return render(request, 'edit.html')
+
+
+def changepw(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('/myprofile/edit')
+        else:
+            return redirect('/myprofile')
+    else:
+        form = PasswordChangeForm(user=request.user)
+        return render(request, 'changepw.html', {'form': form})
+    return render(request, 'changepw.html')
+
+
+def uploadprofpic(request):
+    if request.method == "POST":
+        form = UploadPhotoForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return redirect('/myprofile/edit')
+    else:
+        form = UploadPhotoForm(instance=request.user)
+    return render(request, 'uploadprofpic.html', {'form': form})
 
 
 def update_comic_rating(incomicid):

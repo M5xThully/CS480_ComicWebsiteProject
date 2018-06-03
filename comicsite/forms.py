@@ -1,5 +1,8 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth import authenticate
+from django.contrib.auth.forms import UserChangeForm
+
 from comicsite.models import User, Follow, Post
 from comicsite.models import UserProfile, FavoriteComics
 from comicsite.models import Comment, Rating
@@ -75,6 +78,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('text',)
 
+
 '''
 class PostRatingForm(forms.ModelForm):
     post_rating = models.BooleanField(null=True)
@@ -148,3 +152,19 @@ class FollowForm(forms.ModelForm):
     class Meta:
         model = Follow
         exclude = ["user", "following"]
+
+
+class EditProfileForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = {'first_name', 'last_name', 'email', 'username', 'password'}
+
+
+class UploadPhotoForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('profpic',)
+
+    def clean_photo(self):
+        profpic = self.cleaned_data.get('profpic')
+        return profpic
