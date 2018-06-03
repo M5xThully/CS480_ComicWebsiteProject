@@ -1,14 +1,16 @@
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import date
 from django.views.generic import TemplateView
+from operator import attrgetter
 
 from comicsite.models import Comic
 from comicsite.models import Comment
 from comicsite.models import Post
 from comicsite.models import User, Follow, Rating
 from comicsite.models import FavoriteComics
-from comicsite.forms import CommentForm, LoginForm, PostForm
+from comicsite.forms import CommentForm, LoginForm, PostForm, UploadPhotoForm, EditProfileForm
 from comicsite.forms import UserForm
 from comicsite.forms import RatingForm
 from comicsite.forms import UserProfileForm
@@ -203,18 +205,69 @@ def myprofile(request):
 
     # timeline
     user_posts = Post.objects.filter(user = request.user)
+    user_posts.model_name = user_posts.model.__name__
     following_ids = Follow.objects.filter(user = request.user).values('following')
     following = User.objects.filter(username__in = following_ids)
     following_posts = Post.objects.filter(user__in = following)
+    following_posts.model_name = following_posts.model.__name__
     following_comment = Comment.objects.filter(userid__in = following) 
-    combined_posts = user_posts | following_posts
-    timeline_posts = combined_posts.distinct().order_by('-date')[:10]
+    following_comment.model_name = following_comment.model.__name__
+    print(following_comment.model.__name__)
+    # combined_posts = user_posts | following_posts
+    # timeline_posts = combined_posts.distinct().order_by('-date')[:10]
+    timeline_posts = sorted(chain(user_posts, following_posts, following_comment), key = attrgetter('date'))
 
     context_dict={'fav_list':fav_comic_list,
                   'follow_list':follow_list,
                   'timeline_posts':timeline_posts} 
 
     return render(request, 'myprofile.html', context_dict)
+
+
+def editprofile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('/myprofile')
+    else:
+        form = EditProfileForm(instance=request.user)
+        args = {'form': form}
+        return render(request, 'edit.html', args)
+    return render(request, 'edit.html')
+
+
+def changepw(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('/myprofile/edit')
+        else:
+            return redirect('/myprofile')
+    else:
+        form = PasswordChangeForm(user=request.user)
+        return render(request, 'changepw.html', {'form': form})
+    return render(request, 'changepw.html')
+
+
+def uploadprofpic(request):
+    if request.method == "POST":
+        form = UploadPhotoForm(request.FILES, request.POST, instance=request.user)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = user
+            if 'picture' in request.FILES:
+                profile.profpic = request.FILES['picture']
+
+            form.save()
+            return redirect('/myprofile')
+    else:
+        form = UploadPhotoForm(instance=request.user)
+    return render(request, 'uploadprofpic.html', {'form': form})
 
 
 def update_comic_rating(incomicid):
