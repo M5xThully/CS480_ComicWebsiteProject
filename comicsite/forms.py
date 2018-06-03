@@ -105,15 +105,14 @@ class LoginForm(forms.Form):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
-        if not user:
-            raise forms.ValidationError("Wrong Username/Password.")
+        if not user or not user.is_active:
+            raise forms.ValidationError("Wrong username or password. Try again.")
         return self.cleaned_data
 
     def login(self, request):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
-        user_id = User.objects.get(username=username).pk
         return user
 
 

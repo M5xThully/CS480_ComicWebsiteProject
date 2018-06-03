@@ -34,7 +34,8 @@
          {% for result in result_listComicTitle %}
              <div class="list-group-item bg-dark">
                   <h4 class="list-group-item-heading">
-                     <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-primary">{{ result.comictitle}}</a>
+                     <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-light text-center text-secondary ">
+                     <img class="align-center position-relative img-thumbnail"  src="{{MEDIA_URL}}{{result.comiccover }}"><h4>  {{ result.comictitle }}</h4> </a>
                      </h4>
              </div>
         {% endfor %}

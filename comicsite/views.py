@@ -1,5 +1,8 @@
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth import authenticate
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import date
 from django.views.generic import TemplateView
@@ -68,16 +71,24 @@ def newsfeed(request):
 
 
 def loginpage(request):
-    form = LoginForm(request.POST or None)
-    if request.POST and form.is_valid():
-        userx = form.login(request)
-        if userx:
-            login(request, userx)
-            return redirect("/loggedin")
-    else:
-        form = LoginForm()
-    return render(request, 'loginpage.html', {'login_form': form})
+    if request.method == 'POST':
+        login_form = LoginForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        account = authenticate(username=username, password=password)
 
+        if account is not None:
+            if account.is_active:
+                login(request, account)
+                return redirect('/loggedin') 
+        else:
+            messages.error(request, "Username or password is wrong. Try again.") 
+            return redirect('/login')
+    else:
+        login_form=LoginForm() 
+
+    return render(request, 'loginpage.html', {'login_form': login_form})
 
 def loggedin(request):
     return render(request, 'loggedin.html')

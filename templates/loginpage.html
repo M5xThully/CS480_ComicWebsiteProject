@@ -7,18 +7,11 @@
           <form class="align-center" id ="login_form" method="post" style="opacity: 1;">
             <h1 class="" >Stay awhile and listen. ᶘಠᴥಠᶅ</h1>
             {% csrf_token %}
-            {% if form.non_field_errors %}
-               <ul class='form-errors'>
-                  {% for error in form.non_field_errors %}
-                      <li>{{ error }}</li>
-                  {% endfor %}
-               </ul>
-             {% endif %}
-
-            {% if form.errors %}
-              <p>Wrong username/password.</p>
-            {% endif %}            
-
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
             <br>
             <input type="text" name="username" class="form-control" placeholder="Username"/>
             <br>
