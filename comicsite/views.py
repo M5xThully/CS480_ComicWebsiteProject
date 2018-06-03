@@ -407,6 +407,7 @@ def searchpage(request):
     result_listUser = []
     result_listSeries = [] 
     result_listPublisher = []
+    result_listPosts = []
     if (q != ""):
         result_listComicTitle = Comic.objects.filter(comictitle__icontains=q)
         result_listAuthor = Comic.objects.filter(comicauthor__icontains=q)
