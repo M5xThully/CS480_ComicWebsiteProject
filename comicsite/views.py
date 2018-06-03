@@ -1,4 +1,5 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import date
 from django.views.generic import TemplateView
@@ -216,7 +217,17 @@ def myprofile(request):
 
 
 def editprofile(request):
-    return
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('/myprofile')
+    else:
+        form = UserChangeForm(instance=request.user)
+        args = {'form': form}
+        return render(request, 'edit.html', args)
+    return render(request, 'edit.html')
 
 
 def update_comic_rating(incomicid):
