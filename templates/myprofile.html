@@ -77,7 +77,11 @@
                 <h3>Posts</h3>
             </li>
     {% for post in timeline_posts %}
-      <a href = "/post/{{post.postid}}"> <li class="list-group-item bg-dark">{{post.title}}</a></li>
+      {% if post.model_name == "Comment" %}
+        <li class = "list-group-item bg-dark">{{post.text}}</li>
+      {% else %}
+        <a href = "/post/{{post.postid}}"> <li class="list-group-item bg-dark">{{post.title}}</a></li>
+      {% endif %}
     {% endfor %}
   {% endif %}
         </ul>

@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import render, redirect
 from django.utils.datetime_safe import date
 from django.views.generic import TemplateView
+from operator import attrgetter
 
 from comicsite.models import Comic
 from comicsite.models import Comment
@@ -202,12 +203,17 @@ def myprofile(request):
 
     # timeline
     user_posts = Post.objects.filter(user = request.user)
+    user_posts.model_name = user_posts.model.__name__
     following_ids = Follow.objects.filter(user = request.user).values('following')
     following = User.objects.filter(username__in = following_ids)
     following_posts = Post.objects.filter(user__in = following)
+    following_posts.model_name = following_posts.model.__name__
     following_comment = Comment.objects.filter(userid__in = following) 
-    combined_posts = user_posts | following_posts
-    timeline_posts = combined_posts.distinct().order_by('-date')[:10]
+    following_comment.model_name = following_comment.model.__name__
+    print(following_comment.model.__name__)
+    # combined_posts = user_posts | following_posts
+    # timeline_posts = combined_posts.distinct().order_by('-date')[:10]
+    timeline_posts = sorted(chain(user_posts, following_posts, following_comment), key = attrgetter('date'))
 
     context_dict={'fav_list':fav_comic_list,
                   'follow_list':follow_list,
