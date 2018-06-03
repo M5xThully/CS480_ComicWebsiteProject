@@ -5,17 +5,20 @@
 {% block title %} Search {% endblock %}
 
 {% block content %}
-<div class="container-fluid col-md-5 offset-md-4 bg-dark text-secondary">
+<div class="container-fluid col-md-8 offset-md-2 bg-dark text-secondary">
     <br>
 
 
  <div>
-	<h1 align="center">Results</h1>
-     {% if result_listUser %}
+    <h1 align="center">Results</h1>
 
+    <div class="tab-content my-2" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <ul id="popular" class="list-group">
+    {% if result_listUser %}
      <!-- Display search results in an ordered list -->
          <div class="list-group">
-		 <h3>Users:</h3>
+		 <h3>Users ({{result_listUser|length}}):</h3>
          {% for result in result_listUser %}
              <div class="list-group-item bg-dark">
                   <h5 class="list-group-item-heading">
@@ -25,12 +28,18 @@
              </div>
         {% endfor %}
         </div>
-        {% endif %}
+    {% endif %}
+          </ul>
+  </div>
+
+  <div class="tab-content my-2" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <ul id="popular" class="list-group">
 
      {% if result_listComicTitle %}
      <!-- Display search results in an ordered list -->
          <div class="list-group">
-		 <h3>Comics:</h3>
+		 <h3>Comics ({{result_listComicTitle|length}}):</h3>
          {% for result in result_listComicTitle %}
              <div class="list-group-item bg-dark">
                   <h4 class="list-group-item-heading">
@@ -41,11 +50,63 @@
         {% endfor %}
         </div>
         {% endif %}
-		{% if result_listAuthor %}
+
+    </ul>
+</div>
+
+<div class="tab-content my-2" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <ul id="popular" class="list-group">
+
+     {% if result_listSeries %}
+     <!-- Display search results in an ordered list -->
+         <div class="list-group">
+            <h3>Series ({{result_listSeries|length}}):</h3>
+         {% for result in result_listSeries %}
+             <div class="list-group-item bg-dark">
+                  <h4 class="list-group-item-heading">
+                     <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-light text-center text-secondary ">
+                     <img class="align-center position-relative img-thumbnail"  src="{{MEDIA_URL}}{{result.comiccover }}"><h4>  {{ result.comictitle }}</h4> </a>
+                     </h4>
+             </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+
+    </ul>
+</div>
+
+
+<div class="tab-content my-2" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <ul id="popular" class="list-group">
+    {% if result_listPublisher %}
 
      <!-- Display search results in an ordered list -->
          <div class="list-group">
-		 <h3>Author:</h3>
+		 <h3>Publisher ({{result_listPublisher|length}}):</h3>
+         {% for result in result_listPublisher %}
+             <div class="list-group-item bg-dark">
+                  <h5 class="list-group-item-heading">
+                     <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-primary">{{ result.comictitle}}</a>
+                     </h5>
+                     </h4>
+             </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+    </ul>
+</div>
+
+
+        <div class="tab-content my-2" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <ul id="popular" class="list-group">
+	{% if result_listAuthor %}
+
+     <!-- Display search results in an ordered list -->
+         <div class="list-group">
+		 <h3>Author ({{result_listAuthor|length}}):</h3>
          {% for result in result_listAuthor %}
              <div class="list-group-item bg-dark">
                   <h5 class="list-group-item-heading">
@@ -56,6 +117,8 @@
         {% endfor %}
         </div>
         {% endif %}
+    </ul>
+</div>
 
      </div>
     <br>

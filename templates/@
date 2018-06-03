@@ -75,6 +75,75 @@
   <!-- insert code for other pages here in another html file -->
   {% endblock %}
 
+  <footer>
+<<<<<<< HEAD
+      <div class="container py-5">
+        <div class="row">
+          <div class="col-12 col-md text-secondary">
+          </div>
+          <div class="col-6 col-md">
+            <h5>
+              <b></b>
+            </h5>
+            <ul class="list-unstyled text-small">
+              <li>
+
+              </li>
+              <li>
+
+              </li>
+              <li>
+
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>
+              <b></b>
+            </h5>
+            <ul class="list-unstyled text-small">
+              <li>
+
+              </li>
+              <li>
+
+              </li>
+              <li>
+
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-md">
+            <h5>
+              <b></b>
+            </h5>
+            <ul class="list-unstyled text-small">
+              <li>
+
+              </li>
+              <li>
+
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-md text-secondary">
+            <h5>
+            </h5>
+            <ul class="list-unstyled text-small">
+              <li>
+
+              </li>
+              <li>
+
+              </li>
+              <li>
+
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
   <br><br><br><br><br><br><br>
   </footer>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
