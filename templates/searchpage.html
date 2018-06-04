@@ -2,8 +2,6 @@
 
 {% load staticfiles %}
 
-{% block title %} Search {% endblock %}
-
 {% block content %}
 <div class="container-fluid col-md-6 offset-md-3 bg-dark text-secondary">
     <br>
@@ -20,7 +18,7 @@
          {% for result in result_listUser %}
              <div class="list-group-item bg-dark">
                   <h5 class="list-group-item-heading">
-                     <a href = "/user/{{ result.username }}" class="list-group-item list-group-item-action bg-primary">{{ result.username}}</a>
+                     <a href = "/user/{{ result.username }}" class="list-group-item list-group-item-action bg-primary text-secondary">{{ result.username}}</a>
                      </h4>
                      <!-- <p class="list-group-item-text">{{ result.comicid}}</p> -->
              </div>
@@ -31,7 +29,7 @@
   </div>
 
 {% if result_listComicTitle %}
-  <div class="py-5">
+  <div class="py-1">
    <h3>Comics ({{result_listComicTitle|length}}):</h3>
     <div class="container">
       <div class="row">
@@ -43,7 +41,7 @@
                       <ul class="">
                           <ul class="">
             <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-dark text-secondary ">
-            <img class="col-md-12 img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
+            <img class="col-md-11 img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
                           </ul>
                       </ul>
                   </ul>
@@ -126,8 +124,6 @@
         {% endif %}
     </ul>
 </div>
-
-     </div>
-    <br>
- </div>
+</div>
+</div>
 {% endblock %}
