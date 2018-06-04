@@ -21,7 +21,6 @@
           <a href="{{ comment_dict.link }}"><strong>{{ comment_dict.user }}</strong></a> on {{ comment_dict.date }} commented:<br>
           {{ comment_dict.comment_text }}<br><br>
         {% endfor %}
-
       {% else %}
         <strong> There are no comments yet. </strong>
       {% endif %}
@@ -35,7 +34,7 @@
           {{ field.help_text }}
           {{ field }} <br>
         {% endfor %}
-        <input type="submit" name="submit" value="Post Comment" />
+        <input type="submit" name="submit" value="Post Comment">
       </form>
     </div>
     {% endif %}

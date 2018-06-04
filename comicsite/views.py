@@ -88,7 +88,7 @@ def post(request, pageid):
         'id': post_obj.postid,
         'commentform': comment_form,
         'comments': get_comments(inpageid=pageid, intype='post'),
-        'user': post_obj.user.username
+        'user': post_obj.user
     }
     return render(request, 'postpage.html', context_dict)
 
@@ -184,7 +184,7 @@ def post(request, pageid):
         'image': post_obj.image,
         'date': post_obj.date,
         'id': post_obj.postid,
-        'user': post_obj.user.username,
+        'user': post_obj.user,
         'recent_post': recent_post
     }
     return render(request, 'postpage.html', context_dict)
@@ -279,14 +279,15 @@ def myprofile(request):
     following_posts = Post.objects.filter(user__in=following)
     following_posts.model_name = following_posts.model.__name__
     following_comment = Comment.objects.filter(userid__in=following)
+    following_comment_users = Users.object.filter(userid__in=following_comment)
     following_comment.model_name = following_comment.model.__name__
-    print(following_comment.model.__name__)
     # combined_posts = user_posts | following_posts
     # timeline_posts = combined_posts.distinct().order_by('-date')[:10]
     timeline_posts = sorted(chain(user_posts, following_posts, following_comment), key=attrgetter('date'))
 
     context_dict = {'fav_list': fav_comic_list,
                     'follow_list': follow_list,
+                    'comment_users': following_comment_users,
                     'timeline_posts': timeline_posts}
 
     return render(request, 'myprofile.html', context_dict)

@@ -80,8 +80,8 @@
                 <h3>Posts Timeline</h3>
             </li>
     {% for post in timeline_posts %}
-      {% if post.text %}
-        <li class = "list-group-item bg-dark">{{post.text}}</li>
+      {% if post.userid %}
+        <li class = "list-group-item bg-dark">Comment by -{{post.text}}</li>
       {% else %}
         <a href = "/post/{{post.postid}}"> <li class="list-group-item bg-dark">{{post.title}} - {{ post.user.username }}  </a></li>
       {% endif %}
