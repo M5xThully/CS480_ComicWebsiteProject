@@ -31,10 +31,42 @@
 {% if result_listComicTitle %}
   <div class="py-1">
    <h3>Comics ({{result_listComicTitle|length}}):</h3>
+      {% for result in result_listComicTitle %}
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          {% for result in result_listComicTitle %}
+          <ul class="">
+              <ul class="">
+                  <ul class="">
+                      <ul class="">
+                          <ul class="">
+            <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-dark text-secondary ">
+            <img class="col-md-11 img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
+                          </ul>
+                      </ul>
+                  </ul>
+          </ul>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <ul class="nav nav-pills flex-column"></ul>
+            <br><br><br><br>
+            <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-dark text-secondary ">
+                <h4>{{ result.comictitle }}</h4></a>
+        </div>
+          {% endfor %}
+          {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% if result_listSeries %}
+  <div class="py-1">
+   <h3>Series ({{result_listSeries|length}}):</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          {% for result in result_listSeries %}
           <ul class="">
               <ul class="">
                   <ul class="">
@@ -58,28 +90,6 @@
       </div>
     </div>
   </div>
-
-<div class="tab-content my-2" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <ul id="popular" class="list-group">
-
-     {% if result_listSeries %}
-     <!-- Display search results in an ordered list -->
-         <div class="list-group">
-            <h3>Series ({{result_listSeries|length}}):</h3>
-         {% for result in result_listSeries %}
-             <div class="list-group-item bg-dark">
-                  <h4 class="list-group-item-heading">
-                     <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-light text-center text-secondary ">
-                     <img class="align-center position-relative img-thumbnail"  src="{{MEDIA_URL}}{{result.comiccover }}"><h4>  {{ result.comictitle }}</h4> </a>
-                     </h4>
-             </div>
-        {% endfor %}
-        </div>
-        {% endif %}
-
-    </ul>
-</div>
 
 
 <div class="tab-content my-2" id="myTabContent">
