@@ -31,15 +31,52 @@ def home(request):
     return render(request, 'frontpage.html', {'comic': comic, 'post_list': post_list})
 
 
+def get_comments(inpageid, intype):
+    # getting the top five most recent comments for the comic
+    comments = Comment.objects.filter(pageid=inpageid, type=intype).order_by('-date')[:5]
+
+    # going through each comic and constructing a dictionary to be used in the template
+    comment_list = []
+    for com in comments:
+        user_object = User.objects.filter(id=com.userid)[0]
+
+        link_str = "/user/" + user_object.username
+
+        # adding a dictionary the list to be used in the template
+        comment_list.append({
+            'link': link_str,
+            'user': user_object.username,
+            'date': com.date,
+            'comment_text': com.text
+        })
+
+    return comment_list
+
+
 def post(request, pageid):
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.pageid = pageid
+            comment.userid = request.user.id
+            comment.type = 'post'
+            comment.save()
+            return redirect(request.path)
+
     post_obj = Post.objects.filter(postid=pageid)[0]
+
+    comment_form = CommentForm()
+
     context_dict = {
         'title': post_obj.title,
         'text': post_obj.text,
         'image': post_obj.image,
         'date': post_obj.date,
         'id': post_obj.postid,
-        'user': post_obj.user
+        'user': post_obj.user,
+        'commentform': comment_form,
+        'comments': get_comments(inpageid=pageid, intype='post')
     }
     return render(request, 'postpage.html', context_dict)
 
@@ -177,6 +214,7 @@ def comic(request, inpageid):
             comment = comment_form.save(commit=False)
             comment.pageid = inpageid
             comment.userid = request.user.id
+            comment.type = 'comic'
             comment.save()
             return redirect(request.path)
 
@@ -201,24 +239,6 @@ def comic(request, inpageid):
     # picking the comic whose id is equal to the pageid
     comic_obj = Comic.objects.filter(comicid=inpageid)[0]
 
-    # getting the top five most recent comments for the comic
-    comments = Comment.objects.filter(pageid=inpageid, type="comic").order_by('-date')[:5]
-
-    # going through each comic and constructing a dictionary to be used in the template
-    comment_list = []
-    for com in comments:
-        user_object = User.objects.filter(id=com.userid)[0]
-
-        link_str = "/user/" + user_object.username
-
-        # adding a dictionary the list to be used in the template
-        comment_list.append({
-            'link': link_str,
-            'user': user_object.username,
-            'date': com.date,
-            'comment_text': com.text
-        })
-
     context_dict = {'title': comic_obj.comictitle,
                     'id': comic_obj.comicid,
                     'author': comic_obj.comicauthor,
@@ -233,7 +253,8 @@ def comic(request, inpageid):
                     'plot': comic_obj.comicplot,
                     'cover': comic_obj.comiccover,
                     'commentform': comment_form,
-                    'comments': comment_list}
+                    'comments': get_comments(inpageid=inpageid, intype='comic')
+                    }
 
     # getting the rating made by this user for the comic, if it exists
     rating_list = Rating.objects.filter(comicid=inpageid, userid=request.user.id)
