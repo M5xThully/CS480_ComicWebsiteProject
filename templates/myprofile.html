@@ -81,7 +81,11 @@
             </li>
     {% for post in timeline_posts %}
       {% if post.userid %}
-        <li class = "list-group-item bg-dark">Comment by -{{post.text}}</li>
+        {% if post.type == 'post' %}
+        <a href ="/post/{{post.pageid}}"> <li class = "list-group-item bg-dark">{{post.text}} </a></li>
+        {% else %} 
+        <a href ="/comic/{{post.pageid}}"> <li class = "list-group-item bg-dark">{{post.text}} </a></li>
+        {% endif %}
       {% else %}
         <a href = "/post/{{post.postid}}"> <li class="list-group-item bg-dark">{{post.title}} - {{ post.user.username }}  </a></li>
       {% endif %}

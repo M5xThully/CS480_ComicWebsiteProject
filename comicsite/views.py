@@ -64,7 +64,6 @@ def get_comments(inpageid, intype):
 
     return comment_list
 
-
 def post(request, pageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -101,6 +100,9 @@ def postlist(request):
 def newsfeed(request):
     post_list = Post.objects.all().order_by('-date')[:5]
     return render(request, 'newsfeed.html', {'post_list': post_list})
+
+def getuser(userid):
+    return User.objects.filter(id__in=userid) 
 
 # Registration and Login
 def loginpage(request):
@@ -172,23 +174,6 @@ def register(request):
 
 def registered(request):
     return render(request, 'registered.html')
-
-
-# Post Views and Functionality    
-def post(request, pageid):
-    post_obj = Post.objects.filter(postid=pageid)[0]
-    recent_post = Post.objects.all().order_by('-date')[:5]
-    context_dict = {
-        'title': post_obj.title,
-        'text': post_obj.text,
-        'image': post_obj.image,
-        'date': post_obj.date,
-        'id': post_obj.postid,
-        'user': post_obj.user,
-        'recent_post': recent_post
-    }
-    return render(request, 'postpage.html', context_dict)
-
 
 def createpost(request):
     if request.method == 'POST':
@@ -265,7 +250,6 @@ def user(request, username):
 
     return render(request, 'user.html', context_dict)
 
-
 def myprofile(request):
     fav_list = FavoriteComics.objects.filter(userid=request.user).values('comicid')
     fav_comic_list = Comic.objects.filter(comicid__in=fav_list)
@@ -279,7 +263,7 @@ def myprofile(request):
     following_posts = Post.objects.filter(user__in=following)
     following_posts.model_name = following_posts.model.__name__
     following_comment = Comment.objects.filter(userid__in=following)
-    following_comment_users = Users.object.filter(userid__in=following_comment)
+    following_comment_users = User.objects.filter(id__in=following_comment)
     following_comment.model_name = following_comment.model.__name__
     # combined_posts = user_posts | following_posts
     # timeline_posts = combined_posts.distinct().order_by('-date')[:10]
@@ -291,7 +275,6 @@ def myprofile(request):
                     'timeline_posts': timeline_posts}
 
     return render(request, 'myprofile.html', context_dict)
-
 
 def editprofile(request):
     if request.method == 'POST':
@@ -305,7 +288,6 @@ def editprofile(request):
         args = {'form': form}
         return render(request, 'edit.html', args)
     return render(request, 'edit.html')
-
 
 def changepw(request):
     if request.method == 'POST':
@@ -322,7 +304,6 @@ def changepw(request):
         return render(request, 'changepw.html', {'form': form})
     return render(request, 'changepw.html')
 
-
 def uploadprofpic(request):
     if request.method == "POST":
         form = UploadPhotoForm(request.FILES, request.POST, instance=request.user)
@@ -337,7 +318,6 @@ def uploadprofpic(request):
     else:
         form = UploadPhotoForm(instance=request.user)
     return render(request, 'uploadprofpic.html', {'form': form})
-
 
 def newsfeed(request):
     post_list = Post.objects.all().order_by('-date')[:5]
