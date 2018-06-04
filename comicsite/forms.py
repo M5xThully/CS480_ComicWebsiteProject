@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate
-from comicsite.models import User, Post
-from comicsite.models import UserProfile
+from comicsite.models import User, Follow, Post
+from comicsite.models import UserProfile, FavoriteComics
 from comicsite.models import Comment, Rating
 
 
@@ -63,11 +63,26 @@ class UserProfileForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    text = forms.CharField(max_length=128, help_text="Enter your comment: ")
+    text = forms.CharField(max_length=128)
+    text = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': "form-control",
+            'placeholder': 'enter your comment here',
+        }
+    ))
 
     class Meta:
         model = Comment
         fields = ('text',)
+
+'''
+class PostRatingForm(forms.ModelForm):
+    post_rating = models.BooleanField(null=True)
+
+    class Meta:
+        model = PostRating
+        fields = ('post rating',)
+'''
 
 
 class RatingForm(forms.ModelForm):
@@ -108,10 +123,10 @@ class PostForm(forms.ModelForm):
     ))
 
     text = forms.CharField(required=False)
-    text = forms.CharField(widget=forms.TextInput(
+    text = forms.CharField(widget=forms.Textarea(
         attrs={
-            'class': "form-control",
-            'placeholder': 'Text'
+            'class': "form-control2",
+            'placeholder': 'Body',
         }
     ))
 
@@ -121,3 +136,15 @@ class PostForm(forms.ModelForm):
         model = Post
         exclude = ["user"]
         fields = ('title', 'text', 'image')
+
+
+class FavComicForm(forms.ModelForm):
+    class Meta:
+        model = FavoriteComics
+        exclude = ["userid", "comicid"]
+
+
+class FollowForm(forms.ModelForm):
+    class Meta:
+        model = Follow
+        exclude = ["user", "following"]

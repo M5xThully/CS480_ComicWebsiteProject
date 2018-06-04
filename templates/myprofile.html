@@ -6,21 +6,21 @@
 <div class="p-1 m-0">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-6">
           <div class="card">
             {% if user.userprofile.profpic %}
-                <img class="card-img-top" src="{{ user.userprofile.profpic.url }}">
+                <img class="img-thumbnail" src="{{ user.userprofile.profpic.url }}">
             {% else %}
-                <img class="card-img-top" src="https://i.imgur.com/93vcaCg.png">
+                <img class="img-thumbnail" src="https://procurement.unl.edu/images/staff-photos/y_u_no_photo_Square.png">
             {% endif %}
           </div>
         </div>
-        <div class="col-md-6">
-          <li class="list-group-item">Username: {{ user.username }}
+        <div class="col-md-5">
+          <li class="list-group-item bg-dark text-secondary">Username: {{ user.username }}
             <br> </li>
-          <li class="list-group-item">First Name: {{ user.first_name }}</li>
-          <li class="list-group-item">Last Name: {{ user.last_name }}</li>
-          <li class="list-group-item">Email: {{ user.email }}</li>
+          <li class="list-group-item bg-dark text-secondary">First Name: {{ user.first_name }}</li>
+          <li class="list-group-item bg-dark text-secondary">Last Name: {{ user.last_name }}</li>
+          <li class="list-group-item bg-dark text-secondary">Email: {{ user.email }}</li>
           <div class="row">
             <div class="col-md-12"></div>
           </div>
@@ -30,9 +30,70 @@
   </div>
 {% endif %}
 
+<br>
+
+<!-- FAVORITE LIST -->
+      {% if fav_list %}
+
+<div class="container bg-info bg-allen">
+    <div class="row no-gutters">
+      <div class="col-8 col-sm-6 col-md-6 text-secondary bg-allen">
+        <ul class="list-group-flush container-fluid">
+            <li class="list-group-item bg-allen text-secondary">
+                <h3>Favorite Comics</h3>
+            </li>
+         {% for fav in fav_list %}
+            <a href="/comic/{{fav.comicid}}"><li class="list-group-item">{{fav.comictitle}}</a></li>
+         {% endfor %}
+      {% endif %}
+        </ul>
+      </div>
+    </div>
+</div>
+
+<br>
+
+<!-- FOLLOW LIST -->
+  {% if follow_list %}
+<div class="container bg-info bg-allen">
+    <div class="row no-gutters">
+      <div class="col-8 col-sm-6 col-md-3 text-secondary bg-allen">
+        <ul class="list-group-flush container-fluid">
+            <li class="list-group-item bg-allen text-secondary">
+                <h3>Following</h3>
+            </li>
+     {% for fol in follow_list %}
+       <a href="/user/{{fol.following}}"><li class="list-group-item">{{fol.following}}</a></li>
+     {% endfor %}
+  {% endif %}
+        </ul>
+      </div>
+    </div>
+</div>
+
+<br>
+
+<!-- POST LIST -->
+  {% if timeline_posts %}
+<div class="container bg-info bg-allen">
+    <div class="row no-gutters">
+      <div class="col-8 col-sm-6 col-md-7 text-secondary bg-allen">
+        <ul class="list-group-flush container-fluid">
+            <li class="list-group-item bg-allen text-secondary">
+                <h3>Posts</h3>
+            </li>
+    {% for post in timeline_posts %}
+      <a href = "/post/{{post.postid}}"> <li class = "list-group-item">{{post.title}}</a></li>
+    {% endfor %}
+  {% endif %}
+        </ul>
+      </div>
+    </div>
+</div>
+
 {% if not user.is_authenticated %}
 <div class="col-md-9 offset-md-4" >
-  <h1 class="">Please login to view your profile.</h1>
+  <h1 class="text-center">Please login to view your profile.</h1>
 </div>
 {% endif %}
 

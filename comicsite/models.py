@@ -35,53 +35,6 @@ class Comic(models.Model):
         db_table = 'comic'
 
 
-class ComicUserContent(models.Model):
-    comic_comicid = models.ForeignKey(Comic, models.DO_NOTHING, db_column='comic_comicID')  # Field name made lowercase.
-    post_postid = models.ForeignKey('Post', models.DO_NOTHING, db_column='post_postID')  # Field name made lowercase.
-
-    class Meta:
-        managed = True
-        db_table = 'comic_user_content'
-
-
-class Account(models.Model):
-    accountid = models.AutoField(db_column='accountID', primary_key=True)  # Field name made lowercase.
-    accountfirstname = models.TextField(db_column='accountFirstName', blank=True,
-                                        null=True)  # Field name made lowercase.
-    accountlastname = models.TextField(db_column='accountLastName', blank=True, null=True)  # Field name made lowercase.
-    accountemail = models.EmailField(db_column='accountEmail')  # Field name made lowercase.
-    accountusername = models.TextField(db_column='accountUserName')  # Field name made lowercase.
-    accountpassword = models.TextField(db_column='accountPassword')  # Field name made lowercase.
-    accountcity = models.TextField(db_column='accountCity', blank=True, null=True)  # Field name made lowercase.
-    accountpicture = models.ImageField(db_column='accountPicture', upload_to='accounts', blank=True,
-                                       null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = True
-        db_table = 'account'
-
-
-class AccountPosts(models.Model):
-    account_accountid = models.ForeignKey(Account, models.DO_NOTHING,
-                                          db_column='account_accountID')  # Field name made lowercase.
-    post_postid = models.ForeignKey('Post', models.DO_NOTHING, db_column='post_postID')  # Field name made lowercase.
-
-    class Meta:
-        managed = True
-        db_table = 'account_posts'
-
-
-class FavoriteComics(models.Model):
-    account_accountid = models.ForeignKey(Account, models.DO_NOTHING,
-                                          db_column='account_accountID')  # Field name made lowercase.
-    comic_comicid = models.ForeignKey(Comic, models.DO_NOTHING,
-                                      db_column='comic _comicID')  # Field name made lowercase.
-
-    class Meta:
-        managed = True
-        db_table = 'favorite_comics'
-
-
 class Comment(models.Model):
     # a integer field which uniquely identifies the comment
     commentid = models.AutoField(primary_key=True)
@@ -118,12 +71,26 @@ class Rating(models.Model):
         managed = True
         db_table = 'ratings'
 
+'''
+class PostRating(models.Model):
+    # the post id
+    postid = models.AutoField(primary_key=True)
+    # user id 
+    userid = models.IntergerField(null=False)
+    # rating of the post in boolean value
+    post_rating = models.BooleanField(null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'post_rating'
+'''
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     # additional attributes
     userid = models.AutoField(primary_key=True)
-    usercity = models.TextField(blank=True)
+    usercity = models.TextField(blank=True, null=True, default= "N/A" )
     profpic = models.ImageField(upload_to='profile_images', blank=True)
 
     class Meta:
@@ -135,7 +102,7 @@ class Post(models.Model):
     # id of the post
     postid = models.AutoField(primary_key=True)
     # title of each post
-    title = models.TextField(blank=False)
+    title = models.TextField(blank=True)
     # text body of the post
     text = models.TextField(blank=True)
     # image a user can upload with the post
@@ -149,3 +116,21 @@ class Post(models.Model):
     class Meta:
         managed = True
         db_table = 'post'
+
+
+class FavoriteComics(models.Model):
+    userid = models.ForeignKey(User, on_delete=models.CASCADE)
+    comicid = models.IntegerField(null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'fav_comic'
+
+
+class Follow(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_follower")
+    following = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'following'

@@ -4,11 +4,11 @@
 
 {% if user.is_authenticated and user.is_staff %}
 <div class="py-5">
-    <div class="container">
+    <div class="container-fluid col-md-3 offset-md-4 bg-dark text-secondary">
       <div class="row">
         <div class="col-md-12">
           <form id ="login_form" method="post" enctype="multipart/form-data" style="opacity: 1;">
-            <h1 class="" >Create Post</h1>
+            <h1 class="text-center" >Create Post</h1>
             {% csrf_token %}
             <br>
             {{ post_form.title }}
@@ -21,6 +21,8 @@
             {{post_form.non_field_errors}}
             <button type="submit" class="btn btn-secondary">Submit Post
             <br> </button>
+            <br>
+            <br>
           </form>
         </div>
       </div>

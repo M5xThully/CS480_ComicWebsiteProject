@@ -2,10 +2,7 @@
 
 {% block content %}
   <div class="py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
+    <div class="container-fluid col-md-3 offset-md-5 bg-dark text-secondary">
           <form class="" id ="create_account" method="post" enctype="multipart/form-data" style="opacity: 1;">
             <h1 class="" >Sign Up</h1>
             {% csrf_token %}
@@ -22,6 +19,8 @@
 
             <button type="submit" class="btn btn-secondary">Create Account
             <br> </button>
+            <br>
+            <br>
           </form>
         </div>
       </div>

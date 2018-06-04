@@ -2,14 +2,11 @@
 
 {% block content %}
 <div class="py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-          <form class="" id ="login_form" method="post" style="opacity: 1;">
-            <h1 class="" >ᶘಠᴥಠᶅ Stay awhile and listen.</h1>
+    <div class="container-fluid col-md-3 offset-md-5 bg-dark text-secondary">
+        <div class="align-center">
+          <form class="align-center" id ="login_form" method="post" style="opacity: 1;">
+            <h1 class="" >Stay awhile and listen. ᶘಠᴥಠᶅ</h1>
             {% csrf_token %}
-
             {% if form.non_field_errors %}
                <ul class='form-errors'>
                   {% for error in form.non_field_errors %}
@@ -23,13 +20,14 @@
             {% endif %}
 
             <br>
-            <input type="text" name="username" class="form-control" placeholder="username"/>
+            <input type="text" name="username" class="form-control" placeholder="Username"/>
             <br>
-            <input type="password" name="password" class="form-control" placeholder="password"/>
+            <input type="password" name="password" class="form-control" placeholder="Password"/>
             <br>
 
             <button type="submit" class="btn btn-secondary">Login
               <br> </button>
+              <br><br>
           </form>
         </div>
       </div>
