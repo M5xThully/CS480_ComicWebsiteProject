@@ -88,7 +88,7 @@ def post(request, pageid):
         'id': post_obj.postid,
         'commentform': comment_form,
         'comments': get_comments(inpageid=pageid, intype='post'),
-        'user': post_obj.user.username
+        'user': post_obj.user
     }
     return render(request, 'postpage.html', context_dict)
 
@@ -172,22 +172,6 @@ def register(request):
 
 def registered(request):
     return render(request, 'registered.html')
-
-
-# Post Views and Functionality    
-def post(request, pageid):
-    post_obj = Post.objects.filter(postid=pageid)[0]
-    recent_post = Post.objects.all().order_by('-date')[:5]
-    context_dict = {
-        'title': post_obj.title,
-        'text': post_obj.text,
-        'image': post_obj.image,
-        'date': post_obj.date,
-        'id': post_obj.postid,
-        'user': post_obj.user.username,
-        'recent_post': recent_post
-    }
-    return render(request, 'postpage.html', context_dict)
 
 
 def createpost(request):
