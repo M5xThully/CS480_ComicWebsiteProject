@@ -429,8 +429,3 @@ def searchpage(request):
                   {'result_listComicTitle': result_listComicTitle, 'result_listAuthor': result_listAuthor,
                    'result_listUser': result_listUser, 'result_listSeries': result_listSeries,
                    'result_listPublisher': result_listPublisher})
-
-
-# Testing View
-def broke(request):
-    return render(request, 'broke.html')
