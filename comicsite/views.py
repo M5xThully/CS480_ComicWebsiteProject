@@ -43,6 +43,65 @@ def home(request):
     return render(request, 'frontpage.html', context_dict)
 
 
+def get_comments(inpageid, intype):
+    # getting the top five most recent comments for the comic
+    comments = Comment.objects.filter(pageid=inpageid, type=intype).order_by('-date')[:5]
+
+    # going through each comic and constructing a dictionary to be used in the template
+    comment_list = []
+    for com in comments:
+        user_object = User.objects.filter(id=com.userid)[0]
+
+        link_str = "/user/" + user_object.username
+
+        # adding a dictionary the list to be used in the template
+        comment_list.append({
+            'link': link_str,
+            'user': user_object.username,
+            'date': com.date,
+            'comment_text': com.text
+        })
+
+    return comment_list
+
+
+def post(request, pageid):
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.pageid = pageid
+            comment.userid = request.user.id
+            comment.type = 'post'
+            comment.save()
+            return redirect(request.path)
+
+    post_obj = Post.objects.filter(postid=pageid)[0]
+
+    comment_form = CommentForm()
+
+    context_dict = {
+        'title': post_obj.title,
+        'text': post_obj.text,
+        'image': post_obj.image,
+        'date': post_obj.date,
+        'id': post_obj.postid,
+        'commentform': comment_form,
+        'comments': get_comments(inpageid=pageid, intype='post'),
+        'user': post_obj.user.username
+    }
+    return render(request, 'postpage.html', context_dict)
+
+
+def postlist(request):
+    post_list = Post.objects.all().values()
+    return render(request, 'postlist.html', {'post_list': post_list})
+
+
+def newsfeed(request):
+    post_list = Post.objects.all().order_by('-date')[:5]
+    return render(request, 'newsfeed.html', {'post_list': post_list})
+
 # Registration and Login
 def loginpage(request):
     if request.method == 'POST':
@@ -283,17 +342,17 @@ def newsfeed(request):
     post_list = Post.objects.all().order_by('-date')[:5]
     return render(request, 'newsfeed.html', {'post_list': post_list})
 
-
 # Comic Views and Functionality
-def comic(request, pageid):
+def comic(request, inpageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         rating_form = RatingForm(request.POST)
         fav_comic_form = FavComicForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
-            comment.comicid = pageid
+            comment.pageid = inpageid
             comment.userid = request.user.id
+            comment.type = 'comic'
             comment.save()
             return redirect(request.path)
 
@@ -301,27 +360,27 @@ def comic(request, pageid):
             rating = rating_form.save(commit=False)
 
             # deleting an previous ratings by this user about this comic (there should only be max one)
-            ratings = Rating.objects.filter(userid=request.user.id, comicid=pageid)
+            ratings = Rating.objects.filter(userid=request.user.id, comicid=inpageid)
             if ratings:
                 for rat in ratings:
                     rat.delete()
 
-            rating.comicid = pageid
+            rating.comicid = inpageid
             rating.userid = request.user.id
             rating.save()
-            update_comic_rating(pageid)
+            update_comic_rating(inpageid)
             return redirect(request.path)
 
         if fav_comic_form.is_valid():
             fav_comic = fav_comic_form.save(commit=False)
 
-            is_fav = FavoriteComics.objects.filter(userid=request.user, comicid=pageid)
+            is_fav = FavoriteComics.objects.filter(userid=request.user, comicid=inpageid)
 
             if is_fav:
                 is_fav.delete()
             else:
                 fav_comic.userid = request.user
-                fav_comic.comicid = pageid
+                fav_comic.comicid = inpageid
                 fav_comic.save()
 
             return redirect(request.path)
@@ -331,25 +390,7 @@ def comic(request, pageid):
     comment_form = CommentForm()
 
     # picking the comic whose id is equal to the pageid
-    comic_obj = Comic.objects.filter(comicid=pageid)[0]
-
-    # getting the top five most recent comments for the comic
-    comments = Comment.objects.filter(comicid=pageid).order_by('-date')[:5]
-
-    # going through each comic and constructing a dictionary to be used in the template
-    comment_list = []
-    for com in comments:
-        user_object = User.objects.filter(id=com.userid)[0]
-
-        link_str = "/user/" + user_object.username
-
-        # adding a dictionary the list to be used in the template
-        comment_list.append({
-            'link': link_str,
-            'user': user_object.username,
-            'date': com.date,
-            'comment_text': com.text
-        })
+    comic_obj = Comic.objects.filter(comicid=inpageid)[0]
 
     context_dict = {'title': comic_obj.comictitle,
                     'id': comic_obj.comicid,
@@ -365,18 +406,18 @@ def comic(request, pageid):
                     'plot': comic_obj.comicplot,
                     'cover': comic_obj.comiccover,
                     'commentform': comment_form,
-                    'comments': comment_list,
+                    'comments': get_comments(inpageid=inpageid, intype='comic'),
                     'fav_comic_form': fav_comic_form}
 
     # getting the rating made by this user for the comic, if it exists
-    rating_list = Rating.objects.filter(comicid=pageid, userid=request.user.id)
+    rating_list = Rating.objects.filter(comicid=inpageid, userid=request.user.id)
     if rating_list:
         user_rating = rating_list[0].rating
         context_dict['user_rating'] = user_rating
 
     if request.user.is_active:
         fav_comic = FavoriteComics.objects.filter(userid=request.user)
-        is_fav = fav_comic.filter(comicid=pageid)
+        is_fav = fav_comic.filter(comicid=inpageid)
         context_dict['is_fav'] = is_fav
 
     return render(request, 'comicpage.html', context_dict)

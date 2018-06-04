@@ -36,6 +36,8 @@ urlpatterns = [
     path('registered/', views.registered),
     path('user/<username>', views.user),
     path('myprofile/', views.myprofile),
+    path('comic/<int:inpageid>/', views.comic),
+    path('comic/<int:inpageid>', views.comic),
     path('myprofile/edit/uploadprofpic', views.uploadprofpic),
     path('myprofile/edit/', views.editprofile),
     path('myprofile/edit/changepw/', views.changepw),
