@@ -5,16 +5,14 @@
 {% block title %} Search {% endblock %}
 
 {% block content %}
-<div class="container-fluid col-md-8 offset-md-2 bg-dark text-secondary">
+<div class="container-fluid col-md-6 offset-md-3 bg-dark text-secondary">
     <br>
-
-
  <div>
     <h1 align="center">Results</h1>
 
-    <div class="tab-content my-2" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <ul id="popular" class="list-group">
+    <div class="row no-gutters">
+        <div class="row no-gutters">
+            <ul class="list-group">
     {% if result_listUser %}
      <!-- Display search results in an ordered list -->
          <div class="list-group">
@@ -32,27 +30,36 @@
           </ul>
   </div>
 
-  <div class="tab-content my-2" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <ul id="popular" class="list-group">
-
-     {% if result_listComicTitle %}
-     <!-- Display search results in an ordered list -->
-         <div class="list-group">
-		 <h3>Comics ({{result_listComicTitle|length}}):</h3>
-         {% for result in result_listComicTitle %}
-             <div class="list-group-item bg-dark">
-                  <h4 class="list-group-item-heading">
-                     <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-light text-center text-secondary ">
-                     <img class="align-center position-relative img-thumbnail"  src="{{MEDIA_URL}}{{result.comiccover }}"><h4>  {{ result.comictitle }}</h4> </a>
-                     </h4>
-             </div>
-        {% endfor %}
+{% if result_listComicTitle %}
+  <div class="py-5">
+   <h3>Comics ({{result_listComicTitle|length}}):</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          {% for result in result_listComicTitle %}
+          <ul class="">
+              <ul class="">
+                  <ul class="">
+                      <ul class="">
+                          <ul class="">
+            <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-dark text-secondary ">
+            <img class="col-md-12 img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
+                          </ul>
+                      </ul>
+                  </ul>
+          </ul>
         </div>
-        {% endif %}
-
-    </ul>
-</div>
+        <div class="col-md-6">
+          <ul class="nav nav-pills flex-column"></ul>
+            <br><br><br><br>
+            <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-dark text-secondary ">
+            <h4>{{ result.comictitle }}</h4>
+        </div>
+          {% endfor %}
+          {% endif %}
+      </div>
+    </div>
+  </div>
 
 <div class="tab-content my-2" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
