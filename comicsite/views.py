@@ -25,6 +25,7 @@ import logging
 import re
 import operator
 
+
 # Home Page View and Base Template
 def base(request):
     return render(request, 'base.html')
@@ -35,32 +36,34 @@ def home(request):
     recent_comic = Comic.objects.all().order_by('-comicid')[:5]
     post_list = Post.objects.all().order_by('-date')[:5]
 
-    context_dict = { 'comic':comic,
-                     'post_list':post_list,
-                     'recent_comic':recent_comic}
+    context_dict = {'comic': comic,
+                    'post_list': post_list,
+                    'recent_comic': recent_comic}
 
     return render(request, 'frontpage.html', context_dict)
 
-#Registration and Login 
+
+# Registration and Login
 def loginpage(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
         username = request.POST['username']
         password = request.POST['password']
-        
+
         account = authenticate(username=username, password=password)
 
         if account is not None:
             if account.is_active:
                 login(request, account)
-                return redirect('/home') 
+                return redirect('/home')
         else:
-            messages.error(request, "Username or password is wrong. Try again.") 
+            messages.error(request, "Username or password is wrong. Try again.")
             return redirect('/login')
     else:
-        login_form=LoginForm() 
+        login_form = LoginForm()
 
     return render(request, 'loginpage.html', {'login_form': login_form})
+
 
 def loggedin(request):
     return render(request, 'loggedin.html')
@@ -69,6 +72,7 @@ def loggedin(request):
 def loggedout(request):
     logout(request)
     return render(request, 'loggedout.html')
+
 
 def register(request):
     isregistered = False
@@ -106,15 +110,15 @@ def register(request):
                   {'user_form': user_form,
                    'profile_form': profile_form})
 
+
 def registered(request):
     return render(request, 'registered.html')
 
 
 # Post Views and Functionality    
 def post(request, pageid):
-
     post_obj = Post.objects.filter(postid=pageid)[0]
-    recent_post = Post.objects.all().order_by('-date')[:5] 
+    recent_post = Post.objects.all().order_by('-date')[:5]
     context_dict = {
         'title': post_obj.title,
         'text': post_obj.text,
@@ -125,6 +129,7 @@ def post(request, pageid):
         'recent_post': recent_post
     }
     return render(request, 'postpage.html', context_dict)
+
 
 def createpost(request):
     if request.method == 'POST':
@@ -158,6 +163,7 @@ def postlist(request):
     post_list = Post.objects.all().order_by('-date')
     return render(request, 'postlist.html', {'post_list': post_list})
 
+
 # Account Views and Functionality
 def user(request, username):
     if request.method == 'POST':
@@ -177,11 +183,11 @@ def user(request, username):
             return redirect(request.path)
 
     follow_form = FollowForm()
-    
+
     user_profile = User.objects.get(username=username)
     fav_list = FavoriteComics.objects.filter(userid=user_profile).values('comicid')
     fav_comic_list = Comic.objects.filter(comicid__in=fav_list)
-    follow_list = Follow.objects.filter(user=user_profile) 
+    follow_list = Follow.objects.filter(user=user_profile)
     is_followed = None
 
     if request.user.is_active:
@@ -192,7 +198,7 @@ def user(request, username):
                     'first_name': user_profile.first_name,
                     'last_name': user_profile.last_name,
                     'email': user_profile.email,
-                    'profpic' : user_profile.userprofile.profpic,
+                    'profpic': user_profile.userprofile.profpic,
                     'fav_list': fav_comic_list,
                     'follow_list': follow_list,
                     'follow_form': follow_form,
@@ -200,28 +206,29 @@ def user(request, username):
 
     return render(request, 'user.html', context_dict)
 
+
 def myprofile(request):
-    fav_list = FavoriteComics.objects.filter(userid = request.user).values('comicid')
+    fav_list = FavoriteComics.objects.filter(userid=request.user).values('comicid')
     fav_comic_list = Comic.objects.filter(comicid__in=fav_list)
-    follow_list = Follow.objects.filter(user = request.user)
+    follow_list = Follow.objects.filter(user=request.user)
 
     # timeline
-    user_posts = Post.objects.filter(user = request.user)
+    user_posts = Post.objects.filter(user=request.user)
     user_posts.model_name = user_posts.model.__name__
-    following_ids = Follow.objects.filter(user = request.user).values('following')
-    following = User.objects.filter(username__in = following_ids)
-    following_posts = Post.objects.filter(user__in = following)
+    following_ids = Follow.objects.filter(user=request.user).values('following')
+    following = User.objects.filter(username__in=following_ids)
+    following_posts = Post.objects.filter(user__in=following)
     following_posts.model_name = following_posts.model.__name__
-    following_comment = Comment.objects.filter(userid__in = following) 
+    following_comment = Comment.objects.filter(userid__in=following)
     following_comment.model_name = following_comment.model.__name__
     print(following_comment.model.__name__)
     # combined_posts = user_posts | following_posts
     # timeline_posts = combined_posts.distinct().order_by('-date')[:10]
-    timeline_posts = sorted(chain(user_posts, following_posts, following_comment), key = attrgetter('date'))
+    timeline_posts = sorted(chain(user_posts, following_posts, following_comment), key=attrgetter('date'))
 
-    context_dict={'fav_list':fav_comic_list,
-                  'follow_list':follow_list,
-                  'timeline_posts':timeline_posts} 
+    context_dict = {'fav_list': fav_comic_list,
+                    'follow_list': follow_list,
+                    'timeline_posts': timeline_posts}
 
     return render(request, 'myprofile.html', context_dict)
 
@@ -271,11 +278,13 @@ def uploadprofpic(request):
         form = UploadPhotoForm(instance=request.user)
     return render(request, 'uploadprofpic.html', {'form': form})
 
+
 def newsfeed(request):
     post_list = Post.objects.all().order_by('-date')[:5]
     return render(request, 'newsfeed.html', {'post_list': post_list})
 
-#Comic Views and Functionality 
+
+# Comic Views and Functionality
 def comic(request, pageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -372,6 +381,7 @@ def comic(request, pageid):
 
     return render(request, 'comicpage.html', context_dict)
 
+
 def update_comic_rating(incomicid):
     # getting the comic object to be updated
     comic = Comic.objects.filter(comicid=incomicid)[0]
@@ -391,6 +401,7 @@ def update_comic_rating(incomicid):
 
     comic.save()
 
+
 def comiclist(request, sortby=None):
     comic_list = Comic.objects.all()
     comic_list = comic_list.order_by('comictitle')
@@ -399,13 +410,14 @@ def comiclist(request, sortby=None):
 
     return render(request, 'comiclist.html', {'comic_list': comic_list})
 
+
 # Search View
 def searchpage(request):
     q = request.GET['q']
     result_listComicTitle = []
     result_listAuthor = []
     result_listUser = []
-    result_listSeries = [] 
+    result_listSeries = []
     result_listPublisher = []
     result_listPosts = []
     if (q != ""):
