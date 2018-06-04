@@ -10,7 +10,7 @@
             {% if profpic %}
                 <img class="card-img-top" src="{{ profpic.url }}">
             {% else %}
-                <img class="card-img-top" src="https://procurement.unl.edu/images/staff-photos/y_u_no_photo_Square.png">
+                <img class="card-img-top" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
             {% endif %}
           </div>
             <br>
@@ -19,7 +19,7 @@
                     <form method="post" action={{ request.path}}>
                     {% csrf_token %}
                     {{ follow_form }}
-                    <button type="submit" class="btn btn-secondary fa fa-check" >&nbsp; Followed</button>
+                    <button type="submit" class="btn btn-secondary fa fa-check" >&nbsp; Following</button>
                     </form>
                 {% else %}
                     <form method="post" action={{ request.path }}>
@@ -39,20 +39,21 @@
           <div class="row">
             <div class="col-md-12"></div>
           </div>
+
           <br>
 
             <!-- FAVORITE LIST -->
+                  {% if fav_list %}
+
             <div class="container bg-info bg-allen">
                 <div class="row no-gutters">
                   <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
                     <ul class="list-group-flush container-fluid">
-
-                  {% if fav_list %}
                         <li class="list-group-item bg-allen text-secondary">
                             <h3>Favorite Comics</h3>
                         </li>
                      {% for fav in fav_list %}
-                        <a href="/comic/{{fav.comicid}}"></a> <li class="list-group-item">{{fav.comictitle}}</a></li>
+                        <a href="/comic/{{fav.comicid}}"><li class="list-group-item bg-dark">{{fav.comictitle}}</a></li>
                      {% endfor %}
                   {% endif %}
                     </ul>
@@ -63,17 +64,16 @@
             <br>
 
             <!-- FOLLOW LIST -->
+              {% if follow_list %}
             <div class="container bg-info bg-allen">
                 <div class="row no-gutters">
                   <div class="col-8 col-sm-6 col-md-8 text-secondary bg-allen">
                     <ul class="list-group-flush container-fluid">
-
-              {% if follow_list %}
                 <li class="list-group-item bg-allen text-secondary">
                     <h3>Following</h3>
                 </li>
                  {% for fol in follow_list %}
-                   <a href="/user/{{fol.following}}"></a> <li class="list-group-item">{{fol.following}}</a></li>
+                   <a href="/user/{{fol.following}}"><li class="list-group-item bg-dark">{{fol.following}}</a></li>
                  {% endfor %}
               {% endif %}
                     </ul>

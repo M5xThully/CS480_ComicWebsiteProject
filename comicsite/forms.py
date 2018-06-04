@@ -1,5 +1,8 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth import authenticate
+from django.contrib.auth.forms import UserChangeForm
+
 from comicsite.models import User, Follow, Post
 from comicsite.models import UserProfile, FavoriteComics
 from comicsite.models import Comment, Rating
@@ -75,6 +78,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('text',)
 
+
 '''
 class PostRatingForm(forms.ModelForm):
     post_rating = models.BooleanField(null=True)
@@ -101,15 +105,14 @@ class LoginForm(forms.Form):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
-        if not user:
-            raise forms.ValidationError("Wrong Username/Password.")
+        if not user or not user.is_active:
+            raise forms.ValidationError("Wrong username or password. Try again.")
         return self.cleaned_data
 
     def login(self, request):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
-        user_id = User.objects.get(username=username).pk
         return user
 
 
@@ -148,3 +151,15 @@ class FollowForm(forms.ModelForm):
     class Meta:
         model = Follow
         exclude = ["user", "following"]
+
+
+class EditProfileForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = {'first_name', 'last_name', 'email', 'username', 'password'}
+
+
+class UploadPhotoForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('profpic',)
