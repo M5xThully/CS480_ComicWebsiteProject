@@ -3,6 +3,5 @@
 
 #[Folders]
 venv/
-media/
 static/site/
 comicsite/migrations
