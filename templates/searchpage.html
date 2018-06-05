@@ -17,7 +17,6 @@
              <div class="list-group-item bg-dark">
                  <h5 class="list-group-item-heading"></h5>
                      <a href = "/user/{{ result.username }}" class="btn btn-warning">{{ result.username}}</a>
-                     </h4>
                      <!-- <p class="list-group-item-text">{{ result.comicid}}</p> -->
              </div>
         {% endfor %}
@@ -33,14 +32,14 @@
       {% for result in result_listComicTitle %}
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <ul class="">
               <ul class="">
                   <ul class="">
                       <ul class="">
                           <ul class="">
             <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-dark text-secondary ">
-            <img class="col-md-11 img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
+            <img class="img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover}}"></a>
                           </ul>
                       </ul>
                   </ul>
@@ -66,14 +65,14 @@
       {% for result in result_listSeries %}
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <ul class="">
               <ul class="">
                   <ul class="">
                       <ul class="">
                           <ul class="">
             <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-dark text-secondary ">
-            <img class="col-md-11 img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
+            <img class="img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
                           </ul>
                       </ul>
                   </ul>
@@ -100,14 +99,14 @@
       {% for result in result_listPublisher %}
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <ul class="">
               <ul class="">
                   <ul class="">
                       <ul class="">
                           <ul class="">
             <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-dark text-secondary ">
-            <img class="col-md-11 img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
+            <img class="img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
                           </ul>
                       </ul>
                   </ul>
@@ -135,14 +134,14 @@
       {% for result in result_listAuthor %}
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <ul class="">
               <ul class="">
                   <ul class="">
                       <ul class="">
                           <ul class="">
             <a href = "/comic/{{ result.comicid }}" class="list-group-item list-group-item-action bg-dark text-secondary ">
-            <img class="col-md-11 img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
+            <img class="img-thumbnail bg-dark" src="{{MEDIA_URL}}{{result.comiccover }}"></a>
                           </ul>
                       </ul>
                   </ul>
