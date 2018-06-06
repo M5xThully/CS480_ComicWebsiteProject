@@ -25,7 +25,7 @@ SECRET_KEY = 'c+6(54t&_l_t--8ys!7t7wrg8@tz*6ao46p(6fm9uqil6g$zhr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['206.189.163.100', 'tiltedcomics.me']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '206.189.163.100', '.tiltedcomics.me','tiltedcomics.me']
 
 
 # Application definition
@@ -61,6 +61,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -76,10 +77,12 @@ WSGI_APPLICATION = 'comicsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'OPTIONS' :{
-		'read_default_file': '/etc/mysql/my.cnf',
-        },
+        'ENGINE': 'django.db.backends.mysql',
+	'NAME': 'comic_users',
+	'USER': 'alam',
+	'PASSWORD': 'Ts465',
+	'HOST': 'localhost',
+	'PORT':'3306', 
     }
 }
 
@@ -108,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'US/Pacific'
 
 USE_I18N = True
 
@@ -121,4 +124,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
