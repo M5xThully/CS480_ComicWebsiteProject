@@ -64,6 +64,7 @@ def get_comments(inpageid, intype):
 
     return comment_list
 
+
 def post(request, pageid):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -101,8 +102,10 @@ def newsfeed(request):
     post_list = Post.objects.all().order_by('-date')[:5]
     return render(request, 'newsfeed.html', {'post_list': post_list})
 
+
 def getuser(userid):
-    return User.objects.filter(id__in=userid) 
+    return User.objects.filter(id__in=userid)
+
 
 # Registration and Login
 def loginpage(request):
@@ -174,6 +177,7 @@ def register(request):
 
 def registered(request):
     return render(request, 'registered.html')
+
 
 def createpost(request):
     if request.method == 'POST':
@@ -250,6 +254,7 @@ def user(request, username):
 
     return render(request, 'user.html', context_dict)
 
+
 def myprofile(request):
     fav_list = FavoriteComics.objects.filter(userid=request.user).values('comicid')
     fav_comic_list = Comic.objects.filter(comicid__in=fav_list)
@@ -276,6 +281,7 @@ def myprofile(request):
 
     return render(request, 'myprofile.html', context_dict)
 
+
 def editprofile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user)
@@ -288,6 +294,7 @@ def editprofile(request):
         args = {'form': form}
         return render(request, 'edit.html', args)
     return render(request, 'edit.html')
+
 
 def changepw(request):
     if request.method == 'POST':
@@ -304,6 +311,7 @@ def changepw(request):
         return render(request, 'changepw.html', {'form': form})
     return render(request, 'changepw.html')
 
+
 def uploadprofpic(request):
     if request.method == "POST":
         form = UploadPhotoForm(request.FILES, request.POST, instance=request.user)
@@ -319,9 +327,11 @@ def uploadprofpic(request):
         form = UploadPhotoForm(instance=request.user)
     return render(request, 'uploadprofpic.html', {'form': form})
 
+
 def newsfeed(request):
     post_list = Post.objects.all().order_by('-date')[:5]
     return render(request, 'newsfeed.html', {'post_list': post_list})
+
 
 # Comic Views and Functionality
 def comic(request, inpageid):
@@ -450,8 +460,10 @@ def searchpage(request):
         result_listPublisher = Comic.objects.filter(comicpublisher__icontains=q)
     return render(request, 'searchpage.html',
                   {'result_listComicTitle': result_listComicTitle, 'result_listAuthor': result_listAuthor,
-                   'result_listUser': result_listUser, 'result_listSeries': result_listSeries, 'result_listPublisher':result_listPublisher})
+                   'result_listUser': result_listUser, 'result_listSeries': result_listSeries,
+                   'result_listPublisher': result_listPublisher})
 
-# Testing View 
+
+# Testing View
 def broke(request):
     return render(request, 'broke.html')
