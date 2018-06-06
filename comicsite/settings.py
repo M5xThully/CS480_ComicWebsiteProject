@@ -25,7 +25,7 @@ SECRET_KEY = 'c+6(54t&_l_t--8ys!7t7wrg8@tz*6ao46p(6fm9uqil6g$zhr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '206.189.163.100', '.tiltedcomics.me']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '206.189.163.100', '.tiltedcomics.me','tiltedcomics.me']
 
 
 # Application definition
